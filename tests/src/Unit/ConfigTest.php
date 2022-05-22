@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace SSpiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container\Autowire;
 use Spiral\Validator\Config\ValidatorConfig;
 use Spiral\Validation\Exception\ValidationException;
 
-class ConfigTest extends TestCase
+final class ConfigTest extends TestCase
 {
     public function testHasChecker(): void
     {

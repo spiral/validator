@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests\Checkers;
+namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\DatetimeChecker;
 use Spiral\Validation\ValidatorInterface;
 
-class DatetimeTest extends TestCase
+final class DatetimeTest extends TestCase
 {
     /**
      * @dataProvider nowProvider

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
-use Spiral\Validator\Tests\Fixtures\TestChecker;
-use Spiral\Validator\Tests\Fixtures\Value;
+use Spiral\Validator\Tests\Unit\Fixtures\TestChecker;
+use Spiral\Validator\Tests\Unit\Fixtures\Value;
 use Spiral\Validator\Checker\TypeChecker;
 
-class CallableTest extends BaseTest
+final class CallableTest extends BaseTest
 {
     public const CONFIG = [
         'checkers' => [
@@ -109,7 +109,7 @@ class CallableTest extends BaseTest
         ]);
 
         $this->assertSame(
-            'The condition `Spiral\Validator\Tests\CallableTest::check` was not met.',
+            'The condition `Spiral\Validator\Tests\Unit\CallableTest::check` was not met.',
             $v->getErrors()['i']
         );
     }
@@ -125,7 +125,7 @@ class CallableTest extends BaseTest
         ]);
 
         $this->assertSame(
-            'The condition `Spiral\Validator\Tests\CallableTest::check` was not met.',
+            'The condition `Spiral\Validator\Tests\Unit\CallableTest::check` was not met.',
             $v->getErrors()['i']
         );
     }

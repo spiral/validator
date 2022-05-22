@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Validator\Validator;
 
-class ErrorsTest extends BaseTest
+final class ErrorsTest extends BaseTest
 {
     public function testHasError(): void
     {

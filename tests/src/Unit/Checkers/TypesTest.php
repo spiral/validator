@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests\Checkers;
+namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\TypeChecker;
 
-class TypesTest extends TestCase
+final class TypesTest extends TestCase
 {
     public function testNotNull(): void
     {

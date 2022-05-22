@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests\Checkers;
+namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\StringChecker;
 
-class StringsTest extends TestCase
+final class StringsTest extends TestCase
 {
     public function testShorter(): void
     {

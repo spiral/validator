@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Core\Container;
@@ -37,15 +37,8 @@ abstract class BaseTest extends TestCase
         ],
     ];
 
-    /**
-     * @var ValidationInterface
-     */
-    protected $validation;
-
-    /**
-     * @var Container
-     */
-    protected $container;
+    protected ValidationInterface $validation;
+    protected Container $container;
 
     /**
      * @throws \Throwable

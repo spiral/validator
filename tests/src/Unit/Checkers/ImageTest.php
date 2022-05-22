@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests\Checkers;
+namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use Spiral\Files\Files;
 use Spiral\Files\FilesInterface;
-use Spiral\Validator\Tests\BaseTest;
+use Spiral\Validator\Tests\Unit\BaseTest;
 
-class ImageTest extends BaseTest
+final class ImageTest extends BaseTest
 {
     private $files;
 

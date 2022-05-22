@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests\Checkers;
+namespace Spiral\Validator\Tests\Unit\Checkers;
 
-use Spiral\Validator\Tests\BaseTest;
+use Spiral\Validator\Tests\Unit\BaseTest;
 use Spiral\Validator\Checker\ArrayChecker;
 
-class ArrayTest extends BaseTest
+final class ArrayTest extends BaseTest
 {
     public function testOf(): void
     {

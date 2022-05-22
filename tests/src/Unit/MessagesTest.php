@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
-class MessagesTest extends BaseTest
+final class MessagesTest extends BaseTest
 {
     public function testDefault(): void
     {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Core\Exception\Container\NotFoundException;
-use Spiral\Validator\Tests\Fixtures\PayloadCondition;
-use Spiral\Validator\Tests\Fixtures\TestCondition;
+use Spiral\Validator\Tests\Unit\Fixtures\PayloadCondition;
+use Spiral\Validator\Tests\Unit\Fixtures\TestCondition;
 use Spiral\Validator\Checker\AddressChecker;
 use Spiral\Validator\Checker\FileChecker;
 use Spiral\Validator\Checker\ImageChecker;
@@ -15,7 +15,7 @@ use Spiral\Validator\Checker\TypeChecker;
 use Spiral\Validator\Condition;
 use Spiral\Validator\RulesInterface;
 
-class ConditionsTest extends BaseTest
+final class ConditionsTest extends BaseTest
 {
     public const CONFIG = [
         'checkers'   => [

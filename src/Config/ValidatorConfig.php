@@ -13,7 +13,7 @@ final class ValidatorConfig extends InjectableConfig
 {
     use AliasTrait;
 
-    public const CONFIG = 'validation';
+    public const CONFIG = 'validator';
 
     protected array $config = [
         'conditions' => [],

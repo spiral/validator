@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests\Checkers;
+namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\NumberChecker;
 
-class NumberTest extends TestCase
+final class NumberTest extends TestCase
 {
     public function testRange(): void
     {

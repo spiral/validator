@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Validator\Exception\ParserException;
 
-class ParserTest extends BaseTest
+final class ParserTest extends BaseTest
 {
     public function testClosure(): void
     {

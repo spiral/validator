@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
-class ContextTest extends BaseTest
+final class ContextTest extends BaseTest
 {
     public function testNoRules(): void
     {

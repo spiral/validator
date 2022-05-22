@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests\Fixtures;
+namespace Spiral\Validator\Tests\Unit\Fixtures;
 
 use Spiral\Validator\AbstractChecker;
 

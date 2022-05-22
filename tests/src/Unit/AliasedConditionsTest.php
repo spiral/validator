@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Spiral\Validator\Tests;
+namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Validator\Condition\AbsentCondition;
 use Spiral\Validator\Condition\PresentCondition;
@@ -11,7 +11,7 @@ use Spiral\Validator\Condition\WithAnyCondition;
 use Spiral\Validator\Condition\WithoutAllCondition;
 use Spiral\Validator\Condition\WithoutAnyCondition;
 
-class AliasedConditionsTest extends BaseTest
+final class AliasedConditionsTest extends BaseTest
 {
     public const CONFIG = [
         'checkers'   => [],
