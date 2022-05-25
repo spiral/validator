@@ -34,7 +34,7 @@ final class ValidatorBootloader extends Bootloader
     ) {
     }
 
-    public function init(ValidationProvider $provider, TokenizerBootloader $tokenizer): void
+    public function boot(ValidationProvider $provider, TokenizerBootloader $tokenizer): void
     {
         $provider->register(
             FilterDefinition::class,
