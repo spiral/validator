@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator;
 
+use Spiral\Filters\Filter;
 use Spiral\Validation\ValidationInterface;
 use Spiral\Validation\ValidatorInterface;
 use Spiral\Filters\FilterBag;
@@ -21,7 +22,7 @@ class Validation implements ValidationInterface
             $data = $data->filter;
         }
 
-        if (\is_object($data) && \method_exists($data, 'getData')) {
+        if ($data instanceof Filter) {
             $data = $data->getData();
         }
 

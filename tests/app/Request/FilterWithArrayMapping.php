@@ -11,9 +11,6 @@ use Spiral\Validator\FilterDefinition;
 
 class FilterWithArrayMapping extends Filter implements HasFilterDefinition
 {
-    public string $username;
-    public string $email;
-
     public function filterDefinition(): FilterDefinitionInterface
     {
         return new FilterDefinition(
