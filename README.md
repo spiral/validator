@@ -5,6 +5,8 @@
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spiral/validator/run-tests?label=tests&style=flat-square)](https://github.com/spiral/validator/actions?query=workflow%3Arun-tests+branch%3Amaster)
 [![Total Downloads](https://img.shields.io/packagist/dt/spiral/validator.svg?style=flat-square)](https://packagist.org/packages/spiral/validator)
 
+The component provides an array-based DSL to construct complex validation chains.
+
 ## Requirements
 
 Make sure that your server is configured with following PHP version and extensions:
