@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Functional;
 
-use Spiral\Attributes\Bootloader\AttributesBootloader;
+use Spiral\Bootloader\Attributes\AttributesBootloader;
 use Spiral\Bootloader\Security\FiltersBootloader;
 use Spiral\Testing\TestCase;
 use Spiral\Validation\Bootloader\ValidationBootloader;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Spiral\Validator;
 
-use Spiral\Filters\Filter;
+use Spiral\Filters\Dto\Filter;
+use Spiral\Filters\Dto\FilterBag;
 use Spiral\Validation\ValidationInterface;
 use Spiral\Validation\ValidatorInterface;
-use Spiral\Filters\FilterBag;
 
 class Validation implements ValidationInterface
 {
@@ -19,7 +19,7 @@ class Validation implements ValidationInterface
     public function validate(mixed $data, array $rules, $context = null): ValidatorInterface
     {
         if ($data instanceof FilterBag) {
-            $data = $data->filter;
+            $data = $data->entity->toArray();
         }
 
         if ($data instanceof Filter) {

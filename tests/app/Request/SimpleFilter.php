@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Spiral\Validator\App\Request;
 
 use Spiral\Filters\Attribute\Input\Post;
-use Spiral\Filters\Filter;
-use Spiral\Filters\FilterDefinitionInterface;
-use Spiral\Filters\HasFilterDefinition;
+use Spiral\Filters\Dto\Filter;
+use Spiral\Filters\Dto\FilterDefinitionInterface;
+use Spiral\Filters\Dto\HasFilterDefinition;
 use Spiral\Validator\FilterDefinition;
 
 class SimpleFilter extends Filter implements HasFilterDefinition

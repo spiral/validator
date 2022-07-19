@@ -9,7 +9,7 @@ use Spiral\Validation\ValidatorInterface;
 final class Validator extends AbstractValidator
 {
     public function __construct(
-        private mixed $data,
+        private array $data,
         array $rules,
         mixed $context,
         RulesInterface $ruleProvider
