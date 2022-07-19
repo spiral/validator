@@ -34,6 +34,52 @@ protected const LOAD = [
 > Note: if you are using [`spiral-packages/discoverer`](https://github.com/spiral-packages/discoverer),
 > you don't need to register bootloader by yourself.
 
+## Example of usage
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Filters;
+
+use Spiral\Filters\Dto\FilterInterface;
+use Spiral\Filters\Dto\HasFilterDefinition;
+use Spiral\Validator\FilterDefinition;
+use Spiral\Filters\Attribute\Input\Post;
+use Spiral\Filters\Attribute\Input\File;
+
+class CreatePostFilter implements FilterInterface, HasFilterDefinition
+{
+    #[Post(key: 'title')]
+    public string $title;
+    
+    #[Post(key: 'text')]
+    public string $text;
+    
+    #[File]
+    public UploadedFile $image;
+    
+    // ...
+
+    public function filterDefinition(): FilterDefinitionInterface
+    {
+        return new FilterDefinition(
+            validationRules: [
+                'title' => [
+                    ['notEmpty'],
+                    ['string::length', 50]
+                ],
+                'text' => [['notEmpty']],
+                'image' => [['image::valid'], ['file::size', 1024]]
+                
+                // ...
+            ]
+        );
+    }
+}
+```
+
 ## Testing
 
 ```bash

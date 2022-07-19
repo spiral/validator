@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Spiral\Validator;
 
-use Spiral\Filters\FilterDefinitionInterface;
-use Spiral\Filters\ShouldBeValidated;
+use Spiral\Filters\Dto\FilterDefinitionInterface;
+use Spiral\Filters\Dto\ShouldBeValidated;
 
 class FilterDefinition implements FilterDefinitionInterface, ShouldBeValidated
 {
     public function __construct(
-        private array $validationRules = [],
-        private array $mappingSchema = []
+        private readonly array $validationRules = [],
+        private readonly array $mappingSchema = []
     ) {
     }
 
