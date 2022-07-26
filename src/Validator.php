@@ -47,10 +47,6 @@ final class Validator extends AbstractValidator
 
     public function hasValue(string $field): bool
     {
-        if (\is_array($this->data)) {
-            return \array_key_exists($field, $this->data);
-        }
-
-        return isset($this->data[$field]);
+        return \array_key_exists($field, $this->data);
     }
 }
