@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Spiral\Validator;
 
-use Spiral\Filters\Dto\Filter;
-use Spiral\Filters\Dto\FilterBag;
+use Spiral\Filters\Model\Filter;
+use Spiral\Filters\Model\FilterBag;
 use Spiral\Validation\ValidationInterface;
 use Spiral\Validation\ValidatorInterface;
 

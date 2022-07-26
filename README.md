@@ -43,8 +43,8 @@ declare(strict_types=1);
 
 namespace App\Filters;
 
-use Spiral\Filters\Dto\FilterInterface;
-use Spiral\Filters\Dto\HasFilterDefinition;
+use Spiral\Filters\Model\FilterInterface;
+use Spiral\Filters\Model\HasFilterDefinition;
 use Spiral\Validator\FilterDefinition;
 use Spiral\Filters\Attribute\Input\Post;
 use Spiral\Filters\Attribute\Input\File;
