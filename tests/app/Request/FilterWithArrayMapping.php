@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\App\Request;
 
-use Spiral\Filters\Dto\Filter;
-use Spiral\Filters\Dto\FilterDefinitionInterface;
-use Spiral\Filters\Dto\HasFilterDefinition;
+use Spiral\Filters\Model\Filter;
+use Spiral\Filters\Model\FilterDefinitionInterface;
+use Spiral\Filters\Model\HasFilterDefinition;
 use Spiral\Validator\FilterDefinition;
 
 class FilterWithArrayMapping extends Filter implements HasFilterDefinition

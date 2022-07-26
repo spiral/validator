@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Spiral\Validator;
 
-use Spiral\Filters\Dto\FilterDefinitionInterface;
-use Spiral\Filters\Dto\ShouldBeValidated;
+use Spiral\Filters\Model\FilterDefinitionInterface;
+use Spiral\Filters\Model\ShouldBeValidated;
 
 class FilterDefinition implements FilterDefinitionInterface, ShouldBeValidated
 {
