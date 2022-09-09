@@ -20,7 +20,6 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5.20",
-        "spiral/framework": "3.0.x-dev",
         "spiral/testing": "^2.0",
         "vimeo/psalm": "^4.21"
     },
