@@ -22,7 +22,7 @@ class ArrayChecker extends AbstractChecker
     ) {
     }
 
-    public function of(mixed $value, CheckerInterface|string $checker): bool
+    public function of(mixed $value, CheckerInterface|string|array $checker): bool
     {
         if (!\is_array($value) || empty($value)) {
             return false;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
-use Spiral\Validator\Tests\Unit\BaseTest;
 use Spiral\Validator\Checker\ArrayChecker;
+use Spiral\Validator\Tests\Unit\BaseTest;
 
 final class ArrayTest extends BaseTest
 {
@@ -20,6 +20,9 @@ final class ArrayTest extends BaseTest
 
         $this->assertFalse($checker->of(1, 'is_int'));
         $this->assertFalse($checker->of([1], 'is_string'));
+
+        $this->assertTrue($checker->of([1, 2, 3], ['in_array', [1, 2, 3]]));
+        $this->assertFalse($checker->of([5, 6, 8], ['in_array', [1, 2, 3]]));
     }
 
     public function testCount(): void
