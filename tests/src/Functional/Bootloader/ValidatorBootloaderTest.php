@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Functional\Bootloader;
 
+use Spiral\Validation\ValidationInterface;
 use Spiral\Validation\ValidationProviderInterface;
 use Spiral\Validator\Bootloader\ValidatorBootloader;
 use Spiral\Validator\Config\ValidatorConfig;
@@ -23,6 +24,7 @@ final class ValidatorBootloaderTest extends BaseTest
         $provider = $this->getContainer()->get(ValidationProviderInterface::class);
 
         $this->assertInstanceOf(Validation::class, $provider->getValidation(FilterDefinition::class));
+        $this->assertContainerBoundAsSingleton(ValidationInterface::class, Validation::class);
     }
 
     /** @dataProvider dataHasCheckerByDefault */
