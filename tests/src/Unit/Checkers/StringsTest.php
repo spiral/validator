@@ -87,4 +87,48 @@ final class StringsTest extends TestCase
         $this->assertFalse($checker->regexp(null, '/^abc$/'));
         $this->assertFalse($checker->regexp([], '/^ab[dEC]{3}/i'));
     }
+
+    /**
+     * @dataProvider dataEmpty
+     */
+    public function testEmpty(mixed $value, bool $expectedResult): void
+    {
+        self::assertSame($expectedResult, (new StringChecker())->empty($value));
+    }
+
+    public function dataEmpty(): iterable
+    {
+        yield ['', true];
+        yield ["   \n     \t      ", true];
+        yield ['1', false];
+        yield ['0', false];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
+    /**
+     * @dataProvider dataNotEmpty
+     */
+    public function testNotEmpty(mixed $value, bool $expectedResult): void
+    {
+        self::assertSame($expectedResult, (new StringChecker())->notEmpty($value));
+    }
+
+    public function dataNotEmpty(): iterable
+    {
+        yield ['', false];
+        yield ["   \n     \t      ", false];
+        yield ['1', true];
+        yield ['0', true];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
 }
