@@ -89,4 +89,78 @@ final class ArrayTest extends BaseTest
             }
         };
     }
+
+    /**
+     * @dataProvider dataExpectedValues
+     */
+    public function testExpectedValues(mixed $value, array $expectedValues, bool $expectedResult): void
+    {
+        /** @var ArrayChecker $checker */
+        $checker = $this->container->get(ArrayChecker::class);
+        self::assertSame($expectedResult, $checker->expectedValues($value, $expectedValues));
+    }
+
+    public function dataExpectedValues(): iterable
+    {
+        yield [[], [], true];
+        // list
+        yield [
+            ['foo', 'bar'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            ['foo'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            ['bar'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            [1, 2, 3],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            true,
+        ];
+        yield [
+            ['foo', 'bar'],
+            ['bar'],
+            false,
+        ];
+        yield [
+            [1, 2],
+            ['bar'],
+            false,
+        ];
+        yield 'not strict comparison' => [
+            ['1', '2', '3'],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            true,
+        ];
+
+        yield [
+            ['name' => 'bar', 'surname' => 'bar'],
+            ['bar'],
+            true,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'bar'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'baz'],
+            ['foo', 'bar'],
+            false,
+        ];
+
+        yield ['', [], false];
+        yield [1, [], false];
+        yield [2.0, [], false];
+        yield ['foo', [], false];
+        yield [null, [], false];
+        yield [new \stdClass(), [], false];
+    }
 }

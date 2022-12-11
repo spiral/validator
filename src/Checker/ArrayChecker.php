@@ -15,6 +15,7 @@ class ArrayChecker extends AbstractChecker
         'longer' => '[[Number of elements must be equal to or greater than {1}.]]',
         'shorter' => '[[Number of elements must be equal to or less than {1}.]]',
         'range' => '[[Number of elements must be between {1} and {2}.]]',
+        'expectedValues' => '[[Unexpected array value]]',
     ];
 
     public function __construct(
@@ -73,5 +74,14 @@ class ArrayChecker extends AbstractChecker
         $count = \count($value);
 
         return $count >= $min && $count <= $max;
+    }
+
+    public function expectedValues(mixed $value, array $expectedValues): bool
+    {
+        if (!\is_array($value)) {
+            return false;
+        }
+
+        return [] === array_diff($value, $expectedValues);
     }
 }
