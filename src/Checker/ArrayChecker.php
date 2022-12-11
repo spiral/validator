@@ -15,6 +15,8 @@ class ArrayChecker extends AbstractChecker
         'longer' => '[[Number of elements must be equal to or greater than {1}.]]',
         'shorter' => '[[Number of elements must be equal to or less than {1}.]]',
         'range' => '[[Number of elements must be between {1} and {2}.]]',
+        'isList' => '[[Array is not list]]',
+        'isAssoc' => '[[Array is not associative]]',
     ];
 
     public function __construct(
@@ -73,5 +75,15 @@ class ArrayChecker extends AbstractChecker
         $count = \count($value);
 
         return $count >= $min && $count <= $max;
+    }
+
+    public function isList(mixed $value): bool
+    {
+        return is_array($value) && array_is_list($value);
+    }
+
+    public function isAssoc(mixed $value): bool
+    {
+        return is_array($value) && !array_is_list($value);
     }
 }

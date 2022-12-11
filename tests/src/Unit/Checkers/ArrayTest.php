@@ -89,4 +89,84 @@ final class ArrayTest extends BaseTest
             }
         };
     }
+
+    /**
+     * @dataProvider dataIsList
+     */
+    public function testIsList(mixed $value, bool $expectedResult): void
+    {
+        /** @var ArrayChecker $checker */
+        $checker = $this->container->get(ArrayChecker::class);
+        self::assertSame($expectedResult, $checker->isList($value));
+    }
+
+    public function dataIsList(): iterable
+    {
+        yield [[], true];
+        yield [[1, 2, 3], true];
+        yield [['a', 'b', 'c'], true];
+        yield [
+            [0 => 'a', 1 => 'b', 2 => 'c'],
+            true,
+        ];
+        yield [
+            ['0' => 'a', '1' => 'b', '2' => 'c'],
+            true,
+        ];
+        yield [
+            ['name' => 'name', 1, 2, 3],
+            false,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'bar'],
+            false,
+        ];
+
+        yield ['', false];
+        yield [1, false];
+        yield [2.0, false];
+        yield ['foo', false];
+        yield [null, false];
+        yield [new \stdClass(), false];
+    }
+
+    /**
+     * @dataProvider dataIsAssoc
+     */
+    public function testIsAssoc(mixed $value, bool $expectedResult): void
+    {
+        /** @var ArrayChecker $checker */
+        $checker = $this->container->get(ArrayChecker::class);
+        self::assertSame($expectedResult, $checker->isAssoc($value));
+    }
+
+    public function dataIsAssoc(): iterable
+    {
+        yield [[], false];
+        yield [[1, 2, 3], false];
+        yield [['a', 'b', 'c'], false];
+        yield [
+            [0 => 'a', 1 => 'b', 2 => 'c'],
+            false,
+        ];
+        yield [
+            ['0' => 'a', '1' => 'b', '2' => 'c'],
+            false,
+        ];
+        yield [
+            ['name' => 'name', 1, 2, 3],
+            true,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'bar'],
+            true,
+        ];
+
+        yield ['', false];
+        yield [1, false];
+        yield [2.0, false];
+        yield ['foo', false];
+        yield [null, false];
+        yield [new \stdClass(), false];
+    }
 }
