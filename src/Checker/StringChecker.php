@@ -10,11 +10,13 @@ use Spiral\Validator\AbstractChecker;
 final class StringChecker extends AbstractChecker implements SingletonInterface
 {
     public const MESSAGES = [
-        'regexp'  => '[[Value does not match required pattern.]]',
-        'shorter' => '[[Enter text shorter or equal to {1}.]]',
-        'longer'  => '[[Text must be longer or equal to {1}.]]',
-        'length'  => '[[Text length must be exactly equal to {1}.]]',
-        'range'   => '[[Text length should be in range of {1}-{2}.]]',
+        'regexp'   => '[[Value does not match required pattern.]]',
+        'shorter'  => '[[Enter text shorter or equal to {1}.]]',
+        'longer'   => '[[Text must be longer or equal to {1}.]]',
+        'length'   => '[[Text length must be exactly equal to {1}.]]',
+        'range'    => '[[Text length should be in range of {1}-{2}.]]',
+        'empty'    => '[[String value should be empty]]',
+        'notEmpty' => '[[String value should not be empty]]',
     ];
 
     /**
@@ -62,5 +64,21 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
 
         return (\mb_strlen($trimmed) >= $min)
             && (\mb_strlen($trimmed) <= $max);
+    }
+
+    /**
+     * Check string is empty
+     */
+    public function empty(mixed $value): bool
+    {
+        return \is_string($value) && '' === trim($value);
+    }
+
+    /**
+     * Check string is not empty
+     */
+    public function notEmpty(mixed $value): bool
+    {
+        return \is_string($value) && '' !== trim($value);
     }
 }
