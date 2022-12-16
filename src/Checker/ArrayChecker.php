@@ -17,6 +17,7 @@ class ArrayChecker extends AbstractChecker
         'range' => '[[Number of elements must be between {1} and {2}.]]',
         'isList' => '[[Array is not list]]',
         'isAssoc' => '[[Array is not associative]]',
+        'expectedValues' => '[[Unexpected array value]]',
     ];
 
     public function __construct(
@@ -85,5 +86,14 @@ class ArrayChecker extends AbstractChecker
     public function isAssoc(mixed $value): bool
     {
         return is_array($value) && !array_is_list($value);
+    }
+
+    public function expectedValues(mixed $value, array $expectedValues): bool
+    {
+        if (!\is_array($value)) {
+            return false;
+        }
+
+        return [] === array_diff($value, $expectedValues);
     }
 }
