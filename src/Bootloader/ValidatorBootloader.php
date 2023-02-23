@@ -34,21 +34,36 @@ final class ValidatorBootloader extends Bootloader
     ) {
     }
 
-    public function boot(
-        ValidationProvider $provider,
-        TokenizerBootloader $tokenizer,
-        ValidationBootloader $validation
-    ): void {
+    public function init(TokenizerBootloader $tokenizer): void
+    {
+        $this->initDefaultConfig($tokenizer);
+    }
+
+    public function boot(ValidationProvider $provider, ValidationBootloader $validation): void
+    {
         $provider->register(
             FilterDefinition::class,
             static fn(Validation $validation): ValidationInterface => $validation
         );
         $validation->setDefaultValidator(FilterDefinition::class);
-
-        $this->initDefaultConfig($tokenizer);
     }
 
-    public function initDefaultConfig(TokenizerBootloader $tokenizer): void
+    public function addChecker(string $alias, mixed $checker): void
+    {
+        $this->config->modify(ValidatorConfig::CONFIG, new Append('checkers', $alias, $checker));
+    }
+
+    public function addCondition(string $alias, mixed $condition): void
+    {
+        $this->config->modify(ValidatorConfig::CONFIG, new Append('conditions', $alias, $condition));
+    }
+
+    public function addAlias(string $alias, string $target): void
+    {
+        $this->config->modify(ValidatorConfig::CONFIG, new Append('aliases', $alias, $target));
+    }
+
+    private function initDefaultConfig(TokenizerBootloader $tokenizer): void
     {
         $this->config->setDefaults(
             ValidatorConfig::CONFIG,
@@ -121,20 +136,5 @@ final class ValidatorBootloader extends Bootloader
             (new \ReflectionClass(FilterDefinition::class))
                 ->getFileName()
         ));
-    }
-
-    public function addChecker(string $alias, mixed $checker): void
-    {
-        $this->config->modify(ValidatorConfig::CONFIG, new Append('checkers', $alias, $checker));
-    }
-
-    public function addCondition(string $alias, mixed $condition): void
-    {
-        $this->config->modify(ValidatorConfig::CONFIG, new Append('conditions', $alias, $condition));
-    }
-
-    public function addAlias(string $alias, string $target): void
-    {
-        $this->config->modify(ValidatorConfig::CONFIG, new Append('aliases', $alias, $target));
     }
 }
