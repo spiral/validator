@@ -54,6 +54,7 @@ final class ValidatorBootloaderTest extends BaseTest
         yield ['image'];
         yield ['datetime'];
         yield ['array'];
+        yield ['boolean'];
     }
 
     public function dataHasConditionByDefault(): \Traversable
