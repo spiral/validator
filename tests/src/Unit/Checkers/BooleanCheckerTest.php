@@ -14,8 +14,7 @@ final class BooleanCheckerTest extends BaseTest
      */
     public function testIsAssoc(mixed $value, bool $expectedResult): void
     {
-        /** @var BooleanChecker $checker */
-        $checker = $this->container->get(BooleanChecker::class);
+        $checker = new BooleanChecker();
         self::assertSame($expectedResult, $checker->isTrue($value));
     }
 
@@ -23,7 +22,7 @@ final class BooleanCheckerTest extends BaseTest
     {
         yield [true, true];
         yield [false, false];
-
+        // not boolean values
         yield [[], false];
         yield ['', false];
         yield [1, false];
@@ -38,8 +37,7 @@ final class BooleanCheckerTest extends BaseTest
      */
     public function testIsFalse(mixed $value, bool $expectedResult): void
     {
-        /** @var BooleanChecker $checker */
-        $checker = $this->container->get(BooleanChecker::class);
+        $checker = new BooleanChecker();
         self::assertSame($expectedResult, $checker->isFalse($value));
     }
 
@@ -47,7 +45,7 @@ final class BooleanCheckerTest extends BaseTest
     {
         yield [true, false];
         yield [false, true];
-
+        // not boolean values
         yield [[], false];
         yield ['', false];
         yield [1, false];
