@@ -7,7 +7,7 @@ namespace Spiral\Validator\Tests\Unit\Checkers;
 use Spiral\Validator\Checker\BooleanChecker;
 use Spiral\Validator\Tests\Unit\BaseTest;
 
-class BooleanCheckerTest extends BaseTest
+final class BooleanCheckerTest extends BaseTest
 {
     /**
      * @dataProvider dataIsTrue
