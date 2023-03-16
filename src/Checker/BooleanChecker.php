@@ -10,8 +10,8 @@ use Spiral\Validator\AbstractChecker;
 final class BooleanChecker extends AbstractChecker implements SingletonInterface
 {
     public const MESSAGES = [
-        'isTrue' => '[[Should be true]]',
-        'isFalse' => '[[Should be false]]',
+        'isTrue' => '[[Should be true.]]',
+        'isFalse' => '[[Should be false.]]',
     ];
 
     public function isTrue(mixed $value): bool
