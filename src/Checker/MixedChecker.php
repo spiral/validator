@@ -12,6 +12,8 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
     public const MESSAGES = [
         'cardNumber' => '[[Please enter valid card number.]]',
         'match'      => '[[Fields {1} and {2} do not match.]]',
+        'accepted'   => '[[Is not accepted.]]',
+        'declined'   => '[[Is not declined.]]',
     ];
 
     /**
@@ -55,5 +57,21 @@ final class MixedChecker extends AbstractChecker implements SingletonInterface
         }
 
         return $value == $this->getValidator()->getValue($field, null);
+    }
+
+    /**
+     * This is useful for validating "Terms of Service" acceptance or similar fields.
+     */
+    public function accepted(mixed $value): bool
+    {
+        return in_array($value, [true, 1, '1', 'yes', 'on'], true);
+    }
+
+    /**
+     * Opposite version of `accepted`.
+     */
+    public function declined(mixed $value): bool
+    {
+        return in_array($value, [false, 0, '0', 'no', 'off'], true);
     }
 }
