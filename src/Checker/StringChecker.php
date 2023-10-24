@@ -15,8 +15,8 @@ final class StringChecker extends AbstractChecker implements SingletonInterface
         'longer'   => '[[Text must be longer or equal to {1}.]]',
         'length'   => '[[Text length must be exactly equal to {1}.]]',
         'range'    => '[[Text length should be in range of {1}-{2}.]]',
-        'empty'    => '[[String value should be empty]]',
-        'notEmpty' => '[[String value should not be empty]]',
+        'empty'    => '[[String value should be empty.]]',
+        'notEmpty' => '[[String value should not be empty.]]',
     ];
 
     /**

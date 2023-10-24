@@ -15,9 +15,9 @@ class ArrayChecker extends AbstractChecker
         'longer' => '[[Number of elements must be equal to or greater than {1}.]]',
         'shorter' => '[[Number of elements must be equal to or less than {1}.]]',
         'range' => '[[Number of elements must be between {1} and {2}.]]',
-        'isList' => '[[Array is not list]]',
-        'isAssoc' => '[[Array is not associative]]',
-        'expectedValues' => '[[Unexpected array value]]',
+        'isList' => '[[Array is not list.]]',
+        'isAssoc' => '[[Array is not associative.]]',
+        'expectedValues' => '[[Unexpected array value.]]',
     ];
 
     public function __construct(
