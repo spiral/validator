@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Validator\Checker\MixedChecker;
 use Spiral\Validation\ValidatorInterface;
+use Spiral\Validator\Checker\MixedChecker;
 
 final class MixedTest extends TestCase
 {
     /**
      * @dataProvider cardsProvider
-     * @param bool  $expected
+     * @param bool $expected
      * @param mixed $card
      */
     public function testCardNumber(bool $expected, $card): void
@@ -62,5 +62,71 @@ final class MixedTest extends TestCase
             [false, 'abc'],
             [false, []],
         ];
+    }
+
+    /**
+     * @dataProvider dataAccepted
+     */
+    public function testAccepted(mixed $value, bool $expectedResult = true): void
+    {
+        $checker = new MixedChecker();
+        self::assertSame($expectedResult, $checker->accepted($value));
+    }
+
+    public function dataAccepted(): iterable
+    {
+        yield [true];
+        yield [1];
+        yield ['1'];
+        yield ['yes'];
+        yield ['on'];
+        // declined values
+        yield [false, false];
+        yield [0, false];
+        yield ['0', false];
+        yield ['no', false];
+        yield ['off', false];
+        // invalid values
+        yield [2, false];
+        yield ['2', false];
+        yield ['', false];
+        yield ["   \n     \t      ", false];
+        yield [null, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
+    /**
+     * @dataProvider dataDeclined
+     */
+    public function testDeclined(mixed $value, bool $expectedResult = true): void
+    {
+        $checker = new MixedChecker();
+        self::assertSame($expectedResult, $checker->declined($value));
+    }
+
+    public function dataDeclined(): iterable
+    {
+        yield [false];
+        yield [0];
+        yield ['0'];
+        yield ['no'];
+        yield ['off'];
+        // accepted values
+        yield [true, false];
+        yield [1, false];
+        yield ['1', false];
+        yield ['yes', false];
+        yield ['on', false];
+        // invalid values
+        yield [2, false];
+        yield ['2', false];
+        yield ['', false];
+        yield ["   \n     \t      ", false];
+        yield [null, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
     }
 }
