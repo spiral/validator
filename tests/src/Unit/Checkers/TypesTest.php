@@ -66,4 +66,19 @@ final class TypesTest extends TestCase
         $this->assertFalse($checker->boolean('0'));
         $this->assertFalse($checker->boolean('1'));
     }
+
+    public function testBooleanStrict(): void
+    {
+        $checker = new TypeChecker();
+
+        $this->assertTrue($checker->boolean(true, true));
+        $this->assertTrue($checker->boolean(false, true));
+
+        $this->assertFalse($checker->boolean(1, true));
+        $this->assertFalse($checker->boolean(0, true));
+        $this->assertFalse($checker->boolean('true', true));
+        $this->assertFalse($checker->boolean('false', true));
+        $this->assertFalse($checker->boolean('0', true));
+        $this->assertFalse($checker->boolean('1', true));
+    }
 }

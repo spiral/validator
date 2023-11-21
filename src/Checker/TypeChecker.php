@@ -33,8 +33,12 @@ final class TypeChecker extends AbstractChecker implements SingletonInterface
     /**
      * Value has to be boolean or integer[0,1].
      */
-    public function boolean(mixed $value): bool
+    public function boolean(mixed $value, bool $strict = false): bool
     {
-        return \is_bool($value) || (\is_numeric($value) && ($value === 0 || $value === 1));
+        if (\is_bool($value)) {
+            return true;
+        }
+
+        return  false === $strict && (\is_numeric($value) && ($value === 0 || $value === 1));
     }
 }
