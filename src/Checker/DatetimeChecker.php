@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Checker;
 
-use Spiral\Core\Container\SingletonInterface;
+use Spiral\Core\Attribute\Singleton;
 use Spiral\Validator\AbstractChecker;
 use Spiral\Validator\Checker\DatetimeChecker\ThresholdChecker;
 
-final class DatetimeChecker extends AbstractChecker implements SingletonInterface
+#[Singleton]
+final class DatetimeChecker extends AbstractChecker
 {
     public const MESSAGES = [
         'future'   => '[[Should be a date in the future.]]',

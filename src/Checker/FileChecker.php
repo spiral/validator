@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Spiral\Validator\Checker;
 
 use Psr\Http\Message\UploadedFileInterface;
-use Spiral\Core\Container\SingletonInterface;
+use Spiral\Core\Attribute\Singleton;
 use Spiral\Files\FilesInterface;
 use Spiral\Validator\AbstractChecker;
 use Spiral\Validator\Checker\Traits\FileTrait;
 
-final class FileChecker extends AbstractChecker implements SingletonInterface
+#[Singleton]
+final class FileChecker extends AbstractChecker
 {
     use FileTrait;
 

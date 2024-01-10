@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Checker;
 
-use Spiral\Core\Container\SingletonInterface;
+use Spiral\Core\Attribute\Singleton;
 use Spiral\Validator\AbstractChecker;
 
-final class BooleanChecker extends AbstractChecker implements SingletonInterface
+#[Singleton]
+final class BooleanChecker extends AbstractChecker
 {
     public const MESSAGES = [
         'isTrue' => '[[Should be true.]]',
