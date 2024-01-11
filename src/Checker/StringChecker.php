@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Checker;
 
-use Spiral\Core\Container\SingletonInterface;
+use Spiral\Core\Attribute\Singleton;
 use Spiral\Validator\AbstractChecker;
 
-final class StringChecker extends AbstractChecker implements SingletonInterface
+#[Singleton]
+final class StringChecker extends AbstractChecker
 {
     public const MESSAGES = [
         'regexp'   => '[[Value does not match required pattern.]]',

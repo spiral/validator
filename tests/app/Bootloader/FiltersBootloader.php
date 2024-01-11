@@ -9,6 +9,7 @@ use Psr\EventDispatcher\EventDispatcherInterface;
 use Spiral\Boot\Bootloader\Bootloader;
 use Spiral\Config\ConfiguratorInterface;
 use Spiral\Config\Patch\Append;
+use Spiral\Core\Attribute\Singleton;
 use Spiral\Core\BinderInterface;
 use Spiral\Core\Container;
 use Spiral\Core\InterceptableCore;
@@ -21,13 +22,19 @@ use Spiral\Filters\Model\Interceptor\Core;
 use Spiral\Filters\Model\Interceptor\PopulateDataFromEntityInterceptor;
 use Spiral\Filters\Model\Interceptor\ValidateFilterInterceptor;
 use Spiral\Filters\InputInterface;
+use Spiral\Filters\Model\Mapper\CasterRegistry;
+use Spiral\Filters\Model\Mapper\CasterRegistryInterface;
+use Spiral\Filters\Model\Mapper\EnumCaster;
+use Spiral\Filters\Model\Mapper\UuidCaster;
 use Spiral\Validator\App\InputScope;
 
-final class FiltersBootloader extends Bootloader implements Container\InjectorInterface, Container\SingletonInterface
+#[Singleton]
+final class FiltersBootloader extends Bootloader implements Container\InjectorInterface
 {
     protected const SINGLETONS = [
         FilterProviderInterface::class => [self::class, 'initFilterProvider'],
         InputInterface::class => InputScope::class,
+        CasterRegistryInterface::class => [self::class, 'initCasterRegistry'],
     ];
 
     public function __construct(
@@ -84,5 +91,10 @@ final class FiltersBootloader extends Bootloader implements Container\InjectorIn
         }
 
         return new FilterProvider($container, $container, $core);
+    }
+
+    private function initCasterRegistry(): CasterRegistryInterface
+    {
+        return new CasterRegistry([new EnumCaster(), new UuidCaster()]);
     }
 }
