@@ -17,8 +17,8 @@ final class DatetimeChecker extends AbstractChecker
         'valid'    => '[[Not a valid date.]]',
         'format'   => '[[Value should match the specified date format {1}.]]',
         'timezone' => '[[Not a valid timezone.]]',
-        'before'   => '[[Value {1} should come before value {2}.]]',
-        'after'    => '[[Value {1} should come after value {2}.]]',
+        'before'   => '[[Value {0} should come before value {1}.]]',
+        'after'    => '[[Value {0} should come after value {1}.]]',
     ];
     //Possible format mapping
     private const MAP_FORMAT = [
