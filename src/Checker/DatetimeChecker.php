@@ -129,7 +129,7 @@ final class DatetimeChecker extends AbstractChecker
                 $value = '0';
             }
 
-            return new \DateTimeImmutable(\is_numeric($value) ? \sprintf('@%d', $value) : \trim($value));
+            return new \DateTimeImmutable(\is_numeric($value) ? "@$value" : \trim($value));
         } catch (\Throwable) {
             //here's the fail;
         }

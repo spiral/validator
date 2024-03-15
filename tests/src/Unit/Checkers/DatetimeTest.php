@@ -6,7 +6,6 @@ namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\DatetimeChecker;
-use Spiral\Validation\ValidatorInterface;
 
 final class DatetimeTest extends TestCase
 {
@@ -66,10 +65,10 @@ final class DatetimeTest extends TestCase
     /**
      * @dataProvider futureProvider
      *
-     * @param bool  $expected
+     * @param bool $expected
      * @param mixed $value
-     * @param bool  $orNow
-     * @param bool  $useMicroseconds
+     * @param bool $orNow
+     * @param bool $useMicroseconds
      */
     public function testFuture(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
     {
@@ -211,7 +210,7 @@ final class DatetimeTest extends TestCase
      * @param bool  $expected
      * @param mixed $value
      */
-    public function testValid(bool $expected, $value): void
+    public function testValid(bool $expected, mixed $value): void
     {
         $checker = new DatetimeChecker();
 
@@ -221,27 +220,50 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function validProvider(): array
+    public function validProvider(): iterable
     {
-        return [
-            [true, time() - 1000,],
-            [true, time(),],
-            [true, date('u'),],
-            [true, time() + 1000,],
-            [true, '',],
-            [true, 'tomorrow +2hours',],
-            [true, 'yesterday -2hours',],
-            [true, 'now',],
-            [true, 'now + 1000 seconds',],
-            [true, 'now - 1000 seconds',],
-            [true, 0,],
-            [true, 1.1,],
-            [false, [],],
-            [false, false,],
-            [false, true,],
-            [false, null,],
-            [false, [],],
-            [false, new \stdClass(),],
+        yield [true, time() - 1000];
+        yield [true, time()];
+        yield [true, date('u')];
+        yield [true, time() + 1000];
+        yield [true, ''];
+        yield [true, 'tomorrow +2hours'];
+        yield [true, 'yesterday -2hours'];
+        yield [true, 'now'];
+        yield [true, 'now + 1000 seconds'];
+        yield [true, 'now - 1000 seconds'];
+        yield [true, 0];
+        yield [true, 1.1];
+        yield [false, []];
+        yield [false, false];
+        yield [false, true];
+        yield [false, null];
+        yield [false, []];
+        yield [false, new \stdClass()];
+
+        yield 'invalid datetime string' => [
+            false,
+            'you shall not pass',
+        ];
+
+        yield 'invalid numeric string' => [
+            false,
+            '2222222222222222222222222222222222222222222222222222222222222222',
+        ];
+
+        yield 'invalid integer' => [
+            false,
+            1111111111111111111111111111111111111111111111111111111111111111111111,
+        ];
+
+        yield 'scientific notation str' => [
+            false,
+            '1.23e-09',
+        ];
+
+        yield 'scientific notation num' => [
+            false,
+            1.23e-09,
         ];
     }
 
@@ -299,7 +321,7 @@ final class DatetimeTest extends TestCase
             [true, $this->inPast(1000), 'now', false, true],
             [true, $this->inPast(1000), 'now', true, true],
 
-            [true, 'yesterday -2hours', 'now', false, false],
+            [true, 'yesterday - 2hours', 'now', false, false],
             [true, 'now - 1000 seconds', 'now', false, false],
             [true, 'now + 1000 seconds', 'tomorrow', false, false],
 
@@ -364,7 +386,7 @@ final class DatetimeTest extends TestCase
             [true, $this->inFuture(1000), 'now', false, true],
             [true, $this->inFuture(1000), 'now', true, true],
 
-            [true, 'tomorrow +2hours', 'now', false, false],
+            [true, 'tomorrow + 2hours', 'now', false, false],
             [true, 'now + 1000 seconds', 'now', false, false],
             [true, 'now - 1000 seconds', 'yesterday', false, false],
 
