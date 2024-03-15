@@ -11,7 +11,7 @@ use Spiral\Validator\Checker\DatetimeChecker\ThresholdChecker;
 #[Singleton]
 final class DatetimeChecker extends AbstractChecker
 {
-    //COOKIE formal
+    //COOKIE format
     private const LONGEST_STR_FORMAT_LEN = 32;
     //PHP_MAX_INT 64 strlen
     private const LONGEST_INT_FORMAT_LEN = 19;
