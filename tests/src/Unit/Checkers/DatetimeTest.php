@@ -242,6 +242,57 @@ final class DatetimeTest extends TestCase
         yield [false, []];
         yield [false, new \stdClass()];
 
+        yield 'ATOM format' => [
+            true,
+            '2005-08-15T15:52:01+00:00',
+        ];
+        yield 'W3C format' => [
+            true,
+            '2005-08-15T15:52:01+00:00',
+        ];
+        yield 'COOKIE format' => [
+            true,
+            'Monday, 15-Aug-2005 15:52:01 UTC',
+        ];
+        yield 'RFC822 format' => [
+            true,
+            'Mon, 15 Aug 05 15:52:01 +0000',
+        ];
+        yield 'RFC1036 format' => [
+            true,
+            'Mon, 15 Aug 05 15:52:01 +0000',
+        ];
+        yield 'RFC850 format' => [
+            true,
+            'Monday, 15-Aug-05 15:52:01 UTC',
+        ];
+        yield 'RFC1123 format' => [
+            true,
+            'Mon, 15 Aug 2005 15:52:01 +0000',
+        ];
+        yield 'RFC7231 format' => [
+            true,
+            'Sat, 30 Apr 2016 17:52:13 GMT',
+        ];
+        yield 'RFC2822 format' => [
+            true,
+            'Mon, 15 Aug 2005 15:52:01 +0000',
+        ];
+        yield 'RFC3339_EXTENDED format' => [
+            true,
+            '2005-08-15T15:52:01.000+00:00',
+        ];
+        yield 'RSS format' => [
+            true,
+            'Mon, 15 Aug 2005 15:52:01 +0000',
+        ];
+        if (PHP_VERSION_ID >= 80200) {
+            yield 'ISO8601_EXPANDED format' => [
+                true,
+                '2005-08-15T15:52:01+0000',
+            ];
+        }
+
         yield 'invalid datetime string' => [
             false,
             'you shall not pass',

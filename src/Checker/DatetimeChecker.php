@@ -11,6 +11,11 @@ use Spiral\Validator\Checker\DatetimeChecker\ThresholdChecker;
 #[Singleton]
 final class DatetimeChecker extends AbstractChecker
 {
+    //COOKIE formal
+    private const LONGEST_STR_FORMAT_LEN = 32;
+    //PHP_MAX_INT 64 strlen
+    private const LONGEST_INT_FORMAT_LEN = 19;
+
     public const MESSAGES = [
         'future'   => '[[Should be a date in the future.]]',
         'past'     => '[[Should be a date in the past.]]',
@@ -127,6 +132,17 @@ final class DatetimeChecker extends AbstractChecker
         try {
             if (!$value) {
                 $value = '0';
+            }
+
+            // in php below 8.2 a huge brute numeric values triggers exception
+            if (\is_string($value)) {
+                $maxLen = self::LONGEST_STR_FORMAT_LEN;
+                if (is_numeric($value)) {
+                    $maxLen =  self::LONGEST_INT_FORMAT_LEN;
+                }
+                if (\strlen($value) > $maxLen) {
+                    return null;
+                }
             }
 
             return new \DateTimeImmutable(\is_numeric($value) ? "@$value" : \trim($value));
