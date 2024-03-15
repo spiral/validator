@@ -66,10 +66,10 @@ final class DatetimeTest extends TestCase
     /**
      * @dataProvider futureProvider
      *
-     * @param bool $expected
+     * @param bool  $expected
      * @param mixed $value
-     * @param bool $orNow
-     * @param bool $useMicroseconds
+     * @param bool  $orNow
+     * @param bool  $useMicroseconds
      */
     public function testFuture(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
     {
@@ -121,10 +121,10 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider pastProvider
-     * @param bool $expected
+     * @param bool  $expected
      * @param mixed $value
-     * @param bool $orNow
-     * @param bool $useMicroseconds
+     * @param bool  $orNow
+     * @param bool  $useMicroseconds
      */
     public function testPast(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
     {
@@ -171,8 +171,8 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider formatProvider
-     * @param bool $expected
-     * @param mixed $value
+     * @param bool   $expected
+     * @param mixed  $value
      * @param string $format
      */
     public function testFormat(bool $expected, $value, string $format): void
@@ -208,10 +208,10 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider validProvider
-     * @param bool $expected
+     * @param bool  $expected
      * @param mixed $value
      */
-    public function testValid(bool $expected, mixed $value): void
+    public function testValid(bool $expected, $value): void
     {
         $checker = new DatetimeChecker();
 
@@ -333,11 +333,11 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider beforeProvider
-     * @param bool $expected
+     * @param bool  $expected
      * @param mixed $value
      * @param mixed $threshold
-     * @param bool $orEquals
-     * @param bool $useMicroseconds
+     * @param bool  $orEquals
+     * @param bool  $useMicroseconds
      */
     public function testBefore(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
     {
@@ -373,7 +373,7 @@ final class DatetimeTest extends TestCase
             [true, $this->inPast(1000), 'now', false, true],
             [true, $this->inPast(1000), 'now', true, true],
 
-            [true, 'yesterday - 2hours', 'now', false, false],
+            [true, 'yesterday -2hours', 'now', false, false],
             [true, 'now - 1000 seconds', 'now', false, false],
             [true, 'now + 1000 seconds', 'tomorrow', false, false],
 
@@ -399,11 +399,11 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider afterProvider
-     * @param bool $expected
+     * @param bool  $expected
      * @param mixed $value
      * @param mixed $threshold
-     * @param bool $orEquals
-     * @param bool $useMicroseconds
+     * @param bool  $orEquals
+     * @param bool  $useMicroseconds
      */
     public function testAfter(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
     {
@@ -438,7 +438,7 @@ final class DatetimeTest extends TestCase
             [true, $this->inFuture(1000), 'now', false, true],
             [true, $this->inFuture(1000), 'now', true, true],
 
-            [true, 'tomorrow + 2hours', 'now', false, false],
+            [true, 'tomorrow +2hours', 'now', false, false],
             [true, 'now + 1000 seconds', 'now', false, false],
             [true, 'now - 1000 seconds', 'yesterday', false, false],
 
