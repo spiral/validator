@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
+use Spiral\Validation\ValidatorInterface;
 use Spiral\Validator\Checker\DatetimeChecker;
 
 final class DatetimeTest extends TestCase
@@ -120,10 +121,10 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider pastProvider
-     * @param bool  $expected
+     * @param bool $expected
      * @param mixed $value
-     * @param bool  $orNow
-     * @param bool  $useMicroseconds
+     * @param bool $orNow
+     * @param bool $useMicroseconds
      */
     public function testPast(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
     {
@@ -170,8 +171,8 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider formatProvider
-     * @param bool   $expected
-     * @param mixed  $value
+     * @param bool $expected
+     * @param mixed $value
      * @param string $format
      */
     public function testFormat(bool $expected, $value, string $format): void
@@ -207,7 +208,7 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider validProvider
-     * @param bool  $expected
+     * @param bool $expected
      * @param mixed $value
      */
     public function testValid(bool $expected, mixed $value): void
@@ -281,11 +282,11 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider beforeProvider
-     * @param bool  $expected
+     * @param bool $expected
      * @param mixed $value
      * @param mixed $threshold
-     * @param bool  $orEquals
-     * @param bool  $useMicroseconds
+     * @param bool $orEquals
+     * @param bool $useMicroseconds
      */
     public function testBefore(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
     {
@@ -347,11 +348,11 @@ final class DatetimeTest extends TestCase
 
     /**
      * @dataProvider afterProvider
-     * @param bool  $expected
+     * @param bool $expected
      * @param mixed $value
      * @param mixed $threshold
-     * @param bool  $orEquals
-     * @param bool  $useMicroseconds
+     * @param bool $orEquals
+     * @param bool $useMicroseconds
      */
     public function testAfter(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
     {
