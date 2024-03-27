@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use PHPUnit\Framework\TestCase;
-use Spiral\Validator\Checker\DatetimeChecker;
 use Spiral\Validation\ValidatorInterface;
+use Spiral\Validator\Checker\DatetimeChecker;
 
 final class DatetimeTest extends TestCase
 {
@@ -221,27 +221,101 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function validProvider(): array
+    public function validProvider(): iterable
     {
-        return [
-            [true, time() - 1000,],
-            [true, time(),],
-            [true, date('u'),],
-            [true, time() + 1000,],
-            [true, '',],
-            [true, 'tomorrow +2hours',],
-            [true, 'yesterday -2hours',],
-            [true, 'now',],
-            [true, 'now + 1000 seconds',],
-            [true, 'now - 1000 seconds',],
-            [true, 0,],
-            [true, 1.1,],
-            [false, [],],
-            [false, false,],
-            [false, true,],
-            [false, null,],
-            [false, [],],
-            [false, new \stdClass(),],
+        yield [true, time() - 1000];
+        yield [true, time()];
+        yield [true, date('u')];
+        yield [true, time() + 1000];
+        yield [true, ''];
+        yield [true, 'tomorrow +2hours'];
+        yield [true, 'yesterday -2hours'];
+        yield [true, 'now'];
+        yield [true, 'now + 1000 seconds'];
+        yield [true, 'now - 1000 seconds'];
+        yield [true, 0];
+        yield [true, 1.1];
+        yield [false, []];
+        yield [false, false];
+        yield [false, true];
+        yield [false, null];
+        yield [false, []];
+        yield [false, new \stdClass()];
+
+        yield 'ATOM format' => [
+            true,
+            '2005-08-15T15:52:01+00:00',
+        ];
+        yield 'W3C format' => [
+            true,
+            '2005-08-15T15:52:01+00:00',
+        ];
+        yield 'COOKIE format' => [
+            true,
+            'Monday, 15-Aug-2005 15:52:01 UTC',
+        ];
+        yield 'RFC822 format' => [
+            true,
+            'Mon, 15 Aug 05 15:52:01 +0000',
+        ];
+        yield 'RFC1036 format' => [
+            true,
+            'Mon, 15 Aug 05 15:52:01 +0000',
+        ];
+        yield 'RFC850 format' => [
+            true,
+            'Monday, 15-Aug-05 15:52:01 UTC',
+        ];
+        yield 'RFC1123 format' => [
+            true,
+            'Mon, 15 Aug 2005 15:52:01 +0000',
+        ];
+        yield 'RFC7231 format' => [
+            true,
+            'Sat, 30 Apr 2016 17:52:13 GMT',
+        ];
+        yield 'RFC2822 format' => [
+            true,
+            'Mon, 15 Aug 2005 15:52:01 +0000',
+        ];
+        yield 'RFC3339_EXTENDED format' => [
+            true,
+            '2005-08-15T15:52:01.000+00:00',
+        ];
+        yield 'RSS format' => [
+            true,
+            'Mon, 15 Aug 2005 15:52:01 +0000',
+        ];
+        if (PHP_VERSION_ID >= 80200) {
+            yield 'ISO8601_EXPANDED format' => [
+                true,
+                '2005-08-15T15:52:01+0000',
+            ];
+        }
+
+        yield 'invalid datetime string' => [
+            false,
+            'you shall not pass',
+        ];
+
+        yield 'invalid numeric string' => [
+            false,
+            '2222222222222222222222222222222222222222222222222222222222222222',
+        ];
+
+        yield 'invalid integer' => [
+            false,
+            1111111111111111111111111111111111111111111111111111111111111111111111,
+        ];
+
+        yield 'scientific notation str' => [
+            false,
+            '1.23e-09',
+        ];
+
+        yield 'scientific notation num' => [
+            false,
+            1.23e-09,
         ];
     }
 
