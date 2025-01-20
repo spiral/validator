@@ -111,7 +111,7 @@ final class ImageChecker extends AbstractChecker
      *
      * @param int|null $height Optional.
      */
-    public function bigger(StreamableInterface|string|UploadedFileInterface $file, int $width, int $height = null): bool
+    public function bigger(StreamableInterface|string|UploadedFileInterface $file, int $width, ?int $height = null): bool
     {
         if (empty($image = $this->imageData($file))) {
             return false;

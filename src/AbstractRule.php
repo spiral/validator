@@ -8,7 +8,7 @@ abstract class AbstractRule implements RuleInterface
 {
     private array|\SplObjectStorage|null $conditions = null;
 
-    public function withConditions(\SplObjectStorage $conditions = null): RuleInterface
+    public function withConditions(?\SplObjectStorage $conditions = null): RuleInterface
     {
         $rule = clone $this;
         $rule->conditions = $conditions;
