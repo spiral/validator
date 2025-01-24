@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\ValidatorInterface;
 use Spiral\Validator\Checker\DatetimeChecker;
@@ -11,13 +12,13 @@ use Spiral\Validator\Checker\DatetimeChecker;
 final class DatetimeTest extends TestCase
 {
     /**
-     * @dataProvider nowProvider
      * @param bool $expected
      * @param      $now
      * @param      $value
      * @param bool $orNow
      * @param bool $useMicroseconds
      */
+    #[DataProvider('nowProvider')]
     public function testNow(bool $expected, $now, $value, bool $orNow, bool $useMicroseconds): void
     {
         $checker = new DatetimeChecker($now);
@@ -25,7 +26,7 @@ final class DatetimeTest extends TestCase
         $this->assertSame($expected, $checker->future($value, $orNow, $useMicroseconds));
     }
 
-    public function nowProvider(): iterable
+    public static function nowProvider(): iterable
     {
         $now = new \DateTime();
         $callableNow = static function () use ($now) {
@@ -64,13 +65,13 @@ final class DatetimeTest extends TestCase
     }
 
     /**
-     * @dataProvider futureProvider
      *
      * @param bool  $expected
      * @param mixed $value
      * @param bool  $orNow
      * @param bool  $useMicroseconds
      */
+    #[DataProvider('futureProvider')]
     public function testFuture(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
     {
         $value = $value instanceof \Closure ? $value() : $value;
@@ -83,14 +84,14 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function futureProvider(): array
+    public static function futureProvider(): array
     {
         return [
             //the date is 100% in the future
-            [true, $this->inFuture(1000), false, false],
-            [true, $this->inFuture(1000), true, false],
-            [true, $this->inFuture(1000), false, true],
-            [true, $this->inFuture(1000), true, true],
+            [true, self::inFuture(1000), false, false],
+            [true, self::inFuture(1000), true, false],
+            [true, self::inFuture(1000), false, true],
+            [true, self::inFuture(1000), true, true],
 
             [true, 'tomorrow + 2hours', false, false],
             [true, 'now + 1000 seconds', false, false],
@@ -107,7 +108,7 @@ final class DatetimeTest extends TestCase
             [false, [], false, true],
             [false, [], true, true],
 
-            [false, $this->inPast(1000), false, false],
+            [false, self::inPast(1000), false, false],
             [false, '', false, false],
             [false, 0, false, false],
             [false, 1.1, false, false],
@@ -120,12 +121,12 @@ final class DatetimeTest extends TestCase
     }
 
     /**
-     * @dataProvider pastProvider
      * @param bool  $expected
      * @param mixed $value
      * @param bool  $orNow
      * @param bool  $useMicroseconds
      */
+    #[DataProvider('pastProvider')]
     public function testPast(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
     {
         $value = $value instanceof \Closure ? $value() : $value;
@@ -138,14 +139,14 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function pastProvider(): array
+    public static function pastProvider(): array
     {
         return [
             //the date is 100% in the past
-            [true, $this->inPast(1000), false, false],
-            [true, $this->inPast(1000), true, false],
-            [true, $this->inPast(1000), false, true],
-            [true, $this->inPast(1000), true, true],
+            [true, self::inPast(1000), false, false],
+            [true, self::inPast(1000), true, false],
+            [true, self::inPast(1000), false, true],
+            [true, self::inPast(1000), true, true],
 
             [true, 'yesterday -2hours', false, false],
             [true, 'now - 1000 seconds', false, false],
@@ -156,7 +157,7 @@ final class DatetimeTest extends TestCase
             [true, 'now', true, false],
             [true, 'now', true, true], //the threshold date comes a little bit later (in ms)
 
-            [false, $this->inFuture(1000), false, false],
+            [false, self::inFuture(1000), false, false],
             [true, '', false, false],
             [true, 0, false, false],
             [true, 1.1, false, false],
@@ -170,11 +171,11 @@ final class DatetimeTest extends TestCase
     }
 
     /**
-     * @dataProvider formatProvider
      * @param bool   $expected
      * @param mixed  $value
      * @param string $format
      */
+    #[DataProvider('formatProvider')]
     public function testFormat(bool $expected, $value, string $format): void
     {
         $checker = new DatetimeChecker();
@@ -185,7 +186,7 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function formatProvider(): array
+    public static function formatProvider(): array
     {
         return [
             [true, '2019-12-27T14:27:44+00:00', 'c'], //this one is converted using other format chars
@@ -207,10 +208,10 @@ final class DatetimeTest extends TestCase
     }
 
     /**
-     * @dataProvider validProvider
      * @param bool  $expected
      * @param mixed $value
      */
+    #[DataProvider('validProvider')]
     public function testValid(bool $expected, $value): void
     {
         $checker = new DatetimeChecker();
@@ -221,7 +222,7 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function validProvider(): iterable
+    public static function validProvider(): iterable
     {
         yield [true, time() - 1000];
         yield [true, time()];
@@ -332,13 +333,13 @@ final class DatetimeTest extends TestCase
     }
 
     /**
-     * @dataProvider beforeProvider
      * @param bool  $expected
      * @param mixed $value
      * @param mixed $threshold
      * @param bool  $orEquals
      * @param bool  $useMicroseconds
      */
+    #[DataProvider('beforeProvider')]
     public function testBefore(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
     {
         $value = $value instanceof \Closure ? $value() : $value;
@@ -364,14 +365,14 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function beforeProvider(): array
+    public static function beforeProvider(): array
     {
         return [
             //the date is 100% in the past
-            [true, $this->inPast(1000), 'now', false, false],
-            [true, $this->inPast(1000), 'now', true, false],
-            [true, $this->inPast(1000), 'now', false, true],
-            [true, $this->inPast(1000), 'now', true, true],
+            [true, self::inPast(1000), 'now', false, false],
+            [true, self::inPast(1000), 'now', true, false],
+            [true, self::inPast(1000), 'now', false, true],
+            [true, self::inPast(1000), 'now', true, true],
 
             [true, 'yesterday -2hours', 'now', false, false],
             [true, 'now - 1000 seconds', 'now', false, false],
@@ -384,7 +385,7 @@ final class DatetimeTest extends TestCase
             [true, 'now', 'now', true, false],
             [true, 'now', 'now', true, true], //the threshold date comes a little bit later (in ms)
 
-            [false, $this->inFuture(1000), 'now', false, false],
+            [false, self::inFuture(1000), 'now', false, false],
             [true, '', 'now', false, false],
             [true, 0, 'now', false, false],
             [true, 1.1, 'now', false, false],
@@ -398,13 +399,13 @@ final class DatetimeTest extends TestCase
     }
 
     /**
-     * @dataProvider afterProvider
      * @param bool  $expected
      * @param mixed $value
      * @param mixed $threshold
      * @param bool  $orEquals
      * @param bool  $useMicroseconds
      */
+    #[DataProvider('afterProvider')]
     public function testAfter(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
     {
         $value = $value instanceof \Closure ? $value() : $value;
@@ -430,13 +431,13 @@ final class DatetimeTest extends TestCase
     /**
      * @return array
      */
-    public function afterProvider(): array
+    public static function afterProvider(): array
     {
         return [
-            [true, $this->inFuture(1000), 'now', false, false],
-            [true, $this->inFuture(1000), 'now', true, false],
-            [true, $this->inFuture(1000), 'now', false, true],
-            [true, $this->inFuture(1000), 'now', true, true],
+            [true, self::inFuture(1000), 'now', false, false],
+            [true, self::inFuture(1000), 'now', true, false],
+            [true, self::inFuture(1000), 'now', false, true],
+            [true, self::inFuture(1000), 'now', true, true],
 
             [true, 'tomorrow +2hours', 'now', false, false],
             [true, 'now + 1000 seconds', 'now', false, false],
@@ -449,7 +450,7 @@ final class DatetimeTest extends TestCase
             [true, 'now', 'now', true, false],
             [false, 'now', 'now', true, true], //the threshold date comes a little bit later (in ms)
 
-            [false, $this->inPast(1000), 'now', false, false],
+            [false, self::inPast(1000), 'now', false, false],
             [false, '', 'now', false, false],
             [false, 0, 'now', false, false],
             [false, 1.1, 'now', false, false],
@@ -469,14 +470,14 @@ final class DatetimeTest extends TestCase
         };
     }
 
-    private function inFuture(int $seconds): \Closure
+    private static function inFuture(int $seconds): \Closure
     {
         return static function () use ($seconds) {
             return \time() + $seconds;
         };
     }
 
-    private function inPast(int $seconds): \Closure
+    private static function inPast(int $seconds): \Closure
     {
         return static function () use ($seconds) {
             return \time() - $seconds;

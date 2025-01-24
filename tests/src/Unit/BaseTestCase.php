@@ -19,7 +19,7 @@ use Spiral\Validation\ValidationInterface;
 use Spiral\Validator\RulesProvider;
 use Spiral\Validator\Validation;
 
-abstract class BaseTest extends TestCase
+abstract class BaseTestCase extends TestCase
 {
     public const CONFIG = [
         'checkers' => [

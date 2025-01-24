@@ -7,9 +7,9 @@ namespace Spiral\Validator\Tests\Unit\Checkers;
 use Nyholm\Psr7\UploadedFile;
 use Spiral\Files\Files;
 use Spiral\Files\FilesInterface;
-use Spiral\Validator\Tests\Unit\BaseTest;
+use Spiral\Validator\Tests\Unit\BaseTestCase;
 
-final class FileTest extends BaseTest
+final class FileTest extends BaseTestCase
 {
     private $files;
 

@@ -10,6 +10,8 @@
          stopOnError="false"
          stderr="true"
          backupStaticProperties="false"
+         displayDetailsOnPhpunitDeprecations="true"
+         displayDetailsOnTestsThatTriggerDeprecations="true"
 >
     <testsuites>
         <testsuite name="Spiral Validator Test Suite">

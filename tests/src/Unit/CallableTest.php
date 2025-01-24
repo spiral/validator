@@ -9,7 +9,7 @@ use Spiral\Validator\Tests\Unit\Fixtures\TestChecker;
 use Spiral\Validator\Tests\Unit\Fixtures\Value;
 use Spiral\Validator\Checker\TypeChecker;
 
-final class CallableTest extends BaseTest
+final class CallableTest extends BaseTestCase
 {
     public const CONFIG = [
         'checkers' => [

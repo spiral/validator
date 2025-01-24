@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Spiral\Validator\Checker\ArrayChecker;
-use Spiral\Validator\Tests\Unit\BaseTest;
+use Spiral\Validator\Tests\Unit\BaseTestCase;
 
-final class ArrayTest extends BaseTest
+final class ArrayTest extends BaseTestCase
 {
     public function testOf(): void
     {
@@ -90,9 +91,7 @@ final class ArrayTest extends BaseTest
         };
     }
 
-    /**
-     * @dataProvider dataIsList
-     */
+    #[DataProvider('dataIsList')]
     public function testIsList(mixed $value, bool $expectedResult): void
     {
         /** @var ArrayChecker $checker */
@@ -100,7 +99,7 @@ final class ArrayTest extends BaseTest
         self::assertSame($expectedResult, $checker->isList($value));
     }
 
-    public function dataIsList(): iterable
+    public static function dataIsList(): iterable
     {
         yield [[], true];
         yield [[1, 2, 3], true];
@@ -130,9 +129,7 @@ final class ArrayTest extends BaseTest
         yield [new \stdClass(), false];
     }
 
-    /**
-     * @dataProvider dataIsAssoc
-     */
+    #[DataProvider('dataIsAssoc')]
     public function testIsAssoc(mixed $value, bool $expectedResult): void
     {
         /** @var ArrayChecker $checker */
@@ -140,7 +137,7 @@ final class ArrayTest extends BaseTest
         self::assertSame($expectedResult, $checker->isAssoc($value));
     }
 
-    public function dataIsAssoc(): iterable
+    public static function dataIsAssoc(): iterable
     {
         yield [[], false];
         yield [[1, 2, 3], false];
@@ -170,9 +167,7 @@ final class ArrayTest extends BaseTest
         yield [new \stdClass(), false];
     }
 
-    /**
-     * @dataProvider dataExpectedValues
-     */
+    #[DataProvider('dataExpectedValues')]
     public function testExpectedValues(mixed $value, array $expectedValues, bool $expectedResult): void
     {
         /** @var ArrayChecker $checker */
@@ -180,7 +175,7 @@ final class ArrayTest extends BaseTest
         self::assertSame($expectedResult, $checker->expectedValues($value, $expectedValues));
     }
 
-    public function dataExpectedValues(): iterable
+    public static function dataExpectedValues(): iterable
     {
         yield [[], [], true];
         // list

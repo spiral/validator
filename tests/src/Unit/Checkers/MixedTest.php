@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\ValidatorInterface;
 use Spiral\Validator\Checker\MixedChecker;
@@ -11,10 +12,10 @@ use Spiral\Validator\Checker\MixedChecker;
 final class MixedTest extends TestCase
 {
     /**
-     * @dataProvider cardsProvider
      * @param bool $expected
      * @param mixed $card
      */
+    #[DataProvider('cardsProvider')]
     public function testCardNumber(bool $expected, $card): void
     {
         $checker = new MixedChecker();
@@ -37,7 +38,7 @@ final class MixedTest extends TestCase
         $this->assertFalse($checker->check($mock, 'match', 'field', '123', ['abc', true]));
     }
 
-    public function cardsProvider(): array
+    public static function cardsProvider(): array
     {
         return [
             [true, '122000000000003'],
@@ -64,16 +65,14 @@ final class MixedTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataAccepted
-     */
+    #[DataProvider('dataAccepted')]
     public function testAccepted(mixed $value, bool $expectedResult = true): void
     {
         $checker = new MixedChecker();
         self::assertSame($expectedResult, $checker->accepted($value));
     }
 
-    public function dataAccepted(): iterable
+    public static function dataAccepted(): iterable
     {
         yield [true];
         yield [1];
@@ -97,16 +96,14 @@ final class MixedTest extends TestCase
         yield [new \stdClass(), false];
     }
 
-    /**
-     * @dataProvider dataDeclined
-     */
+    #[DataProvider('dataDeclined')]
     public function testDeclined(mixed $value, bool $expectedResult = true): void
     {
         $checker = new MixedChecker();
         self::assertSame($expectedResult, $checker->declined($value));
     }
 
-    public function dataDeclined(): iterable
+    public static function dataDeclined(): iterable
     {
         yield [false];
         yield [0];

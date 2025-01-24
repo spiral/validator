@@ -7,7 +7,7 @@ use Spiral\Validation\ValidationInterface;
 /**
  * @coversDefaultClass \Spiral\Validator\Checker\DatetimeChecker
  */
-final class DatetimeCheckerTest extends BaseTest
+final class DatetimeCheckerTest extends BaseTestCase
 {
     /**
      * @covers ::after

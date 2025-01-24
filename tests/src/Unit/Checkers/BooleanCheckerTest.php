@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Spiral\Validator\Checker\BooleanChecker;
-use Spiral\Validator\Tests\Unit\BaseTest;
+use Spiral\Validator\Tests\Unit\BaseTestCase;
 
-final class BooleanCheckerTest extends BaseTest
+final class BooleanCheckerTest extends BaseTestCase
 {
-    /**
-     * @dataProvider dataIsTrue
-     */
+    #[DataProvider('dataIsTrue')]
     public function testIsAssoc(mixed $value, bool $expectedResult): void
     {
         $checker = new BooleanChecker();
         self::assertSame($expectedResult, $checker->isTrue($value));
     }
 
-    public function dataIsTrue(): iterable
+    public static function dataIsTrue(): iterable
     {
         yield [true, true];
         yield [false, false];
@@ -32,16 +31,14 @@ final class BooleanCheckerTest extends BaseTest
         yield [new \stdClass(), false];
     }
 
-    /**
-     * @dataProvider dataIsFalse
-     */
+    #[DataProvider('dataIsFalse')]
     public function testIsFalse(mixed $value, bool $expectedResult): void
     {
         $checker = new BooleanChecker();
         self::assertSame($expectedResult, $checker->isFalse($value));
     }
 
-    public function dataIsFalse(): iterable
+    public static function dataIsFalse(): iterable
     {
         yield [true, false];
         yield [false, true];

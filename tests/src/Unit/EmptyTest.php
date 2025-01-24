@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit;
 
-final class EmptyTest extends BaseTest
+final class EmptyTest extends BaseTestCase
 {
     public function testNoRules(): void
     {

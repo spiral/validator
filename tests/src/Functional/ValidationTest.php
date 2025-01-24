@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Functional;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Spiral\Filters\Exception\ValidationException;
 use Spiral\Filters\InputInterface;
 use Spiral\Validator\App\Request\FilterWithArrayMapping;
 use Spiral\Validator\App\Request\SimpleFilter;
 
-final class ValidationTest extends BaseTest
+final class ValidationTest extends BaseTestCase
 {
-    /** @dataProvider requestsSuccessProvider */
+    #[DataProvider('requestsSuccessProvider')]
     public function testValidationSuccess(string $filterClass, array $data): void
     {
         $this->getContainer()->bind(InputInterface::class, $this->initInputScope($data));
@@ -21,7 +22,7 @@ final class ValidationTest extends BaseTest
         $this->assertSame($data, $filter->getData());
     }
 
-    /** @dataProvider requestsErrorProvider */
+    #[DataProvider('requestsErrorProvider')]
     public function testValidationError(string $filterClass, array $data): void
     {
         $this->getContainer()->bind(InputInterface::class, $this->initInputScope($data));
@@ -30,13 +31,13 @@ final class ValidationTest extends BaseTest
         $this->getContainer()->get($filterClass);
     }
 
-    public function requestsSuccessProvider(): \Traversable
+    public static function requestsSuccessProvider(): \Traversable
     {
         yield [SimpleFilter::class, ['username' => 'foo', 'email' => 'foo@gmail.com']];
         yield [FilterWithArrayMapping::class, ['username' => 'foo', 'email' => 'foo@gmail.com']];
     }
 
-    public function requestsErrorProvider(): \Traversable
+    public static function requestsErrorProvider(): \Traversable
     {
         yield [SimpleFilter::class, ['email' => 'foo@gmail.com']];
         yield [SimpleFilter::class, ['username' => 'foo']];

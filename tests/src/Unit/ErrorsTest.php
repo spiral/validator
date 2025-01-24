@@ -6,7 +6,7 @@ namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Validator\Validator;
 
-final class ErrorsTest extends BaseTest
+final class ErrorsTest extends BaseTestCase
 {
     public function testHasError(): void
     {

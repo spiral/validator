@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Functional\Bootloader;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Spiral\Validation\ValidationInterface;
 use Spiral\Validation\ValidationProviderInterface;
 use Spiral\Validator\Bootloader\ValidatorBootloader;
 use Spiral\Validator\Config\ValidatorConfig;
 use Spiral\Validator\FilterDefinition;
-use Spiral\Validator\Tests\Functional\BaseTest;
+use Spiral\Validator\Tests\Functional\BaseTestCase;
 use Spiral\Validator\Validation;
 
-final class ValidatorBootloaderTest extends BaseTest
+final class ValidatorBootloaderTest extends BaseTestCase
 {
     public function testBootloaderRegistered(): void
     {
@@ -27,7 +28,7 @@ final class ValidatorBootloaderTest extends BaseTest
         $this->assertContainerBoundAsSingleton(ValidationInterface::class, Validation::class);
     }
 
-    /** @dataProvider dataHasCheckerByDefault */
+    #[DataProvider('dataHasCheckerByDefault')]
     public function testHasCheckerByDefault(string $checkerName): void
     {
         $config = $this->getContainer()->get(ValidatorConfig::class);
@@ -35,7 +36,7 @@ final class ValidatorBootloaderTest extends BaseTest
         $this->assertTrue($config->hasChecker($checkerName));
     }
 
-    /** @dataProvider dataHasConditionByDefault */
+    #[DataProvider('dataHasConditionByDefault')]
     public function testHasConditionByDefault(string $conditionName): void
     {
         $config = $this->getContainer()->get(ValidatorConfig::class);
@@ -43,7 +44,7 @@ final class ValidatorBootloaderTest extends BaseTest
         $this->assertTrue($config->hasCondition($conditionName));
     }
 
-    public function dataHasCheckerByDefault(): \Traversable
+    public static function dataHasCheckerByDefault(): \Traversable
     {
         yield ['type'];
         yield ['number'];
@@ -57,7 +58,7 @@ final class ValidatorBootloaderTest extends BaseTest
         yield ['boolean'];
     }
 
-    public function dataHasConditionByDefault(): \Traversable
+    public static function dataHasConditionByDefault(): \Traversable
     {
         yield ['absent'];
         yield ['present'];

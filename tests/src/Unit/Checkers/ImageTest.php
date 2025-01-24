@@ -6,9 +6,9 @@ namespace Spiral\Validator\Tests\Unit\Checkers;
 
 use Spiral\Files\Files;
 use Spiral\Files\FilesInterface;
-use Spiral\Validator\Tests\Unit\BaseTest;
+use Spiral\Validator\Tests\Unit\BaseTestCase;
 
-final class ImageTest extends BaseTest
+final class ImageTest extends BaseTestCase
 {
     private $files;
 

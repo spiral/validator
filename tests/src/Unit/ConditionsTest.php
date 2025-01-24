@@ -15,7 +15,7 @@ use Spiral\Validator\Checker\TypeChecker;
 use Spiral\Validator\Condition;
 use Spiral\Validator\RulesInterface;
 
-final class ConditionsTest extends BaseTest
+final class ConditionsTest extends BaseTestCase
 {
     public const CONFIG = [
         'checkers'   => [

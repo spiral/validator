@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit;
 
-final class MessagesTest extends BaseTest
+final class MessagesTest extends BaseTestCase
 {
     public function testDefault(): void
     {

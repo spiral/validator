@@ -11,7 +11,7 @@ use Spiral\Validation\Bootloader\ValidationBootloader;
 use Spiral\Validator\App\Bootloader\FiltersBootloader;
 use Spiral\Validator\Bootloader\ValidatorBootloader;
 
-abstract class BaseTest extends TestCase
+abstract class BaseTestCase extends TestCase
 {
     protected function setUp(): void
     {

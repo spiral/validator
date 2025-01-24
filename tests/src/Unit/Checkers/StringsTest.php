@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\StringChecker;
 
@@ -88,15 +89,13 @@ final class StringsTest extends TestCase
         $this->assertFalse($checker->regexp([], '/^ab[dEC]{3}/i'));
     }
 
-    /**
-     * @dataProvider dataEmpty
-     */
+    #[DataProvider('dataEmpty')]
     public function testEmpty(mixed $value, bool $expectedResult): void
     {
         self::assertSame($expectedResult, (new StringChecker())->empty($value));
     }
 
-    public function dataEmpty(): iterable
+    public static function dataEmpty(): iterable
     {
         yield ['', true];
         yield ["   \n     \t      ", true];
@@ -110,15 +109,13 @@ final class StringsTest extends TestCase
         yield [new \stdClass(), false];
     }
 
-    /**
-     * @dataProvider dataNotEmpty
-     */
+    #[DataProvider('dataNotEmpty')]
     public function testNotEmpty(mixed $value, bool $expectedResult): void
     {
         self::assertSame($expectedResult, (new StringChecker())->notEmpty($value));
     }
 
-    public function dataNotEmpty(): iterable
+    public static function dataNotEmpty(): iterable
     {
         yield ['', false];
         yield ["   \n     \t      ", false];

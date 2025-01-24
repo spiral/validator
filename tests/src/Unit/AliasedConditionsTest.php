@@ -11,7 +11,7 @@ use Spiral\Validator\Condition\WithAnyCondition;
 use Spiral\Validator\Condition\WithoutAllCondition;
 use Spiral\Validator\Condition\WithoutAnyCondition;
 
-final class AliasedConditionsTest extends BaseTest
+final class AliasedConditionsTest extends BaseTestCase
 {
     public const CONFIG = [
         'checkers'   => [],

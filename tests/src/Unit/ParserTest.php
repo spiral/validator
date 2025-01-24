@@ -6,7 +6,7 @@ namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Validator\Exception\ParserException;
 
-final class ParserTest extends BaseTest
+final class ParserTest extends BaseTestCase
 {
     public function testClosure(): void
     {

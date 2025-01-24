@@ -7,7 +7,7 @@ use Spiral\Validation\ValidationInterface;
 /**
  * @coversDefaultClass \Spiral\Validator\Checker\NumberChecker
  */
-final class NumberCheckerTest extends BaseTest
+final class NumberCheckerTest extends BaseTestCase
 {
     /**
      * @covers ::range
