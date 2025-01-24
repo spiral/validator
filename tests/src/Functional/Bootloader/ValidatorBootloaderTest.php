@@ -15,6 +15,32 @@ use Spiral\Validator\Validation;
 
 final class ValidatorBootloaderTest extends BaseTestCase
 {
+    public static function dataHasCheckerByDefault(): \Traversable
+    {
+        yield ['type'];
+        yield ['number'];
+        yield ['mixed'];
+        yield ['address'];
+        yield ['string'];
+        yield ['file'];
+        yield ['image'];
+        yield ['datetime'];
+        yield ['array'];
+        yield ['boolean'];
+    }
+
+    public static function dataHasConditionByDefault(): \Traversable
+    {
+        yield ['absent'];
+        yield ['present'];
+        yield ['anyOf'];
+        yield ['noneOf'];
+        yield ['withAny'];
+        yield ['withoutAny'];
+        yield ['withAll'];
+        yield ['withoutAll'];
+    }
+
     public function testBootloaderRegistered(): void
     {
         $this->assertBootloaderRegistered(ValidatorBootloader::class);
@@ -42,31 +68,5 @@ final class ValidatorBootloaderTest extends BaseTestCase
         $config = $this->getContainer()->get(ValidatorConfig::class);
 
         $this->assertTrue($config->hasCondition($conditionName));
-    }
-
-    public static function dataHasCheckerByDefault(): \Traversable
-    {
-        yield ['type'];
-        yield ['number'];
-        yield ['mixed'];
-        yield ['address'];
-        yield ['string'];
-        yield ['file'];
-        yield ['image'];
-        yield ['datetime'];
-        yield ['array'];
-        yield ['boolean'];
-    }
-
-    public static function dataHasConditionByDefault(): \Traversable
-    {
-        yield ['absent'];
-        yield ['present'];
-        yield ['anyOf'];
-        yield ['noneOf'];
-        yield ['withAny'];
-        yield ['withoutAny'];
-        yield ['withAll'];
-        yield ['withoutAll'];
     }
 }

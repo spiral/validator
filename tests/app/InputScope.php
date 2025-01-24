@@ -11,9 +11,8 @@ use Spiral\Http\Request\InputManager;
 final class InputScope implements InputInterface
 {
     public function __construct(
-        private InputManager $input
-    ) {
-    }
+        private InputManager $input,
+    ) {}
 
     public function withPrefix(string $prefix, bool $add = true): InputInterface
     {

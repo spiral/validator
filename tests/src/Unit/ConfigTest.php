@@ -15,8 +15,8 @@ final class ConfigTest extends TestCase
     {
         $config = new ValidatorConfig([
             'checkers' => [
-                'checker' => self::class
-            ]
+                'checker' => self::class,
+            ],
         ]);
 
         $this->assertTrue($config->hasChecker('checker'));
@@ -27,8 +27,8 @@ final class ConfigTest extends TestCase
     {
         $config = new ValidatorConfig([
             'conditions' => [
-                'condition' => self::class
-            ]
+                'condition' => self::class,
+            ],
         ]);
 
         $this->assertTrue($config->hasCondition('condition'));
@@ -39,8 +39,8 @@ final class ConfigTest extends TestCase
     {
         $config = new ValidatorConfig([
             'checkers' => [
-                'checker' => self::class
-            ]
+                'checker' => self::class,
+            ],
         ]);
 
         $this->assertInstanceOf(Autowire::class, $config->getChecker('checker'));
@@ -50,8 +50,8 @@ final class ConfigTest extends TestCase
     {
         $config = new ValidatorConfig([
             'conditions' => [
-                'condition' => self::class
-            ]
+                'condition' => self::class,
+            ],
         ]);
 
         $this->assertInstanceOf(Autowire::class, $config->getCondition('condition'));
@@ -63,8 +63,8 @@ final class ConfigTest extends TestCase
 
         $config = new ValidatorConfig([
             'checkers' => [
-                'checker' => self::class
-            ]
+                'checker' => self::class,
+            ],
         ]);
 
         $config->getChecker('other');
@@ -76,8 +76,8 @@ final class ConfigTest extends TestCase
 
         $config = new ValidatorConfig([
             'conditions' => [
-                'condition' => self::class
-            ]
+                'condition' => self::class,
+            ],
         ]);
 
         $config->getCondition('other');
@@ -88,9 +88,9 @@ final class ConfigTest extends TestCase
         $config = new ValidatorConfig([
             'checkers' => [
                 'checker' => [
-                    'class' => self::class
-                ]
-            ]
+                    'class' => self::class,
+                ],
+            ],
         ]);
 
         $this->assertInstanceOf(Autowire::class, $config->getChecker('checker'));
@@ -101,9 +101,9 @@ final class ConfigTest extends TestCase
         $config = new ValidatorConfig([
             'conditions' => [
                 'condition' => [
-                    'class' => self::class
-                ]
-            ]
+                    'class' => self::class,
+                ],
+            ],
         ]);
 
         $this->assertInstanceOf(Autowire::class, $config->getCondition('condition'));
@@ -115,9 +115,9 @@ final class ConfigTest extends TestCase
             'checkers' => [
                 'checker' => [
                     'class'   => self::class,
-                    'options' => []
-                ]
-            ]
+                    'options' => [],
+                ],
+            ],
         ]);
 
         $this->assertInstanceOf(Autowire::class, $config->getChecker('checker'));
@@ -129,9 +129,9 @@ final class ConfigTest extends TestCase
             'conditions' => [
                 'condition' => [
                     'class'   => self::class,
-                    'options' => []
-                ]
-            ]
+                    'options' => [],
+                ],
+            ],
         ]);
 
         $this->assertInstanceOf(Autowire::class, $config->getCondition('condition'));
@@ -143,8 +143,8 @@ final class ConfigTest extends TestCase
 
         $config = new ValidatorConfig([
             'checkers' => [
-                'checker' => []
-            ]
+                'checker' => [],
+            ],
         ]);
 
         $config->getChecker('checker');
@@ -156,8 +156,8 @@ final class ConfigTest extends TestCase
 
         $config = new ValidatorConfig([
             'conditions' => [
-                'condition' => []
-            ]
+                'condition' => [],
+            ],
         ]);
 
         $config->getCondition('condition');

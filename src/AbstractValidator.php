@@ -15,24 +15,8 @@ abstract class AbstractValidator implements ValidatorInterface
     public function __construct(
         private array $rules,
         private mixed $context,
-        private RulesInterface $provider
-    ) {
-    }
-
-    /**
-     * Destruct the service.
-     */
-    public function __destruct()
-    {
-        $this->rules = [];
-        unset($this->provider);
-        $this->errors = [];
-    }
-
-    public function __clone()
-    {
-        $this->errors = [];
-    }
+        private RulesInterface $provider,
+    ) {}
 
     public function withContext(mixed $context): ValidatorInterface
     {
@@ -65,6 +49,21 @@ abstract class AbstractValidator implements ValidatorInterface
     public function hasError(string $field): bool
     {
         return isset($this->getErrors()[$field]);
+    }
+
+    public function __clone()
+    {
+        $this->errors = [];
+    }
+
+    /**
+     * Destruct the service.
+     */
+    public function __destruct()
+    {
+        $this->rules = [];
+        unset($this->provider);
+        $this->errors = [];
     }
 
     /**

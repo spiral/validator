@@ -21,9 +21,8 @@ class ArrayChecker extends AbstractChecker
     ];
 
     public function __construct(
-        private ValidationInterface $validation
-    ) {
-    }
+        private ValidationInterface $validation,
+    ) {}
 
     public function of(mixed $value, CheckerInterface|string|array $checker): bool
     {
@@ -94,6 +93,6 @@ class ArrayChecker extends AbstractChecker
             return false;
         }
 
-        return [] === array_diff($value, $expectedValues);
+        return array_diff($value, $expectedValues) === [];
     }
 }

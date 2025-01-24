@@ -88,11 +88,11 @@ final class RuleParser implements ParserInterface
         foreach (self::CONDITIONS as $index) {
             if (isset($chunk[$index])) {
                 $conditions = [];
-                foreach ((array)$chunk[$index] as $key => $value) {
+                foreach ((array) $chunk[$index] as $key => $value) {
                     if (\is_numeric($key)) {
                         $conditions[$value] = [];
                     } else {
-                        $conditions[$key] = (array)$value;
+                        $conditions[$key] = (array) $value;
                     }
                 }
 

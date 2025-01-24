@@ -24,20 +24,20 @@ final class ErrorsTest extends BaseTestCase
          */
         $validator = $this->validation->validate(
             [
-                'name' => 'email'
+                'name' => 'email',
             ],
             [
                 'name' => [
                     'notEmpty',
                     'email',
-                    ['string::regexp', '/^email@domain\.com$/']
-                ]
-            ]
+                    ['string::regexp', '/^email@domain\.com$/'],
+                ],
+            ],
         );
 
         $this->assertSame(
             'Must be a valid email address.',
-            $validator->getErrors()['name']
+            $validator->getErrors()['name'],
         );
     }
 }

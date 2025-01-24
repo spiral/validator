@@ -72,7 +72,7 @@ final class StringChecker extends AbstractChecker
      */
     public function empty(mixed $value): bool
     {
-        return \is_string($value) && '' === trim($value);
+        return \is_string($value) && trim($value) === '';
     }
 
     /**
@@ -80,6 +80,6 @@ final class StringChecker extends AbstractChecker
      */
     public function notEmpty(mixed $value): bool
     {
-        return \is_string($value) && '' !== trim($value);
+        return \is_string($value) && trim($value) !== '';
     }
 }

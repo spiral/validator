@@ -12,6 +12,23 @@ use Spiral\Validator\App\Request\SimpleFilter;
 
 final class ValidationTest extends BaseTestCase
 {
+    public static function requestsSuccessProvider(): \Traversable
+    {
+        yield [SimpleFilter::class, ['username' => 'foo', 'email' => 'foo@gmail.com']];
+        yield [FilterWithArrayMapping::class, ['username' => 'foo', 'email' => 'foo@gmail.com']];
+    }
+
+    public static function requestsErrorProvider(): \Traversable
+    {
+        yield [SimpleFilter::class, ['email' => 'foo@gmail.com']];
+        yield [SimpleFilter::class, ['username' => 'foo']];
+        yield [SimpleFilter::class, ['username' => 'foo', 'email' => 'foo']];
+
+        yield [FilterWithArrayMapping::class, ['email' => 'foo@gmail.com']];
+        yield [FilterWithArrayMapping::class, ['username' => 'foo']];
+        yield [FilterWithArrayMapping::class, ['username' => 'foo', 'email' => 'foo']];
+    }
+
     #[DataProvider('requestsSuccessProvider')]
     public function testValidationSuccess(string $filterClass, array $data): void
     {
@@ -31,38 +48,19 @@ final class ValidationTest extends BaseTestCase
         $this->getContainer()->get($filterClass);
     }
 
-    public static function requestsSuccessProvider(): \Traversable
-    {
-        yield [SimpleFilter::class, ['username' => 'foo', 'email' => 'foo@gmail.com']];
-        yield [FilterWithArrayMapping::class, ['username' => 'foo', 'email' => 'foo@gmail.com']];
-    }
-
-    public static function requestsErrorProvider(): \Traversable
-    {
-        yield [SimpleFilter::class, ['email' => 'foo@gmail.com']];
-        yield [SimpleFilter::class, ['username' => 'foo']];
-        yield [SimpleFilter::class, ['username' => 'foo', 'email' => 'foo']];
-
-        yield [FilterWithArrayMapping::class, ['email' => 'foo@gmail.com']];
-        yield [FilterWithArrayMapping::class, ['username' => 'foo']];
-        yield [FilterWithArrayMapping::class, ['username' => 'foo', 'email' => 'foo']];
-    }
-
     private function initInputScope(array $data): InputInterface
     {
         return new class($data) implements InputInterface {
-
             public function __construct(
-                private array $data
-            ) {
-            }
+                private array $data,
+            ) {}
 
             public function withPrefix(string $prefix, bool $add = true): InputInterface
             {
                 return $this;
             }
 
-            public function getValue(string $source, string $name = null): mixed
+            public function getValue(string $source, ?string $name = null): mixed
             {
                 return $this->data[$name] ?? null;
             }

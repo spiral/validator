@@ -11,21 +11,6 @@ use Spiral\Validator\Checker\DatetimeChecker;
 
 final class DatetimeTest extends TestCase
 {
-    /**
-     * @param bool $expected
-     * @param      $now
-     * @param      $value
-     * @param bool $orNow
-     * @param bool $useMicroseconds
-     */
-    #[DataProvider('nowProvider')]
-    public function testNow(bool $expected, $now, $value, bool $orNow, bool $useMicroseconds): void
-    {
-        $checker = new DatetimeChecker($now);
-
-        $this->assertSame($expected, $checker->future($value, $orNow, $useMicroseconds));
-    }
-
     public static function nowProvider(): iterable
     {
         $now = new \DateTime();
@@ -35,7 +20,7 @@ final class DatetimeTest extends TestCase
 
         yield from [
             [false, $callableNow, $now, false, true],
-            [true, $callableNow, $now, true, true]
+            [true, $callableNow, $now, true, true],
         ];
 
         $callableFutureTime = static function () {
@@ -64,26 +49,6 @@ final class DatetimeTest extends TestCase
         ];
     }
 
-    /**
-     *
-     * @param bool  $expected
-     * @param mixed $value
-     * @param bool  $orNow
-     * @param bool  $useMicroseconds
-     */
-    #[DataProvider('futureProvider')]
-    public function testFuture(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
-    {
-        $value = $value instanceof \Closure ? $value() : $value;
-
-        $checker = new DatetimeChecker();
-
-        $this->assertSame($expected, $checker->future($value, $orNow, $useMicroseconds));
-    }
-
-    /**
-     * @return array
-     */
     public static function futureProvider(): array
     {
         return [
@@ -120,25 +85,6 @@ final class DatetimeTest extends TestCase
         ];
     }
 
-    /**
-     * @param bool  $expected
-     * @param mixed $value
-     * @param bool  $orNow
-     * @param bool  $useMicroseconds
-     */
-    #[DataProvider('pastProvider')]
-    public function testPast(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
-    {
-        $value = $value instanceof \Closure ? $value() : $value;
-
-        $checker = new DatetimeChecker();
-
-        $this->assertSame($expected, $checker->past($value, $orNow, $useMicroseconds));
-    }
-
-    /**
-     * @return array
-     */
     public static function pastProvider(): array
     {
         return [
@@ -170,22 +116,6 @@ final class DatetimeTest extends TestCase
         ];
     }
 
-    /**
-     * @param bool   $expected
-     * @param mixed  $value
-     * @param string $format
-     */
-    #[DataProvider('formatProvider')]
-    public function testFormat(bool $expected, $value, string $format): void
-    {
-        $checker = new DatetimeChecker();
-
-        $this->assertSame($expected, $checker->format($value, $format));
-    }
-
-    /**
-     * @return array
-     */
     public static function formatProvider(): array
     {
         return [
@@ -205,18 +135,6 @@ final class DatetimeTest extends TestCase
             [false, '-2019-12-Nov', 'Y-m-d'],
             [false, '2019-12-Abc', 'Y-d-M'],
         ];
-    }
-
-    /**
-     * @param bool  $expected
-     * @param mixed $value
-     */
-    #[DataProvider('validProvider')]
-    public function testValid(bool $expected, $value): void
-    {
-        $checker = new DatetimeChecker();
-
-        $this->assertSame($expected, $checker->valid($value));
     }
 
     /**
@@ -320,51 +238,6 @@ final class DatetimeTest extends TestCase
         ];
     }
 
-    public function testTimezone(): void
-    {
-        $checker = new DatetimeChecker();
-
-        foreach (\DateTimeZone::listIdentifiers() as $identifier) {
-            $this->assertTrue($checker->timezone($identifier));
-            $this->assertFalse($checker->timezone(str_rot13($identifier)));
-        }
-
-        $this->assertFalse($checker->timezone('Any zone'));
-    }
-
-    /**
-     * @param bool  $expected
-     * @param mixed $value
-     * @param mixed $threshold
-     * @param bool  $orEquals
-     * @param bool  $useMicroseconds
-     */
-    #[DataProvider('beforeProvider')]
-    public function testBefore(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
-    {
-        $value = $value instanceof \Closure ? $value() : $value;
-
-        $checker = new DatetimeChecker();
-
-        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
-        $mock->method('getValue')->with('threshold')->willReturn($threshold);
-
-        /** @var ValidatorInterface $mock */
-        $this->assertSame(
-            $expected,
-            $checker->check(
-                $mock,
-                'before',
-                'field',
-                $value,
-                ['threshold', $orEquals, $useMicroseconds]
-            )
-        );
-    }
-
-    /**
-     * @return array
-     */
     public static function beforeProvider(): array
     {
         return [
@@ -398,39 +271,6 @@ final class DatetimeTest extends TestCase
         ];
     }
 
-    /**
-     * @param bool  $expected
-     * @param mixed $value
-     * @param mixed $threshold
-     * @param bool  $orEquals
-     * @param bool  $useMicroseconds
-     */
-    #[DataProvider('afterProvider')]
-    public function testAfter(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
-    {
-        $value = $value instanceof \Closure ? $value() : $value;
-
-        $checker = new DatetimeChecker();
-
-        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
-        $mock->method('getValue')->with('threshold')->willReturn($threshold);
-
-        /** @var ValidatorInterface $mock */
-        $this->assertSame(
-            $expected,
-            $checker->check(
-                $mock,
-                'after',
-                'field',
-                $value,
-                ['threshold', $orEquals, $useMicroseconds]
-            )
-        );
-    }
-
-    /**
-     * @return array
-     */
     public static function afterProvider(): array
     {
         return [
@@ -463,11 +303,127 @@ final class DatetimeTest extends TestCase
         ];
     }
 
-    private function now(): \Closure
+    #[DataProvider('nowProvider')]
+    public function testNow(bool $expected, $now, $value, bool $orNow, bool $useMicroseconds): void
     {
-        return static function () {
-            return \time();
-        };
+        $checker = new DatetimeChecker($now);
+
+        $this->assertSame($expected, $checker->future($value, $orNow, $useMicroseconds));
+    }
+
+    /**
+     *
+     * @param mixed $value
+     */
+    #[DataProvider('futureProvider')]
+    public function testFuture(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
+    {
+        $value = $value instanceof \Closure ? $value() : $value;
+
+        $checker = new DatetimeChecker();
+
+        $this->assertSame($expected, $checker->future($value, $orNow, $useMicroseconds));
+    }
+
+    /**
+     * @param mixed $value
+     */
+    #[DataProvider('pastProvider')]
+    public function testPast(bool $expected, $value, bool $orNow, bool $useMicroseconds): void
+    {
+        $value = $value instanceof \Closure ? $value() : $value;
+
+        $checker = new DatetimeChecker();
+
+        $this->assertSame($expected, $checker->past($value, $orNow, $useMicroseconds));
+    }
+
+    /**
+     * @param mixed  $value
+     */
+    #[DataProvider('formatProvider')]
+    public function testFormat(bool $expected, $value, string $format): void
+    {
+        $checker = new DatetimeChecker();
+
+        $this->assertSame($expected, $checker->format($value, $format));
+    }
+
+    /**
+     * @param mixed $value
+     */
+    #[DataProvider('validProvider')]
+    public function testValid(bool $expected, $value): void
+    {
+        $checker = new DatetimeChecker();
+
+        $this->assertSame($expected, $checker->valid($value));
+    }
+
+    public function testTimezone(): void
+    {
+        $checker = new DatetimeChecker();
+
+        foreach (\DateTimeZone::listIdentifiers() as $identifier) {
+            $this->assertTrue($checker->timezone($identifier));
+            $this->assertFalse($checker->timezone(str_rot13($identifier)));
+        }
+
+        $this->assertFalse($checker->timezone('Any zone'));
+    }
+
+    /**
+     * @param mixed $value
+     * @param mixed $threshold
+     */
+    #[DataProvider('beforeProvider')]
+    public function testBefore(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
+    {
+        $value = $value instanceof \Closure ? $value() : $value;
+
+        $checker = new DatetimeChecker();
+
+        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
+        $mock->method('getValue')->with('threshold')->willReturn($threshold);
+
+        /** @var ValidatorInterface $mock */
+        $this->assertSame(
+            $expected,
+            $checker->check(
+                $mock,
+                'before',
+                'field',
+                $value,
+                ['threshold', $orEquals, $useMicroseconds],
+            ),
+        );
+    }
+
+    /**
+     * @param mixed $value
+     * @param mixed $threshold
+     */
+    #[DataProvider('afterProvider')]
+    public function testAfter(bool $expected, $value, $threshold, bool $orEquals, bool $useMicroseconds): void
+    {
+        $value = $value instanceof \Closure ? $value() : $value;
+
+        $checker = new DatetimeChecker();
+
+        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
+        $mock->method('getValue')->with('threshold')->willReturn($threshold);
+
+        /** @var ValidatorInterface $mock */
+        $this->assertSame(
+            $expected,
+            $checker->check(
+                $mock,
+                'after',
+                'field',
+                $value,
+                ['threshold', $orEquals, $useMicroseconds],
+            ),
+        );
     }
 
     private static function inFuture(int $seconds): \Closure
@@ -481,6 +437,13 @@ final class DatetimeTest extends TestCase
     {
         return static function () use ($seconds) {
             return \time() - $seconds;
+        };
+    }
+
+    private function now(): \Closure
+    {
+        return static function () {
+            return \time();
         };
     }
 }

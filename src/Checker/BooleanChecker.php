@@ -17,11 +17,11 @@ final class BooleanChecker extends AbstractChecker
 
     public function isTrue(mixed $value): bool
     {
-        return true === $value;
+        return $value === true;
     }
 
     public function isFalse(mixed $value): bool
     {
-        return false === $value;
+        return $value === false;
     }
 }

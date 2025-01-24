@@ -13,7 +13,7 @@ class ThresholdChecker
         ?\DateTimeInterface $value,
         ?\DateTimeInterface $threshold,
         bool $orEquals = false,
-        bool $useMicroSeconds = false
+        bool $useMicroSeconds = false,
     ): bool {
         $compare = $this->compare($this->date($value), $this->date($threshold), $useMicroSeconds);
         if (\is_bool($compare)) {
@@ -30,7 +30,7 @@ class ThresholdChecker
         ?\DateTimeInterface $value,
         ?\DateTimeInterface $threshold,
         bool $orEquals = false,
-        bool $useMicroSeconds = false
+        bool $useMicroSeconds = false,
     ): bool {
         $compare = $this->compare($this->date($value), $this->date($threshold), $useMicroSeconds);
         if (\is_bool($compare)) {
@@ -45,7 +45,7 @@ class ThresholdChecker
         return match (true) {
             $value instanceof \DateTimeImmutable => $value,
             $value instanceof \DateTime => \DateTimeImmutable::createFromMutable($value),
-            default => null
+            default => null,
         };
     }
 
@@ -70,9 +70,9 @@ class ThresholdChecker
     private function dropMicroSeconds(\DateTimeImmutable $date): \DateTimeImmutable
     {
         return $date->setTime(
-            (int)$date->format('H'),
-            (int)$date->format('i'),
-            (int)$date->format('s')
+            (int) $date->format('H'),
+            (int) $date->format('i'),
+            (int) $date->format('s'),
         );
     }
 }

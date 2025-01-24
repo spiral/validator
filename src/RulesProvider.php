@@ -12,18 +12,17 @@ use Spiral\Validator\Config\ValidatorConfig;
 
 final class RulesProvider implements RulesInterface
 {
-    public function __construct(
-        private readonly ValidatorConfig $config,
-        private readonly ParserInterface $parser = new RuleParser(),
-        private readonly FactoryInterface $factory = new Container()
-    ) {
-    }
-
     /** @var RuleInterface[] */
     private array $rules = [];
 
+    public function __construct(
+        private readonly ValidatorConfig $config,
+        private readonly ParserInterface $parser = new RuleParser(),
+        private readonly FactoryInterface $factory = new Container(),
+    ) {}
+
     /**
-     * @inheritdoc
+     * @inheritDoc
      *
      * Attention, for performance reasons method would cache all defined rules.
      */
@@ -46,7 +45,7 @@ final class RulesProvider implements RulesInterface
 
             $check = $this->makeRule(
                 $this->config->mapFunction($function),
-                $rule
+                $rule,
             );
 
             yield $this->rules[$id] = $check->withConditions($this->makeConditions($conditions));

@@ -22,7 +22,7 @@ class SimpleFilter extends Filter implements HasFilterDefinition
     {
         return new FilterDefinition([
             'username' => ['string', 'required'],
-            'email' => ['email', 'required']
+            'email' => ['email', 'required'],
         ]);
     }
 }

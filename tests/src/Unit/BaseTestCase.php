@@ -27,7 +27,7 @@ abstract class BaseTestCase extends TestCase
             'image'   => ImageChecker::class,
             'type'    => TypeChecker::class,
             'address' => AddressChecker::class,
-            'string'  => StringChecker::class
+            'string'  => StringChecker::class,
         ],
         'aliases'  => [
             'notEmpty' => 'type::notEmpty',
@@ -60,7 +60,7 @@ abstract class BaseTestCase extends TestCase
     {
         $this->assertTrue(
             $this->validation->validate($data, $rules)->isValid(),
-            'Validation FAILED'
+            'Validation FAILED',
         );
     }
 

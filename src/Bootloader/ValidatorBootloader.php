@@ -22,17 +22,15 @@ use Spiral\Validator\Validation;
 final class ValidatorBootloader extends Bootloader
 {
     protected const DEPENDENCIES = [
-        ValidationBootloader::class
+        ValidationBootloader::class,
     ];
-
     protected const SINGLETONS = [
         RulesInterface::class => RulesProvider::class,
     ];
 
     public function __construct(
-        private readonly ConfiguratorInterface $config
-    ) {
-    }
+        private readonly ConfiguratorInterface $config,
+    ) {}
 
     public function init(TokenizerBootloader $tokenizer): void
     {
@@ -43,7 +41,7 @@ final class ValidatorBootloader extends Bootloader
     {
         $provider->register(
             FilterDefinition::class,
-            static fn(Validation $validation): ValidationInterface => $validation
+            static fn(Validation $validation): ValidationInterface => $validation,
         );
         $validation->setDefaultValidator(FilterDefinition::class);
     }
@@ -130,12 +128,12 @@ final class ValidatorBootloader extends Bootloader
                     'string'     => 'is_string',
                     'match'      => 'mixed::match',
                 ],
-            ]
+            ],
         );
 
         $tokenizer->addDirectory(\dirname(
             (new \ReflectionClass(FilterDefinition::class))
-                ->getFileName()
+                ->getFileName(),
         ));
     }
 }

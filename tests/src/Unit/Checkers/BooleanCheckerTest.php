@@ -10,13 +10,6 @@ use Spiral\Validator\Tests\Unit\BaseTestCase;
 
 final class BooleanCheckerTest extends BaseTestCase
 {
-    #[DataProvider('dataIsTrue')]
-    public function testIsAssoc(mixed $value, bool $expectedResult): void
-    {
-        $checker = new BooleanChecker();
-        self::assertSame($expectedResult, $checker->isTrue($value));
-    }
-
     public static function dataIsTrue(): iterable
     {
         yield [true, true];
@@ -31,13 +24,6 @@ final class BooleanCheckerTest extends BaseTestCase
         yield [new \stdClass(), false];
     }
 
-    #[DataProvider('dataIsFalse')]
-    public function testIsFalse(mixed $value, bool $expectedResult): void
-    {
-        $checker = new BooleanChecker();
-        self::assertSame($expectedResult, $checker->isFalse($value));
-    }
-
     public static function dataIsFalse(): iterable
     {
         yield [true, false];
@@ -50,5 +36,19 @@ final class BooleanCheckerTest extends BaseTestCase
         yield ['foo', false];
         yield [null, false];
         yield [new \stdClass(), false];
+    }
+
+    #[DataProvider('dataIsTrue')]
+    public function testIsAssoc(mixed $value, bool $expectedResult): void
+    {
+        $checker = new BooleanChecker();
+        self::assertSame($expectedResult, $checker->isTrue($value));
+    }
+
+    #[DataProvider('dataIsFalse')]
+    public function testIsFalse(mixed $value, bool $expectedResult): void
+    {
+        $checker = new BooleanChecker();
+        self::assertSame($expectedResult, $checker->isFalse($value));
     }
 }

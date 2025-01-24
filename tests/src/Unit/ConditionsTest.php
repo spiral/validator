@@ -23,7 +23,7 @@ final class ConditionsTest extends BaseTestCase
             'image'   => ImageChecker::class,
             'type'    => TypeChecker::class,
             'address' => AddressChecker::class,
-            'string'  => StringChecker::class
+            'string'  => StringChecker::class,
         ],
         'conditions' => [
             'absent'     => Condition\AbsentCondition::class,
@@ -43,15 +43,8 @@ final class ConditionsTest extends BaseTestCase
         ],
     ];
 
-
     /** @var RulesInterface */
     protected $rules;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->rules = $this->container->get(RulesInterface::class);
-    }
 
     public function testUnknown(): void
     {
@@ -61,7 +54,7 @@ final class ConditionsTest extends BaseTestCase
             'i' => [
                 'in_array',
                 ['a', 'b'],
-                'if' => 'unknownCondition'
+                'if' => 'unknownCondition',
             ],
         ]);
 
@@ -74,8 +67,8 @@ final class ConditionsTest extends BaseTestCase
             'i' => [
                 'in_array',
                 ['a', 'b'],
-                'if' => TestCondition::class
-            ]
+                'if' => TestCondition::class,
+            ],
         ]);
 
         foreach ($rules as $rule) {
@@ -95,8 +88,8 @@ final class ConditionsTest extends BaseTestCase
             'i' => [
                 'in_array',
                 ['a', 'b'],
-                'if' => [PayloadCondition::class => 'j']
-            ]
+                'if' => [PayloadCondition::class => 'j'],
+            ],
         ]);
 
         $validator = $this->validation->validate(['i' => 1, 'j' => 2], [], ['k' => 3]);
@@ -115,18 +108,18 @@ final class ConditionsTest extends BaseTestCase
     {
         $this->assertValid(
             ['i' => 'a',],
-            ['i' => [['notEmpty', 'if' => ['absent' => ['b', 'c']]]]]
+            ['i' => [['notEmpty', 'if' => ['absent' => ['b', 'c']]]]],
         );
 
         $this->assertValid(
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['i' => [['is_bool', 'if' => ['absent' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['absent' => ['b', 'c']]]]],
         );
 
         $this->assertNotValid(
             'i',
             ['i' => 'a'],
-            ['i' => [['is_bool', 'if' => ['absent' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['absent' => ['b', 'c']]]]],
         );
     }
 
@@ -134,24 +127,24 @@ final class ConditionsTest extends BaseTestCase
     {
         $this->assertValid(
             ['i' => '',],
-            ['i' => [['notEmpty', 'if' => ['present' => ['b', 'c']]]]]
+            ['i' => [['notEmpty', 'if' => ['present' => ['b', 'c']]]]],
         );
 
         $this->assertValid(
             ['b' => 'b',],
-            ['i' => [['notEmpty', 'if' => ['present' => ['i']]]]]
+            ['i' => [['notEmpty', 'if' => ['present' => ['i']]]]],
         );
 
         $this->assertNotValid(
             'i',
             ['i' => '',],
-            ['i' => [['notEmpty', 'if' => ['present' => ['i']]]]]
+            ['i' => [['notEmpty', 'if' => ['present' => ['i']]]]],
         );
 
         $this->assertNotValid(
             'i',
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['i' => [['is_bool', 'if' => ['present' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['present' => ['b', 'c']]]]],
         );
     }
 
@@ -159,19 +152,19 @@ final class ConditionsTest extends BaseTestCase
     {
         $this->assertValid(
             ['i' => 'a',],
-            ['i' => [['is_bool', 'if' => ['withAny' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withAny' => ['b', 'c']]]]],
         );
 
         $this->assertNotValid(
             'i',
             ['i' => 'a', 'b' => 'b'],
-            ['i' => [['is_bool', 'if' => ['withAny' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withAny' => ['b', 'c']]]]],
         );
 
         $this->assertNotValid(
             'i',
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['i' => [['is_bool', 'if' => ['withAny' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withAny' => ['b', 'c']]]]],
         );
     }
 
@@ -179,18 +172,18 @@ final class ConditionsTest extends BaseTestCase
     {
         $this->assertValid(
             ['i' => 'a',],
-            ['i' => [['is_bool', 'if' => ['withAll' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withAll' => ['b', 'c']]]]],
         );
 
         $this->assertValid(
             ['i' => 'a', 'b' => 'b'],
-            ['i' => [['is_bool', 'if' => ['withAll' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withAll' => ['b', 'c']]]]],
         );
 
         $this->assertNotValid(
             'i',
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['i' => [['is_bool', 'if' => ['withAll' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withAll' => ['b', 'c']]]]],
         );
     }
 
@@ -199,18 +192,18 @@ final class ConditionsTest extends BaseTestCase
         $this->assertNotValid(
             'i',
             ['i' => 'a',],
-            ['i' => [['is_bool', 'if' => ['withoutAny' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withoutAny' => ['b', 'c']]]]],
         );
 
         $this->assertNotValid(
             'i',
             ['i' => 'a', 'b' => 'b'],
-            ['i' => [['is_bool', 'if' => ['withoutAny' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withoutAny' => ['b', 'c']]]]],
         );
 
         $this->assertValid(
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['i' => [['is_bool', 'if' => ['withoutAny' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withoutAny' => ['b', 'c']]]]],
         );
     }
 
@@ -219,17 +212,17 @@ final class ConditionsTest extends BaseTestCase
         $this->assertNotValid(
             'i',
             ['i' => 'a',],
-            ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]],
         );
 
         $this->assertValid(
             ['i' => 'a', 'b' => 'b'],
-            ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]],
         );
 
         $this->assertValid(
             ['i' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]]
+            ['i' => [['is_bool', 'if' => ['withoutAll' => ['b', 'c']]]]],
         );
     }
 
@@ -237,21 +230,21 @@ final class ConditionsTest extends BaseTestCase
     {
         $this->assertValid(
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withoutAll' => 'c']]]]
+            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withoutAll' => 'c']]]],
         );
         $this->assertValid(
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withAll2' => 'd']]]]
+            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withAll2' => 'd']]]],
         );
         $this->assertNotValid(
             'a',
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withAll2' => 'c']]]]
+            ['a' => [['is_bool', 'if' => ['withAll' => 'b', 'withAll2' => 'c']]]],
         );
         $this->assertNotValid(
             'a',
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => []]]]
+            ['a' => [['is_bool', 'if' => []]]],
         );
     }
 
@@ -260,21 +253,21 @@ final class ConditionsTest extends BaseTestCase
         $this->assertNotValid(
             'a',
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'b', 'withoutAll' => 'c']]]]]
+            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'b', 'withoutAll' => 'c']]]]],
         );
         $this->assertNotValid(
             'a',
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]]
+            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]],
         );
         $this->assertNotValid(
             'a',
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['anyOf' => []]]]]
+            ['a' => [['is_bool', 'if' => ['anyOf' => []]]]],
         );
         $this->assertValid(
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'd', 'withoutAll' => 'c']]]]]
+            ['a' => [['is_bool', 'if' => ['anyOf' => ['withAll' => 'd', 'withoutAll' => 'c']]]]],
         );
     }
 
@@ -283,20 +276,26 @@ final class ConditionsTest extends BaseTestCase
         $this->assertNotValid(
             'a',
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['noneOf' => ['withoutAll' => ['b', 'c']]]]]]
+            ['a' => [['is_bool', 'if' => ['noneOf' => ['withoutAll' => ['b', 'c']]]]]],
         );
         $this->assertValid(
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['noneOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]]
+            ['a' => [['is_bool', 'if' => ['noneOf' => ['withAll' => 'b', 'withAll2' => 'd']]]]],
         );
         $this->assertValid(
             ['a' => 'a', 'b' => 'b', 'c' => 'c'],
-            ['a' => [['is_bool', 'if' => ['noneOf' => ['withAll' => 'b', 'withAll2' => 'c']]]]]
+            ['a' => [['is_bool', 'if' => ['noneOf' => ['withAll' => 'b', 'withAll2' => 'c']]]]],
         );
         $this->assertNotValid(
             'a',
             ['a' => 'a'],
-            ['a' => [['is_bool', 'if' => ['noneOf' => []]]]]
+            ['a' => [['is_bool', 'if' => ['noneOf' => []]]]],
         );
+    }
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->rules = $this->container->get(RulesInterface::class);
     }
 }

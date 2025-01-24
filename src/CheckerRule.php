@@ -15,9 +15,8 @@ final class CheckerRule extends AbstractRule
         private readonly CheckerInterface $checker,
         private readonly string $method,
         private readonly array $args = [],
-        private readonly ?string $message = null
-    ) {
-    }
+        private readonly ?string $message = null,
+    ) {}
 
     public function ignoreEmpty(mixed $value): bool
     {
@@ -34,7 +33,7 @@ final class CheckerRule extends AbstractRule
         if (!empty($this->message)) {
             return $this->say(
                 $this->message,
-                \array_merge([$value, $field], $this->args)
+                \array_merge([$value, $field], $this->args),
             );
         }
 

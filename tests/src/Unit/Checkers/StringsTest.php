@@ -10,6 +10,34 @@ use Spiral\Validator\Checker\StringChecker;
 
 final class StringsTest extends TestCase
 {
+    public static function dataEmpty(): iterable
+    {
+        yield ['', true];
+        yield ["   \n     \t      ", true];
+        yield ['1', false];
+        yield ['0', false];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
+    public static function dataNotEmpty(): iterable
+    {
+        yield ['', false];
+        yield ["   \n     \t      ", false];
+        yield ['1', true];
+        yield ['0', true];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
     public function testShorter(): void
     {
         $checker = new StringChecker();
@@ -95,37 +123,9 @@ final class StringsTest extends TestCase
         self::assertSame($expectedResult, (new StringChecker())->empty($value));
     }
 
-    public static function dataEmpty(): iterable
-    {
-        yield ['', true];
-        yield ["   \n     \t      ", true];
-        yield ['1', false];
-        yield ['0', false];
-        //not string
-        yield [null, false];
-        yield [1, false];
-        yield [1.0, false];
-        yield [[], false];
-        yield [new \stdClass(), false];
-    }
-
     #[DataProvider('dataNotEmpty')]
     public function testNotEmpty(mixed $value, bool $expectedResult): void
     {
         self::assertSame($expectedResult, (new StringChecker())->notEmpty($value));
-    }
-
-    public static function dataNotEmpty(): iterable
-    {
-        yield ['', false];
-        yield ["   \n     \t      ", false];
-        yield ['1', true];
-        yield ['0', true];
-        //not string
-        yield [null, false];
-        yield [1, false];
-        yield [1.0, false];
-        yield [[], false];
-        yield [new \stdClass(), false];
     }
 }

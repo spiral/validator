@@ -95,7 +95,7 @@ final class ValidatorConfig extends InjectableConfig
         if (isset($this->config[$section][$name]['class'])) {
             return new Autowire(
                 $this->config[$section][$name]['class'],
-                $this->config[$section][$name]['options'] ?? []
+                $this->config[$section][$name]['options'] ?? [],
             );
         }
 
@@ -109,6 +109,6 @@ final class ValidatorConfig extends InjectableConfig
      */
     private function normalizeAliases(array $aliases): array
     {
-        return \array_map(static fn ($value) => \str_replace('::', ':', $value), $aliases);
+        return \array_map(static fn($value) => \str_replace('::', ':', $value), $aliases);
     }
 }

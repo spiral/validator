@@ -20,16 +20,15 @@ final class ImageChecker extends AbstractChecker
      * Getimagesize constants.
      */
     public const WIDTH      = 0;
+
     public const HEIGHT     = 1;
     public const IMAGE_TYPE = 2;
-
     public const MESSAGES = [
         'type'    => '[[Image format not supported.]]',
         'valid'   => '[[Image format not supported (allowed JPEG, PNG or GIF).]]',
         'smaller' => '[[Image size should not exceed {1}x{2}px.]]',
         'bigger'  => '[[The image dimensions should be at least {1}x{2}px.]]',
     ];
-
     public const ALLOW_EMPTY_VALUES = ['type', 'valid'];
 
     /**

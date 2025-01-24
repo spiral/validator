@@ -13,57 +13,49 @@ final class FileTest extends BaseTestCase
 {
     private $files;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->files = new Files();
-        $this->container->bind(FilesInterface::class, $this->files);
-    }
-
     public function testExists(): void
     {
         $this->assertNotValid('a', [], [
-            'a' => ['file:exists']
+            'a' => ['file:exists'],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => null
+            'a' => null,
         ], [
-            'a' => ['file:exists']
+            'a' => ['file:exists'],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => []
+            'a' => [],
         ], [
-            'a' => ['file:exists']
+            'a' => ['file:exists'],
         ]);
 
         $this->assertValid([
-            'a' => __FILE__
+            'a' => __FILE__,
         ], [
-            'a' => ['file:exists']
+            'a' => ['file:exists'],
         ]);
     }
 
     public function testFakeUpload(): void
     {
         $this->assertValid([
-            'a' => ['tmp_name' => __FILE__]
+            'a' => ['tmp_name' => __FILE__],
         ], [
-            'a' => ['file:exists']
+            'a' => ['file:exists'],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => ['tmp_name' => __FILE__]
+            'a' => ['tmp_name' => __FILE__],
         ], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
 
         $this->assertValid([
-            'a' => ['tmp_name' => __FILE__, 'uploaded' => true]
+            'a' => ['tmp_name' => __FILE__, 'uploaded' => true],
         ], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
     }
 
@@ -72,42 +64,42 @@ final class FileTest extends BaseTestCase
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0);
 
         $this->assertValid([
-            'a' => $uploaded
+            'a' => $uploaded,
         ], [
-            'a' => ['file:exists']
+            'a' => ['file:exists'],
         ]);
 
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 1);
 
         $this->assertNotValid('a', [
-            'a' => $uploaded
+            'a' => $uploaded,
         ], [
-            'a' => ['file:exists']
+            'a' => ['file:exists'],
         ]);
     }
 
     public function testUploaded(): void
     {
         $this->assertNotValid('a', [], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => null
+            'a' => null,
         ], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => []
+            'a' => [],
         ], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => __FILE__
+            'a' => __FILE__,
         ], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
     }
 
@@ -116,17 +108,17 @@ final class FileTest extends BaseTestCase
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0);
 
         $this->assertValid([
-            'a' => $uploaded
+            'a' => $uploaded,
         ], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
 
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 1);
 
         $this->assertNotValid('a', [
-            'a' => $uploaded
+            'a' => $uploaded,
         ], [
-            'a' => ['file:uploaded']
+            'a' => ['file:uploaded'],
         ]);
     }
 
@@ -135,56 +127,56 @@ final class FileTest extends BaseTestCase
         $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
 
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1023)
+            str_repeat('0', 1023),
         );
 
         clearstatcache();
         $this->assertValid([
-            'a' => $tmpFile
+            'a' => $tmpFile,
         ], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
 
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1024)
+            str_repeat('0', 1024),
         );
 
         clearstatcache();
         $this->assertValid([
-            'a' => $tmpFile
+            'a' => $tmpFile,
         ], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
 
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1025)
+            str_repeat('0', 1025),
         );
 
         clearstatcache();
         $this->assertNotValid('a', [
-            'a' => $tmpFile
+            'a' => $tmpFile,
         ], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
     }
 
@@ -193,71 +185,71 @@ final class FileTest extends BaseTestCase
         $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
 
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1023)
+            str_repeat('0', 1023),
         );
 
         clearstatcache();
         $this->assertValid([
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0)
+            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0),
         ], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
 
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1024)
+            str_repeat('0', 1024),
         );
 
         clearstatcache();
         $this->assertValid([
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0)
+            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0),
         ], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
 
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1025)
+            str_repeat('0', 1025),
         );
 
         clearstatcache();
         $this->assertNotValid('a', [
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0)
+            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0),
         ], [
             'a' => [
                 'file:exists',
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
 
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1023)
+            str_repeat('0', 1023),
         );
 
         clearstatcache();
         $this->assertNotValid('a', [
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 1)
+            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 1),
         ], [
             'a' => [
-                ['file:size', 1] //1Kb
-            ]
+                ['file:size', 1], //1Kb
+            ],
         ]);
     }
 
@@ -266,26 +258,26 @@ final class FileTest extends BaseTestCase
         $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
-                ['file:extension', 1] //1Kb
-            ]
+                ['file:extension', 1], //1Kb
+            ],
         ]);
 
         $this->assertValid([
-            'a' => __FILE__
+            'a' => __FILE__,
         ], [
             'a' => [
                 'file:exists',
-                ['file:extension', 'php']
-            ]
+                ['file:extension', 'php'],
+            ],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => __FILE__
+            'a' => __FILE__,
         ], [
             'a' => [
                 'file:exists',
-                ['file:extension', 'jpg']
-            ]
+                ['file:extension', 'jpg'],
+            ],
         ]);
     }
 
@@ -294,28 +286,36 @@ final class FileTest extends BaseTestCase
         $this->assertNotValid('a', [], [
             'a' => [
                 'file:exists',
-                ['file:extension', 1] //1Kb
-            ]
+                ['file:extension', 1], //1Kb
+            ],
         ]);
 
         $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0, 'file.php');
 
         $this->assertValid([
-            'a' => $uploaded
+            'a' => $uploaded,
         ], [
             'a' => [
                 'file:exists',
-                ['file:extension', 'php']
-            ]
+                ['file:extension', 'php'],
+            ],
         ]);
 
         $this->assertNotValid('a', [
-            'a' => $uploaded
+            'a' => $uploaded,
         ], [
             'a' => [
                 'file:exists',
-                ['file:extension', 'jpg']
-            ]
+                ['file:extension', 'jpg'],
+            ],
         ]);
+    }
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->files = new Files();
+        $this->container->bind(FilesInterface::class, $this->files);
     }
 }

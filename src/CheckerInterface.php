@@ -25,7 +25,7 @@ interface CheckerInterface
         string $method,
         string $field,
         mixed $value,
-        array $args = []
+        array $args = [],
     ): bool;
 
     /**
