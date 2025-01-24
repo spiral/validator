@@ -1,37 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="./vendor/autoload.php"
+         cacheResultFile="runtime/phpunit/result.cache"
          backupGlobals="false"
          colors="true"
-         verbose="true"
-         bootstrap="./vendor/autoload.php"
-         failOnRisky="false"
-         failOnWarning="true"
-         convertErrorsToExceptions="true"
-         convertNoticesToExceptions="true"
-         convertWarningsToExceptions="true"
+         processIsolation="false"
          stopOnFailure="false"
-         executionOrder="random"
-         resolveDependencies="true"
+         stopOnError="false"
+         stderr="true"
+         backupStaticProperties="false"
 >
-    <php>
-        <ini name="display_errors" value="On" />
-        <ini name="error_reporting" value="-1" />
-        <ini name="memory_limit" value="-1" />
-    </php>
-
     <testsuites>
         <testsuite name="Spiral Validator Test Suite">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>
-
     <coverage>
+        <report>
+            <html outputDirectory="runtime/phpunit/coverage"/>
+            <text outputFile="runtime/phpunit/coverage.txt"/>
+            <clover outputFile="runtime/phpunit/logs/clover.xml"/>
+        </report>
+    </coverage>
+    <source>
         <include>
             <directory>src</directory>
         </include>
         <exclude>
-            <directory>./tests</directory>
+            <directory>tests</directory>
         </exclude>
-    </coverage>
+    </source>
+    <php>
+        <ini name="display_errors" value="On"/>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="memory_limit" value="-1"/>
+    </php>
 </phpunit>

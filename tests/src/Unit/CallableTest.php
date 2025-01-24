@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit;
 
+use Spiral\Validator\Tests\Unit\Fixtures\Check;
 use Spiral\Validator\Tests\Unit\Fixtures\TestChecker;
 use Spiral\Validator\Tests\Unit\Fixtures\Value;
 use Spiral\Validator\Checker\TypeChecker;
@@ -104,12 +105,12 @@ final class CallableTest extends BaseTest
             'i' => 'third'
         ], [
             'i' => [
-                [[self::class, 'check']]
+                [[Check::class, 'check']]
             ]
         ]);
 
         $this->assertSame(
-            'The condition `Spiral\Validator\Tests\Unit\CallableTest::check` was not met.',
+            'The condition `Spiral\Validator\Tests\Unit\Fixtures\Check::check` was not met.',
             $v->getErrors()['i']
         );
     }
