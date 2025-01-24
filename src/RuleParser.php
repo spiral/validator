@@ -105,6 +105,6 @@ final class RuleParser implements ParserInterface
 
     protected function getID(mixed $rule): string
     {
-        return json_encode($rule);
+        return \json_encode($rule);
     }
 }

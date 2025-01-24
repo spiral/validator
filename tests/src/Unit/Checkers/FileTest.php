@@ -61,7 +61,7 @@ final class FileTest extends BaseTestCase
 
     public function testExistsStream(): void
     {
-        $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0);
+        $uploaded = new UploadedFile(__FILE__, \filesize(__FILE__), 0);
 
         $this->assertValid([
             'a' => $uploaded,
@@ -69,7 +69,7 @@ final class FileTest extends BaseTestCase
             'a' => ['file:exists'],
         ]);
 
-        $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 1);
+        $uploaded = new UploadedFile(__FILE__, \filesize(__FILE__), 1);
 
         $this->assertNotValid('a', [
             'a' => $uploaded,
@@ -105,7 +105,7 @@ final class FileTest extends BaseTestCase
 
     public function testUploadedSteam(): void
     {
-        $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0);
+        $uploaded = new UploadedFile(__FILE__, \filesize(__FILE__), 0);
 
         $this->assertValid([
             'a' => $uploaded,
@@ -113,7 +113,7 @@ final class FileTest extends BaseTestCase
             'a' => ['file:uploaded'],
         ]);
 
-        $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 1);
+        $uploaded = new UploadedFile(__FILE__, \filesize(__FILE__), 1);
 
         $this->assertNotValid('a', [
             'a' => $uploaded,
@@ -134,10 +134,10 @@ final class FileTest extends BaseTestCase
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1023),
+            \str_repeat('0', 1023),
         );
 
-        clearstatcache();
+        \clearstatcache();
         $this->assertValid([
             'a' => $tmpFile,
         ], [
@@ -150,10 +150,10 @@ final class FileTest extends BaseTestCase
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1024),
+            \str_repeat('0', 1024),
         );
 
-        clearstatcache();
+        \clearstatcache();
         $this->assertValid([
             'a' => $tmpFile,
         ], [
@@ -166,10 +166,10 @@ final class FileTest extends BaseTestCase
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1025),
+            \str_repeat('0', 1025),
         );
 
-        clearstatcache();
+        \clearstatcache();
         $this->assertNotValid('a', [
             'a' => $tmpFile,
         ], [
@@ -192,12 +192,12 @@ final class FileTest extends BaseTestCase
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1023),
+            \str_repeat('0', 1023),
         );
 
-        clearstatcache();
+        \clearstatcache();
         $this->assertValid([
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0),
+            'a' => new UploadedFile($tmpFile, \filesize($tmpFile), 0),
         ], [
             'a' => [
                 'file:exists',
@@ -208,12 +208,12 @@ final class FileTest extends BaseTestCase
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1024),
+            \str_repeat('0', 1024),
         );
 
-        clearstatcache();
+        \clearstatcache();
         $this->assertValid([
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0),
+            'a' => new UploadedFile($tmpFile, \filesize($tmpFile), 0),
         ], [
             'a' => [
                 'file:exists',
@@ -224,12 +224,12 @@ final class FileTest extends BaseTestCase
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1025),
+            \str_repeat('0', 1025),
         );
 
-        clearstatcache();
+        \clearstatcache();
         $this->assertNotValid('a', [
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 0),
+            'a' => new UploadedFile($tmpFile, \filesize($tmpFile), 0),
         ], [
             'a' => [
                 'file:exists',
@@ -240,12 +240,12 @@ final class FileTest extends BaseTestCase
         $tmpFile = $this->files->tempFilename();
         $this->files->write(
             $tmpFile,
-            str_repeat('0', 1023),
+            \str_repeat('0', 1023),
         );
 
-        clearstatcache();
+        \clearstatcache();
         $this->assertNotValid('a', [
-            'a' => new UploadedFile($tmpFile, filesize($tmpFile), 1),
+            'a' => new UploadedFile($tmpFile, \filesize($tmpFile), 1),
         ], [
             'a' => [
                 ['file:size', 1], //1Kb
@@ -290,7 +290,7 @@ final class FileTest extends BaseTestCase
             ],
         ]);
 
-        $uploaded = new UploadedFile(__FILE__, filesize(__FILE__), 0, 'file.php');
+        $uploaded = new UploadedFile(__FILE__, \filesize(__FILE__), 0, 'file.php');
 
         $this->assertValid([
             'a' => $uploaded,

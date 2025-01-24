@@ -131,6 +131,6 @@ final class ImageChecker extends AbstractChecker
             return false;
         }
 
-        return @getimagesize($filename);
+        return @\getimagesize($filename);
     }
 }

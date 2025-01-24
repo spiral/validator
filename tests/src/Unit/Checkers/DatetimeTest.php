@@ -24,7 +24,7 @@ final class DatetimeTest extends TestCase
         ];
 
         $callableFutureTime = static function () {
-            return time() + 1000;
+            return \time() + 1000;
         };
         yield from [
             [false, $callableFutureTime, $now, false, true],
@@ -32,7 +32,7 @@ final class DatetimeTest extends TestCase
         ];
 
         $callablePastTime = static function () {
-            return time() - 1000;
+            return \time() - 1000;
         };
         yield from [
             [true, $callablePastTime, $now, false, true],
@@ -142,10 +142,10 @@ final class DatetimeTest extends TestCase
      */
     public static function validProvider(): iterable
     {
-        yield [true, time() - 1000];
-        yield [true, time()];
-        yield [true, date('u')];
-        yield [true, time() + 1000];
+        yield [true, \time() - 1000];
+        yield [true, \time()];
+        yield [true, \date('u')];
+        yield [true, \time() + 1000];
         yield [true, ''];
         yield [true, 'tomorrow +2hours'];
         yield [true, 'yesterday -2hours'];
@@ -366,7 +366,7 @@ final class DatetimeTest extends TestCase
 
         foreach (\DateTimeZone::listIdentifiers() as $identifier) {
             $this->assertTrue($checker->timezone($identifier));
-            $this->assertFalse($checker->timezone(str_rot13($identifier)));
+            $this->assertFalse($checker->timezone(\str_rot13($identifier)));
         }
 
         $this->assertFalse($checker->timezone('Any zone'));

@@ -58,7 +58,7 @@ final class ConditionsTest extends BaseTestCase
             ],
         ]);
 
-        iterator_to_array($rules);
+        \iterator_to_array($rules);
     }
 
     public function testString(): void

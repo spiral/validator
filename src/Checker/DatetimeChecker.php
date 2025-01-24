@@ -138,7 +138,7 @@ final class DatetimeChecker extends AbstractChecker
             // in php below 8.2 a huge brute numeric values triggers exception
             if (\is_string($value)) {
                 $maxLen = self::LONGEST_STR_FORMAT_LEN;
-                if (is_numeric($value)) {
+                if (\is_numeric($value)) {
                     $maxLen =  self::LONGEST_INT_FORMAT_LEN;
                 }
                 if (\strlen($value) > $maxLen) {

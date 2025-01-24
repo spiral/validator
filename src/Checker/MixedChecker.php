@@ -65,7 +65,7 @@ final class MixedChecker extends AbstractChecker
      */
     public function accepted(mixed $value): bool
     {
-        return in_array($value, [true, 1, '1', 'yes', 'on'], true);
+        return \in_array($value, [true, 1, '1', 'yes', 'on'], true);
     }
 
     /**
@@ -73,6 +73,6 @@ final class MixedChecker extends AbstractChecker
      */
     public function declined(mixed $value): bool
     {
-        return in_array($value, [false, 0, '0', 'no', 'off'], true);
+        return \in_array($value, [false, 0, '0', 'no', 'off'], true);
     }
 }

@@ -186,7 +186,7 @@
   </file>
   <file src="src/Checker/Traits/FileTrait.php">
     <MissingClosureReturnType>
-      <code><![CDATA[static fn (array $file) =>]]></code>
+      <code><![CDATA[static fn(array $file) =>]]></code>
     </MissingClosureReturnType>
     <MixedArgument>
       <code><![CDATA[$file->getStream()]]></code>
@@ -265,17 +265,10 @@
     <DeprecatedTrait>
       <code><![CDATA[AliasTrait]]></code>
     </DeprecatedTrait>
-    <InvalidReturnStatement>
-      <code><![CDATA[\array_map(static fn ($value) => \str_replace('::', ':', $value), $aliases)]]></code>
-    </InvalidReturnStatement>
-    <InvalidReturnType>
-      <code><![CDATA[array<string>]]></code>
-    </InvalidReturnType>
     <MixedArgument>
       <code><![CDATA[$this->config[$section][$name]['class']]]></code>
       <code><![CDATA[$this->config[$section][$name]['options'] ?? []]]></code>
       <code><![CDATA[$this->config['aliases']]]></code>
-      <code><![CDATA[$value]]></code>
     </MixedArgument>
     <MixedArrayAccess>
       <code><![CDATA[$this->config[$section][$name]]]></code>

@@ -10,7 +10,6 @@
          stopOnError="false"
          stderr="true"
          backupStaticProperties="false"
-         displayDetailsOnPhpunitDeprecations="true"
          displayDetailsOnTestsThatTriggerDeprecations="true"
 >
     <testsuites>

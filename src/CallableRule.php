@@ -57,7 +57,7 @@ final class CallableRule extends AbstractRule
 
         $name = $this->check;
         if (\is_array($name) && isset($name[0], $name[1])) {
-            $name = sprintf(
+            $name = \sprintf(
                 '%s::%s',
                 \is_object($name[0]) ? $name[0]::class : $name,
                 $name[1],
