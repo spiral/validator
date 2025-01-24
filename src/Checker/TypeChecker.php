@@ -20,7 +20,6 @@ final class TypeChecker extends AbstractChecker
         'datetime' => '[[Not a valid datetime.]]',
         'timezone' => '[[Not a valid timezone.]]',
     ];
-
     public const ALLOW_EMPTY_VALUES = ['notEmpty', 'notNull'];
 
     /**
@@ -40,6 +39,6 @@ final class TypeChecker extends AbstractChecker
             return true;
         }
 
-        return  false === $strict && (\is_numeric($value) && ($value === 0 || $value === 1));
+        return  $strict === false && (\is_numeric($value) && ($value === 0 || $value === 1));
     }
 }

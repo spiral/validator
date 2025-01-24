@@ -6,7 +6,7 @@ namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Validator\Validator;
 
-final class ErrorsTest extends BaseTest
+final class ErrorsTest extends BaseTestCase
 {
     public function testHasError(): void
     {
@@ -24,20 +24,20 @@ final class ErrorsTest extends BaseTest
          */
         $validator = $this->validation->validate(
             [
-                'name' => 'email'
+                'name' => 'email',
             ],
             [
                 'name' => [
                     'notEmpty',
                     'email',
-                    ['string::regexp', '/^email@domain\.com$/']
-                ]
-            ]
+                    ['string::regexp', '/^email@domain\.com$/'],
+                ],
+            ],
         );
 
         $this->assertSame(
             'Must be a valid email address.',
-            $validator->getErrors()['name']
+            $validator->getErrors()['name'],
         );
     }
 }

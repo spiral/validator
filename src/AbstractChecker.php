@@ -36,7 +36,7 @@ abstract class AbstractChecker implements CheckerInterface
         string $method,
         string $field,
         mixed $value,
-        array $args = []
+        array $args = [],
     ): bool {
         try {
             $this->validator = $v;

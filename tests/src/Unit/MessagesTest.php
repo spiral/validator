@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit;
 
-final class MessagesTest extends BaseTest
+final class MessagesTest extends BaseTestCase
 {
     public function testDefault(): void
     {
@@ -28,8 +28,8 @@ final class MessagesTest extends BaseTest
     {
         $validator = $this->validation->validate([], [
             'name' => [
-                ['type::notEmpty', 'message' => 'Value is empty.']
-            ]
+                ['type::notEmpty', 'message' => 'Value is empty.'],
+            ],
         ]);
         $this->assertSame(['name' => 'Value is empty.'], $validator->getErrors());
     }
@@ -38,8 +38,8 @@ final class MessagesTest extends BaseTest
     {
         $validator = $this->validation->validate([], [
             'name' => [
-                ['type::notEmpty', 'msg' => 'Value is empty.']
-            ]
+                ['type::notEmpty', 'msg' => 'Value is empty.'],
+            ],
         ]);
         $this->assertSame(['name' => 'Value is empty.'], $validator->getErrors());
     }
@@ -48,8 +48,8 @@ final class MessagesTest extends BaseTest
     {
         $validator = $this->validation->validate([], [
             'name' => [
-                ['type::notEmpty', 'error' => 'Value is empty.']
-            ]
+                ['type::notEmpty', 'error' => 'Value is empty.'],
+            ],
         ]);
         $this->assertSame(['name' => 'Value is empty.'], $validator->getErrors());
     }
@@ -58,8 +58,8 @@ final class MessagesTest extends BaseTest
     {
         $validator = $this->validation->validate([], [
             'name' => [
-                ['type::notEmpty', 'err' => 'Value is empty.']
-            ]
+                ['type::notEmpty', 'err' => 'Value is empty.'],
+            ],
         ]);
         $this->assertSame(['name' => 'Value is empty.'], $validator->getErrors());
     }

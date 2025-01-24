@@ -19,7 +19,7 @@ use Spiral\Validation\ValidationInterface;
 use Spiral\Validator\RulesProvider;
 use Spiral\Validator\Validation;
 
-abstract class BaseTest extends TestCase
+abstract class BaseTestCase extends TestCase
 {
     public const CONFIG = [
         'checkers' => [
@@ -27,7 +27,7 @@ abstract class BaseTest extends TestCase
             'image'   => ImageChecker::class,
             'type'    => TypeChecker::class,
             'address' => AddressChecker::class,
-            'string'  => StringChecker::class
+            'string'  => StringChecker::class,
         ],
         'aliases'  => [
             'notEmpty' => 'type::notEmpty',
@@ -60,7 +60,7 @@ abstract class BaseTest extends TestCase
     {
         $this->assertTrue(
             $this->validation->validate($data, $rules)->isValid(),
-            'Validation FAILED'
+            'Validation FAILED',
         );
     }
 

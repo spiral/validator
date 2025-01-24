@@ -6,6 +6,4 @@ namespace Spiral\Validator\Exception;
 
 use Spiral\Validation\Exception\ValidationException;
 
-class ParserException extends ValidationException
-{
-}
+class ParserException extends ValidationException {}

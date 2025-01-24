@@ -12,18 +12,9 @@ final class Validator extends AbstractValidator
         private array $data,
         array $rules,
         mixed $context,
-        RulesInterface $ruleProvider
+        RulesInterface $ruleProvider,
     ) {
         parent::__construct($rules, $context, $ruleProvider);
-    }
-
-    /**
-     * Destruct the service.
-     */
-    public function __destruct()
-    {
-        unset($this->data);
-        parent::__destruct();
     }
 
     public function withData(mixed $data): ValidatorInterface
@@ -48,5 +39,14 @@ final class Validator extends AbstractValidator
     public function hasValue(string $field): bool
     {
         return \array_key_exists($field, $this->data);
+    }
+
+    /**
+     * Destruct the service.
+     */
+    public function __destruct()
+    {
+        unset($this->data);
+        parent::__destruct();
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Spiral\Validator\Tests\Functional;
 
 use Spiral\Validation\ValidationInterface;
@@ -7,7 +9,7 @@ use Spiral\Validation\ValidationInterface;
 /**
  * @coversDefaultClass \Spiral\Validator\Checker\DatetimeChecker
  */
-final class DatetimeCheckerTest extends BaseTest
+final class DatetimeCheckerTest extends BaseTestCase
 {
     /**
      * @covers ::after

@@ -10,9 +10,8 @@ use Spiral\Validator\AbstractCondition;
 class AnyOfCondition extends AbstractCondition
 {
     public function __construct(
-        private Compositor $compositor
-    ) {
-    }
+        private Compositor $compositor,
+    ) {}
 
     public function isMet(ValidatorInterface $validator, string $field, mixed $value): bool
     {

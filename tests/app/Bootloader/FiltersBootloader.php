@@ -40,9 +40,8 @@ final class FiltersBootloader extends Bootloader implements Container\InjectorIn
     public function __construct(
         private readonly ContainerInterface $container,
         private readonly BinderInterface $binder,
-        private readonly ConfiguratorInterface $config
-    ) {
-    }
+        private readonly ConfiguratorInterface $config,
+    ) {}
 
     public function init(): void
     {
@@ -55,7 +54,7 @@ final class FiltersBootloader extends Bootloader implements Container\InjectorIn
                     PopulateDataFromEntityInterceptor::class,
                     ValidateFilterInterceptor::class,
                 ],
-            ]
+            ],
         );
     }
 
@@ -63,26 +62,26 @@ final class FiltersBootloader extends Bootloader implements Container\InjectorIn
     {
         $this->config->modify(
             FiltersConfig::CONFIG,
-            new Append('interceptors', null, $interceptor)
+            new Append('interceptors', null, $interceptor),
         );
     }
 
     /**
      * @throws \Throwable
      */
-    public function createInjection(\ReflectionClass $class, string $context = null): FilterInterface
+    public function createInjection(\ReflectionClass $class, ?string $context = null): FilterInterface
     {
         /** @var FilterBag $filter */
         return $this->container->get(FilterProviderInterface::class)->createFilter(
             $class->getName(),
-            $this->container->get(InputInterface::class)
+            $this->container->get(InputInterface::class),
         );
     }
 
     private function initFilterProvider(
         Container $container,
         FiltersConfig $config,
-        ?EventDispatcherInterface $dispatcher = null
+        ?EventDispatcherInterface $dispatcher = null,
     ): FilterProvider {
         $core = new InterceptableCore(new Core(), $dispatcher);
 

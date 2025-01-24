@@ -4,40 +4,14 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validation\ValidatorInterface;
 use Spiral\Validator\Checker\MixedChecker;
 
 final class MixedTest extends TestCase
 {
-    /**
-     * @dataProvider cardsProvider
-     * @param bool $expected
-     * @param mixed $card
-     */
-    public function testCardNumber(bool $expected, $card): void
-    {
-        $checker = new MixedChecker();
-
-        $this->assertEquals($expected, $checker->cardNumber($card));
-    }
-
-    public function testMatch(): void
-    {
-        $checker = new MixedChecker();
-
-        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
-        $mock->method('getValue')->with('abc')->willReturn(123);
-
-        /** @var ValidatorInterface $mock */
-        $this->assertTrue($checker->check($mock, 'match', 'field', 123, ['abc']));
-        $this->assertFalse($checker->check($mock, 'match', 'field', 234, ['abc']));
-
-        $this->assertTrue($checker->check($mock, 'match', 'field', '123', ['abc']));
-        $this->assertFalse($checker->check($mock, 'match', 'field', '123', ['abc', true]));
-    }
-
-    public function cardsProvider(): array
+    public static function cardsProvider(): array
     {
         return [
             [true, '122000000000003'],
@@ -64,16 +38,7 @@ final class MixedTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataAccepted
-     */
-    public function testAccepted(mixed $value, bool $expectedResult = true): void
-    {
-        $checker = new MixedChecker();
-        self::assertSame($expectedResult, $checker->accepted($value));
-    }
-
-    public function dataAccepted(): iterable
+    public static function dataAccepted(): iterable
     {
         yield [true];
         yield [1];
@@ -97,16 +62,7 @@ final class MixedTest extends TestCase
         yield [new \stdClass(), false];
     }
 
-    /**
-     * @dataProvider dataDeclined
-     */
-    public function testDeclined(mixed $value, bool $expectedResult = true): void
-    {
-        $checker = new MixedChecker();
-        self::assertSame($expectedResult, $checker->declined($value));
-    }
-
-    public function dataDeclined(): iterable
+    public static function dataDeclined(): iterable
     {
         yield [false];
         yield [0];
@@ -128,5 +84,45 @@ final class MixedTest extends TestCase
         yield [1.0, false];
         yield [[], false];
         yield [new \stdClass(), false];
+    }
+
+    /**
+     * @param mixed $card
+     */
+    #[DataProvider('cardsProvider')]
+    public function testCardNumber(bool $expected, $card): void
+    {
+        $checker = new MixedChecker();
+
+        $this->assertEquals($expected, $checker->cardNumber($card));
+    }
+
+    public function testMatch(): void
+    {
+        $checker = new MixedChecker();
+
+        $mock = $this->getMockBuilder(ValidatorInterface::class)->disableOriginalConstructor()->getMock();
+        $mock->method('getValue')->with('abc')->willReturn(123);
+
+        /** @var ValidatorInterface $mock */
+        $this->assertTrue($checker->check($mock, 'match', 'field', 123, ['abc']));
+        $this->assertFalse($checker->check($mock, 'match', 'field', 234, ['abc']));
+
+        $this->assertTrue($checker->check($mock, 'match', 'field', '123', ['abc']));
+        $this->assertFalse($checker->check($mock, 'match', 'field', '123', ['abc', true]));
+    }
+
+    #[DataProvider('dataAccepted')]
+    public function testAccepted(mixed $value, bool $expectedResult = true): void
+    {
+        $checker = new MixedChecker();
+        self::assertSame($expectedResult, $checker->accepted($value));
+    }
+
+    #[DataProvider('dataDeclined')]
+    public function testDeclined(mixed $value, bool $expectedResult = true): void
+    {
+        $checker = new MixedChecker();
+        self::assertSame($expectedResult, $checker->declined($value));
     }
 }

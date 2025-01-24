@@ -21,7 +21,6 @@ final class FileChecker extends AbstractChecker
         'size'      => '[[File exceeds the maximum file size of {1}KB.]]',
         'extension' => '[[File has an invalid file format.]]',
     ];
-
     public const ALLOW_EMPTY_VALUES = ['exists', 'uploaded'];
 
     public function __construct(FilesInterface $files)
@@ -77,7 +76,7 @@ final class FileChecker extends AbstractChecker
             return \in_array(
                 $this->files->extension($file->getClientFilename()),
                 $extensions,
-                true
+                true,
             );
         }
 

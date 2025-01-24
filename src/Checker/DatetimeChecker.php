@@ -13,9 +13,9 @@ final class DatetimeChecker extends AbstractChecker
 {
     //COOKIE format
     private const LONGEST_STR_FORMAT_LEN = 32;
+
     //PHP_MAX_INT 64 strlen
     private const LONGEST_INT_FORMAT_LEN = 19;
-
     public const MESSAGES = [
         'future'   => '[[Should be a date in the future.]]',
         'past'     => '[[Should be a date in the past.]]',
@@ -25,6 +25,7 @@ final class DatetimeChecker extends AbstractChecker
         'before'   => '[[Value {0} should come before value {1}.]]',
         'after'    => '[[Value {0} should come after value {1}.]]',
     ];
+
     //Possible format mapping
     private const MAP_FORMAT = [
         'c' => 'Y-m-d\TH:i:sT',
@@ -33,7 +34,7 @@ final class DatetimeChecker extends AbstractChecker
     private readonly ThresholdChecker $threshold;
 
     public function __construct(
-        private \Closure|\DateTimeInterface|string|int|null $now = null
+        private \Closure|\DateTimeInterface|string|int|null $now = null,
     ) {
         $this->threshold = new DatetimeChecker\ThresholdChecker();
     }
@@ -63,7 +64,7 @@ final class DatetimeChecker extends AbstractChecker
             return false;
         }
 
-        $date = \DateTimeImmutable::createFromFormat(self::MAP_FORMAT[$format] ?? $format, (string)$value);
+        $date = \DateTimeImmutable::createFromFormat(self::MAP_FORMAT[$format] ?? $format, (string) $value);
 
         return $date !== false;
     }
@@ -85,7 +86,7 @@ final class DatetimeChecker extends AbstractChecker
             return false;
         }
 
-        return \in_array((string)$value, \DateTimeZone::listIdentifiers(), true);
+        return \in_array((string) $value, \DateTimeZone::listIdentifiers(), true);
     }
 
     /**
@@ -137,7 +138,7 @@ final class DatetimeChecker extends AbstractChecker
             // in php below 8.2 a huge brute numeric values triggers exception
             if (\is_string($value)) {
                 $maxLen = self::LONGEST_STR_FORMAT_LEN;
-                if (is_numeric($value)) {
+                if (\is_numeric($value)) {
                     $maxLen =  self::LONGEST_INT_FORMAT_LEN;
                 }
                 if (\strlen($value) > $maxLen) {

@@ -6,18 +6,18 @@ namespace Spiral\Validator\Tests\Unit;
 
 use Spiral\Validator\Exception\ParserException;
 
-final class ParserTest extends BaseTest
+final class ParserTest extends BaseTestCase
 {
     public function testClosure(): void
     {
         $validator = $this->validation->validate([
-            'name' => 'string'
+            'name' => 'string',
         ], [
             'name' => [
                 static function () {
                     return false;
-                }
-            ]
+                },
+            ],
         ]);
 
         $this->assertFalse($validator->isValid());
@@ -28,11 +28,11 @@ final class ParserTest extends BaseTest
         $this->expectException(ParserException::class);
 
         $validator = $this->validation->validate([
-            'name' => 'string'
+            'name' => 'string',
         ], [
             'name' => [
-                []
-            ]
+                [],
+            ],
         ]);
 
         $this->assertFalse($validator->isValid());

@@ -25,7 +25,7 @@ final class CallableRule extends AbstractRule
     public function __construct(
         callable $check,
         private readonly array $args = [],
-        private readonly ?string $message = null
+        private readonly ?string $message = null,
     ) {
         $this->check = $check;
     }
@@ -51,21 +51,21 @@ final class CallableRule extends AbstractRule
         if (!empty($this->message)) {
             return Translator::interpolate(
                 $this->message,
-                \array_merge([$value, $field], $this->args)
+                \array_merge([$value, $field], $this->args),
             );
         }
 
         $name = $this->check;
         if (\is_array($name) && isset($name[0], $name[1])) {
-            $name = sprintf(
+            $name = \sprintf(
                 '%s::%s',
                 \is_object($name[0]) ? $name[0]::class : $name,
-                $name[1]
+                $name[1],
             );
         } elseif (!\is_string($name)) {
             $name = '~user-defined~';
         }
 
-        return $this->say(static::DEFAULT_MESSAGE, ['name' => $name]);
+        return $this->say(self::DEFAULT_MESSAGE, ['name' => $name]);
     }
 }

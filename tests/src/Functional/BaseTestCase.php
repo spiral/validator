@@ -11,15 +11,8 @@ use Spiral\Validation\Bootloader\ValidationBootloader;
 use Spiral\Validator\App\Bootloader\FiltersBootloader;
 use Spiral\Validator\Bootloader\ValidatorBootloader;
 
-abstract class BaseTest extends TestCase
+abstract class BaseTestCase extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->getContainer()->bind(ReaderInterface::class, static fn (Factory $factory) => $factory->create());
-    }
-
     public function rootDirectory(): string
     {
         return \dirname(__DIR__ . '/../../app');
@@ -32,5 +25,12 @@ abstract class BaseTest extends TestCase
             ValidationBootloader::class,
             ValidatorBootloader::class,
         ];
+    }
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->getContainer()->bind(ReaderInterface::class, static fn(Factory $factory) => $factory->create());
     }
 }

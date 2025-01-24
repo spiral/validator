@@ -26,7 +26,7 @@ trait FileTrait
             $this->isStreamableFile($file) => StreamWrapper::getFilename($file->getStream()),
             \is_array($file) => !isset($file['tmp_name']) ? null : $file['tmp_name'],
             !\is_string($file) || !$this->files->exists($file) => null,
-            default => $file
+            default => $file,
         };
     }
 
@@ -42,7 +42,7 @@ trait FileTrait
      */
     private function isUploaded(mixed $file): bool
     {
-        $isUploadedArray = static fn (array $file) =>
+        $isUploadedArray = static fn(array $file) =>
             isset($file['tmp_name']) &&
             (\is_uploaded_file($file['tmp_name']) || isset($file['uploaded']));
 
@@ -51,7 +51,7 @@ trait FileTrait
             $file instanceof UploadedFileInterface => empty($file->getError()),
             \is_array($file) => $isUploadedArray($file),
             // Not uploaded
-            default => false
+            default => false,
         };
     }
 }

@@ -13,9 +13,8 @@ use Spiral\Validator\RulesInterface;
 final class Compositor
 {
     public function __construct(
-        private readonly RulesInterface $provider
-    ) {
-    }
+        private readonly RulesInterface $provider,
+    ) {}
 
     /**
      * @return iterable<ConditionInterface>
@@ -24,8 +23,7 @@ final class Compositor
     {
         $rules = $this->provider->getRules([
             $field => [
-                static function (): void {
-                },
+                static function (): void {},
                 'if' => $options,
             ],
         ]);

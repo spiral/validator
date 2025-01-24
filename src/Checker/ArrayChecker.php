@@ -21,9 +21,8 @@ class ArrayChecker extends AbstractChecker
     ];
 
     public function __construct(
-        private ValidationInterface $validation
-    ) {
-    }
+        private ValidationInterface $validation,
+    ) {}
 
     public function of(mixed $value, CheckerInterface|string|array $checker): bool
     {
@@ -80,12 +79,12 @@ class ArrayChecker extends AbstractChecker
 
     public function isList(mixed $value): bool
     {
-        return is_array($value) && array_is_list($value);
+        return \is_array($value) && \array_is_list($value);
     }
 
     public function isAssoc(mixed $value): bool
     {
-        return is_array($value) && !array_is_list($value);
+        return \is_array($value) && !\array_is_list($value);
     }
 
     public function expectedValues(mixed $value, array $expectedValues): bool
@@ -94,6 +93,6 @@ class ArrayChecker extends AbstractChecker
             return false;
         }
 
-        return [] === array_diff($value, $expectedValues);
+        return \array_diff($value, $expectedValues) === [];
     }
 }

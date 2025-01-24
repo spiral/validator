@@ -11,9 +11,8 @@ class FilterDefinition implements FilterDefinitionInterface, ShouldBeValidated
 {
     public function __construct(
         private readonly array $validationRules = [],
-        private readonly array $mappingSchema = []
-    ) {
-    }
+        private readonly array $mappingSchema = [],
+    ) {}
 
     public function mappingSchema(): array
     {

@@ -27,18 +27,13 @@ class PayloadCondition extends AbstractCondition
         }
     }
 
-    /**
-     * @param ValidatorInterface $validator
-     *
-     * @return array
-     */
     protected function getPayload(ValidatorInterface $validator): array
     {
         $payload = [];
         foreach ($this->options as $option) {
             $payload[$option] = $validator->getValue(
                 $option,
-                $validator->getContext()[$option] ?? null
+                $validator->getContext()[$option] ?? null,
             );
         }
 

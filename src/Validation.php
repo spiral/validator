@@ -12,9 +12,8 @@ use Spiral\Validation\ValidatorInterface;
 class Validation implements ValidationInterface
 {
     public function __construct(
-       protected RulesInterface $rules
-    ) {
-    }
+        protected RulesInterface $rules,
+    ) {}
 
     public function validate(mixed $data, array $rules, $context = null): ValidatorInterface
     {

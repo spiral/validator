@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Spiral\Validator\Tests\Functional;
 
 use Spiral\Validation\ValidationInterface;
@@ -7,7 +9,7 @@ use Spiral\Validation\ValidationInterface;
 /**
  * @coversDefaultClass \Spiral\Validator\Checker\NumberChecker
  */
-final class NumberCheckerTest extends BaseTest
+final class NumberCheckerTest extends BaseTestCase
 {
     /**
      * @covers ::range

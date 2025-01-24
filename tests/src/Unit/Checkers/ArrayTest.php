@@ -4,11 +4,136 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Spiral\Validator\Checker\ArrayChecker;
-use Spiral\Validator\Tests\Unit\BaseTest;
+use Spiral\Validator\Tests\Unit\BaseTestCase;
 
-final class ArrayTest extends BaseTest
+final class ArrayTest extends BaseTestCase
 {
+    public static function dataIsList(): iterable
+    {
+        yield [[], true];
+        yield [[1, 2, 3], true];
+        yield [['a', 'b', 'c'], true];
+        yield [
+            [0 => 'a', 1 => 'b', 2 => 'c'],
+            true,
+        ];
+        yield [
+            ['0' => 'a', '1' => 'b', '2' => 'c'],
+            true,
+        ];
+        yield [
+            ['name' => 'name', 1, 2, 3],
+            false,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'bar'],
+            false,
+        ];
+
+        yield ['', false];
+        yield [1, false];
+        yield [2.0, false];
+        yield ['foo', false];
+        yield [null, false];
+        yield [new \stdClass(), false];
+    }
+
+    public static function dataIsAssoc(): iterable
+    {
+        yield [[], false];
+        yield [[1, 2, 3], false];
+        yield [['a', 'b', 'c'], false];
+        yield [
+            [0 => 'a', 1 => 'b', 2 => 'c'],
+            false,
+        ];
+        yield [
+            ['0' => 'a', '1' => 'b', '2' => 'c'],
+            false,
+        ];
+        yield [
+            ['name' => 'name', 1, 2, 3],
+            true,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'bar'],
+            true,
+        ];
+
+        yield ['', false];
+        yield [1, false];
+        yield [2.0, false];
+        yield ['foo', false];
+        yield [null, false];
+        yield [new \stdClass(), false];
+    }
+
+    public static function dataExpectedValues(): iterable
+    {
+        yield [[], [], true];
+        // list
+        yield [
+            ['foo', 'bar'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            ['foo'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            ['bar'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            [1, 2, 3],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            true,
+        ];
+        yield [
+            ['foo', 'bar'],
+            ['bar'],
+            false,
+        ];
+        yield [
+            [1, 2],
+            ['bar'],
+            false,
+        ];
+        yield 'not strict comparison' => [
+            ['1', '2', '3'],
+            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
+            true,
+        ];
+
+        yield [
+            ['name' => 'bar', 'surname' => 'bar'],
+            ['bar'],
+            true,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'bar'],
+            ['foo', 'bar'],
+            true,
+        ];
+        yield [
+            ['name' => 'foo', 'surname' => 'baz'],
+            ['foo', 'bar'],
+            false,
+        ];
+
+        yield ['', [], false];
+        yield [1, [], false];
+        yield [2.0, [], false];
+        yield ['foo', [], false];
+        yield [null, [], false];
+        yield [new \stdClass(), [], false];
+    }
+
     public function testOf(): void
     {
         /** @var ArrayChecker $checker */
@@ -73,6 +198,30 @@ final class ArrayTest extends BaseTest
         $this->assertFalse($checker->range([1, 2], 3, 4));
     }
 
+    #[DataProvider('dataIsList')]
+    public function testIsList(mixed $value, bool $expectedResult): void
+    {
+        /** @var ArrayChecker $checker */
+        $checker = $this->container->get(ArrayChecker::class);
+        self::assertSame($expectedResult, $checker->isList($value));
+    }
+
+    #[DataProvider('dataIsAssoc')]
+    public function testIsAssoc(mixed $value, bool $expectedResult): void
+    {
+        /** @var ArrayChecker $checker */
+        $checker = $this->container->get(ArrayChecker::class);
+        self::assertSame($expectedResult, $checker->isAssoc($value));
+    }
+
+    #[DataProvider('dataExpectedValues')]
+    public function testExpectedValues(mixed $value, array $expectedValues, bool $expectedResult): void
+    {
+        /** @var ArrayChecker $checker */
+        $checker = $this->container->get(ArrayChecker::class);
+        self::assertSame($expectedResult, $checker->expectedValues($value, $expectedValues));
+    }
+
     private function createCountable(int $count): \Countable
     {
         return new class($count) implements \Countable {
@@ -88,159 +237,5 @@ final class ArrayTest extends BaseTest
                 return $this->count;
             }
         };
-    }
-
-    /**
-     * @dataProvider dataIsList
-     */
-    public function testIsList(mixed $value, bool $expectedResult): void
-    {
-        /** @var ArrayChecker $checker */
-        $checker = $this->container->get(ArrayChecker::class);
-        self::assertSame($expectedResult, $checker->isList($value));
-    }
-
-    public function dataIsList(): iterable
-    {
-        yield [[], true];
-        yield [[1, 2, 3], true];
-        yield [['a', 'b', 'c'], true];
-        yield [
-            [0 => 'a', 1 => 'b', 2 => 'c'],
-            true,
-        ];
-        yield [
-            ['0' => 'a', '1' => 'b', '2' => 'c'],
-            true,
-        ];
-        yield [
-            ['name' => 'name', 1, 2, 3],
-            false,
-        ];
-        yield [
-            ['name' => 'foo', 'surname' => 'bar'],
-            false,
-        ];
-
-        yield ['', false];
-        yield [1, false];
-        yield [2.0, false];
-        yield ['foo', false];
-        yield [null, false];
-        yield [new \stdClass(), false];
-    }
-
-    /**
-     * @dataProvider dataIsAssoc
-     */
-    public function testIsAssoc(mixed $value, bool $expectedResult): void
-    {
-        /** @var ArrayChecker $checker */
-        $checker = $this->container->get(ArrayChecker::class);
-        self::assertSame($expectedResult, $checker->isAssoc($value));
-    }
-
-    public function dataIsAssoc(): iterable
-    {
-        yield [[], false];
-        yield [[1, 2, 3], false];
-        yield [['a', 'b', 'c'], false];
-        yield [
-            [0 => 'a', 1 => 'b', 2 => 'c'],
-            false,
-        ];
-        yield [
-            ['0' => 'a', '1' => 'b', '2' => 'c'],
-            false,
-        ];
-        yield [
-            ['name' => 'name', 1, 2, 3],
-            true,
-        ];
-        yield [
-            ['name' => 'foo', 'surname' => 'bar'],
-            true,
-        ];
-
-        yield ['', false];
-        yield [1, false];
-        yield [2.0, false];
-        yield ['foo', false];
-        yield [null, false];
-        yield [new \stdClass(), false];
-    }
-
-    /**
-     * @dataProvider dataExpectedValues
-     */
-    public function testExpectedValues(mixed $value, array $expectedValues, bool $expectedResult): void
-    {
-        /** @var ArrayChecker $checker */
-        $checker = $this->container->get(ArrayChecker::class);
-        self::assertSame($expectedResult, $checker->expectedValues($value, $expectedValues));
-    }
-
-    public function dataExpectedValues(): iterable
-    {
-        yield [[], [], true];
-        // list
-        yield [
-            ['foo', 'bar'],
-            ['foo', 'bar'],
-            true,
-        ];
-        yield [
-            ['foo'],
-            ['foo', 'bar'],
-            true,
-        ];
-        yield [
-            ['bar'],
-            ['foo', 'bar'],
-            true,
-        ];
-        yield [
-            [1, 2, 3],
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-            true,
-        ];
-        yield [
-            ['foo', 'bar'],
-            ['bar'],
-            false,
-        ];
-        yield [
-            [1, 2],
-            ['bar'],
-            false,
-        ];
-        yield 'not strict comparison' => [
-            ['1', '2', '3'],
-            [1, 2, 3, 4, 5, 6, 7, 8, 9, 0],
-            true,
-        ];
-
-        yield [
-            ['name' => 'bar', 'surname' => 'bar'],
-            ['bar'],
-            true,
-        ];
-        yield [
-            ['name' => 'foo', 'surname' => 'bar'],
-            ['foo', 'bar'],
-            true,
-        ];
-        yield [
-            ['name' => 'foo', 'surname' => 'baz'],
-            ['foo', 'bar'],
-            false,
-        ];
-
-        yield ['', [], false];
-        yield [1, [], false];
-        yield [2.0, [], false];
-        yield ['foo', [], false];
-        yield [null, [], false];
-        yield [new \stdClass(), [], false];
     }
 }

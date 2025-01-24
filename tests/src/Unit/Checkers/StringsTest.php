@@ -4,11 +4,40 @@ declare(strict_types=1);
 
 namespace Spiral\Validator\Tests\Unit\Checkers;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\StringChecker;
 
 final class StringsTest extends TestCase
 {
+    public static function dataEmpty(): iterable
+    {
+        yield ['', true];
+        yield ["   \n     \t      ", true];
+        yield ['1', false];
+        yield ['0', false];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
+    public static function dataNotEmpty(): iterable
+    {
+        yield ['', false];
+        yield ["   \n     \t      ", false];
+        yield ['1', true];
+        yield ['0', true];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
     public function testShorter(): void
     {
         $checker = new StringChecker();
@@ -88,47 +117,15 @@ final class StringsTest extends TestCase
         $this->assertFalse($checker->regexp([], '/^ab[dEC]{3}/i'));
     }
 
-    /**
-     * @dataProvider dataEmpty
-     */
+    #[DataProvider('dataEmpty')]
     public function testEmpty(mixed $value, bool $expectedResult): void
     {
         self::assertSame($expectedResult, (new StringChecker())->empty($value));
     }
 
-    public function dataEmpty(): iterable
-    {
-        yield ['', true];
-        yield ["   \n     \t      ", true];
-        yield ['1', false];
-        yield ['0', false];
-        //not string
-        yield [null, false];
-        yield [1, false];
-        yield [1.0, false];
-        yield [[], false];
-        yield [new \stdClass(), false];
-    }
-
-    /**
-     * @dataProvider dataNotEmpty
-     */
+    #[DataProvider('dataNotEmpty')]
     public function testNotEmpty(mixed $value, bool $expectedResult): void
     {
         self::assertSame($expectedResult, (new StringChecker())->notEmpty($value));
-    }
-
-    public function dataNotEmpty(): iterable
-    {
-        yield ['', false];
-        yield ["   \n     \t      ", false];
-        yield ['1', true];
-        yield ['0', true];
-        //not string
-        yield [null, false];
-        yield [1, false];
-        yield [1.0, false];
-        yield [[], false];
-        yield [new \stdClass(), false];
     }
 }
