@@ -17,7 +17,7 @@ interface RuleInterface
      */
     public function ignoreEmpty(mixed $value): bool;
 
-    public function withConditions(\SplObjectStorage $conditions = null): RuleInterface;
+    public function withConditions(?\SplObjectStorage $conditions = null): RuleInterface;
 
     public function hasConditions(): bool;
 
