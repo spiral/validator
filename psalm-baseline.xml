@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="5.26.1@d747f6500b38ac4f7dfc5edbcae6e4b637d7add0">
+  <file src="src/AbstractChecker.php">
+    <MixedArgument>
+      <code><![CDATA[static::ALLOW_EMPTY_VALUES]]></code>
+      <code><![CDATA[static::DEFAULT_MESSAGE]]></code>
+      <code><![CDATA[static::MESSAGES[$method]]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[static::MESSAGES[$method]]]></code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code><![CDATA[$messages]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[bool]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[\call_user_func_array([$this, $method], $args)]]></code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/AbstractRule.php">
+    <MixedArgument>
+      <code><![CDATA[$condition]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$condition]]></code>
+    </MixedAssignment>
+    <MixedMethodCall>
+      <code><![CDATA[withOptions]]></code>
+    </MixedMethodCall>
+    <MixedReturnTypeCoercion>
+      <code><![CDATA[\Generator]]></code>
+    </MixedReturnTypeCoercion>
+    <PossiblyInvalidMethodCall>
+      <code><![CDATA[offsetGet]]></code>
+    </PossiblyInvalidMethodCall>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->conditions)]]></code>
+      <code><![CDATA[empty($this->conditions)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/AbstractValidator.php">
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$field]]></code>
+      <code><![CDATA[$field]]></code>
+      <code><![CDATA[$field]]></code>
+      <code><![CDATA[$field]]></code>
+      <code><![CDATA[$field]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedAssignment>
+      <code><![CDATA[$rules]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+    <MixedPropertyTypeCoercion>
+      <code><![CDATA[$this->errors]]></code>
+    </MixedPropertyTypeCoercion>
+  </file>
+  <file src="src/CallableRule.php">
+    <MixedArgument>
+      <code><![CDATA[$name[1]]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$name]]></code>
+    </MixedAssignment>
+    <MixedFunctionCall>
+      <code><![CDATA[\call_user_func_array($this->check, $args)]]></code>
+    </MixedFunctionCall>
+    <MixedInferredReturnType>
+      <code><![CDATA[bool]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[\call_user_func_array($this->check, $args)]]></code>
+    </MixedReturnStatement>
+    <PossiblyInvalidArgument>
+      <code><![CDATA[\is_object($name[0]) ? $name[0]::class : $name]]></code>
+    </PossiblyInvalidArgument>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->message)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Checker/AddressChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+    <MixedArgument>
+      <code><![CDATA[$schema]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$schema]]></code>
+    </MixedAssignment>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($defaultSchema)]]></code>
+      <code><![CDATA[empty($schemas)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Checker/ArrayChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+    <MixedAssignment>
+      <code><![CDATA[$item]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Checker/BooleanChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+  </file>
+  <file src="src/Checker/DatetimeChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+    <MixedArgument>
+      <code><![CDATA[$value]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[$this->now]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Checker/FileChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[ALLOW_EMPTY_VALUES]]></code>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+    <PossiblyNullArgument>
+      <code><![CDATA[$file->getClientFilename()]]></code>
+    </PossiblyNullArgument>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($filename = $this->resolveFilename($file))]]></code>
+      <code><![CDATA[empty($this->resolveFilename($file))]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Checker/ImageChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[ALLOW_EMPTY_VALUES]]></code>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+    <MixedArrayOffset>
+      <code><![CDATA[self::IMAGE_TYPES[$image[self::IMAGE_TYPE]]]]></code>
+      <code><![CDATA[self::IMAGE_TYPES[$image[self::IMAGE_TYPE]]]]></code>
+    </MixedArrayOffset>
+    <PossiblyInvalidArrayAccess>
+      <code><![CDATA[$image[self::HEIGHT]]]></code>
+      <code><![CDATA[$image[self::HEIGHT]]]></code>
+      <code><![CDATA[$image[self::IMAGE_TYPE]]]></code>
+      <code><![CDATA[$image[self::IMAGE_TYPE]]]></code>
+      <code><![CDATA[$image[self::WIDTH]]]></code>
+      <code><![CDATA[$image[self::WIDTH]]]></code>
+    </PossiblyInvalidArrayAccess>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($filename)]]></code>
+      <code><![CDATA[empty($image = $this->imageData($file))]]></code>
+      <code><![CDATA[empty($image = $this->imageData($file))]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Checker/MixedChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+    <PossiblyInvalidOperand>
+      <code><![CDATA[$odd
+                ? $value[$i]
+                : (((int) $value[$i] * 2 > 9) ? (int) $value[$i] * 2 - 9 : (int) $value[$i] * 2)]]></code>
+    </PossiblyInvalidOperand>
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[!$odd]]></code>
+      <code><![CDATA[$odd]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Checker/NumberChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+  </file>
+  <file src="src/Checker/StringChecker.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$expression]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+  </file>
+  <file src="src/Checker/Traits/FileTrait.php">
+    <MissingClosureReturnType>
+      <code><![CDATA[static fn (array $file) =>]]></code>
+    </MissingClosureReturnType>
+    <MixedArgument>
+      <code><![CDATA[$file->getStream()]]></code>
+      <code><![CDATA[$file['tmp_name']]]></code>
+    </MixedArgument>
+    <MixedInferredReturnType>
+      <code><![CDATA[?string]]></code>
+    </MixedInferredReturnType>
+    <MixedMethodCall>
+      <code><![CDATA[getStream]]></code>
+    </MixedMethodCall>
+  </file>
+  <file src="src/Checker/TypeChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[ALLOW_EMPTY_VALUES]]></code>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+  </file>
+  <file src="src/CheckerRule.php">
+    <RiskyTruthyFalsyComparison>
+      <code><![CDATA[empty($this->message)]]></code>
+    </RiskyTruthyFalsyComparison>
+  </file>
+  <file src="src/Condition/AbsentCondition.php">
+    <MixedArgument>
+      <code><![CDATA[$option]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$option]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Condition/PresentCondition.php">
+    <MixedArgument>
+      <code><![CDATA[$option]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$option]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Condition/WithAllCondition.php">
+    <MixedArgument>
+      <code><![CDATA[$option]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$option]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Condition/WithAnyCondition.php">
+    <MixedArgument>
+      <code><![CDATA[$option]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$option]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Condition/WithoutAllCondition.php">
+    <MixedArgument>
+      <code><![CDATA[$option]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$option]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Condition/WithoutAnyCondition.php">
+    <MixedArgument>
+      <code><![CDATA[$option]]></code>
+    </MixedArgument>
+    <MixedAssignment>
+      <code><![CDATA[$option]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Config/ValidatorConfig.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$this->config[$section][$name]]]></code>
+    </ArgumentTypeCoercion>
+    <DeprecatedTrait>
+      <code><![CDATA[AliasTrait]]></code>
+    </DeprecatedTrait>
+    <InvalidReturnStatement>
+      <code><![CDATA[\array_map(static fn ($value) => \str_replace('::', ':', $value), $aliases)]]></code>
+    </InvalidReturnStatement>
+    <InvalidReturnType>
+      <code><![CDATA[array<string>]]></code>
+    </InvalidReturnType>
+    <MixedArgument>
+      <code><![CDATA[$this->config[$section][$name]['class']]]></code>
+      <code><![CDATA[$this->config[$section][$name]['options'] ?? []]]></code>
+      <code><![CDATA[$this->config['aliases']]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedArgument>
+    <MixedArrayAccess>
+      <code><![CDATA[$this->config[$section][$name]]]></code>
+      <code><![CDATA[$this->config[$section][$name]['class']]]></code>
+      <code><![CDATA[$this->config[$section][$name]['options']]]></code>
+    </MixedArrayAccess>
+  </file>
+  <file src="src/RuleParser.php">
+    <MixedArrayAccess>
+      <code><![CDATA[$chunk[$index]]]></code>
+    </MixedArrayAccess>
+    <MixedArrayOffset>
+      <code><![CDATA[$conditions[$value]]]></code>
+    </MixedArrayOffset>
+    <MixedAssignment>
+      <code><![CDATA[$function]]></code>
+      <code><![CDATA[$rule]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code><![CDATA[?string]]></code>
+      <code><![CDATA[array]]></code>
+      <code><![CDATA[array|callable|string]]></code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement>
+      <code><![CDATA[$chunk[$index]]]></code>
+      <code><![CDATA[$chunk[$index]]]></code>
+      <code><![CDATA[$function]]></code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/RulesProvider.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$condition]]></code>
+      <code><![CDATA[$function]]></code>
+    </ArgumentTypeCoercion>
+    <InvalidArgument>
+      <code><![CDATA[$check]]></code>
+    </InvalidArgument>
+    <MixedArgument>
+      <code><![CDATA[$check]]></code>
+      <code><![CDATA[$check[0]]]></code>
+      <code><![CDATA[$check[1]]]></code>
+      <code><![CDATA[$options]]></code>
+      <code><![CDATA[$rule]]></code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion>
+      <code><![CDATA[$condition]]></code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayOffset>
+      <code><![CDATA[$this->rules[$id]]]></code>
+      <code><![CDATA[$this->rules[$id]]]></code>
+    </MixedArrayOffset>
+    <MixedAssignment>
+      <code><![CDATA[$id]]></code>
+      <code><![CDATA[$options]]></code>
+      <code><![CDATA[$rule]]></code>
+    </MixedAssignment>
+  </file>
+  <file src="src/Validation.php">
+    <PossiblyInvalidArgument>
+      <code><![CDATA[$data]]></code>
+    </PossiblyInvalidArgument>
+  </file>
+  <file src="src/Validator.php">
+    <MixedAssignment>
+      <code><![CDATA[$validator->data]]></code>
+      <code><![CDATA[$value]]></code>
+    </MixedAssignment>
+  </file>
+</files>
