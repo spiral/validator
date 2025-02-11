@@ -49,7 +49,7 @@ final class CallableRule extends AbstractRule
     public function getMessage(string $field, mixed $value): string
     {
         if (!empty($this->message)) {
-            return Translator::interpolate(
+            return $this->say(
                 $this->message,
                 \array_merge([$value, $field], $this->args),
             );
