@@ -47,7 +47,7 @@ final class FileChecker extends AbstractChecker
     }
 
     /**
-     * Check if file size less that specified value in KB.
+     * Check if file size less that specified value in KiB.
      *
      * @param mixed $file Local file or uploaded file array.
      * @param int   $size Size in KBytes.
