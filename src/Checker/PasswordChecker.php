@@ -35,7 +35,7 @@ final class PasswordChecker extends AbstractChecker
      *
      * Includes common special characters: spaces, punctuation, symbols, and brackets.
      */
-    public const array SPECIAL = [
+    public const SPECIAL = [
         ' ',
         '~',
         '`',
@@ -76,12 +76,12 @@ final class PasswordChecker extends AbstractChecker
      * Uses Unicode property \p{Lu} to match any uppercase letter in any language.
      *
      * @param string $value The password string to validate
-     * @param int $min Minimum number of uppercase letters required (default: 1)
+     * @param positive-int $min Minimum number of uppercase letters required (default: 1)
      * @return bool True if the password meets the uppercase requirement, false otherwise
      */
     public function uppercase(string $value, int $min = 1): bool
     {
-        return \preg_match_all('/\p{Lu}/', $value) >= $min;
+        return \preg_match_all('/\p{Lu}/u', $value) >= $min;
     }
 
     /**
@@ -90,19 +90,19 @@ final class PasswordChecker extends AbstractChecker
      * Uses Unicode property \p{Ll} to match any lowercase letter in any language.
      *
      * @param string $value The password string to validate
-     * @param int $min Minimum number of lowercase letters required (default: 1)
+     * @param positive-int $min Minimum number of lowercase letters required (default: 1)
      * @return bool True if the password meets the lowercase requirement, false otherwise
      */
     public function lowercase(string $value, int $min = 1): bool
     {
-        return \preg_match_all('/\p{Ll}/', $value) >= $min;
+        return \preg_match_all('/\p{Ll}/u', $value) >= $min;
     }
 
     /**
      * Validates that the password contains at least the specified number of numeric digits.
      *
      * @param string $value The password string to validate
-     * @param int $min Minimum number of numeric digits required (default: 1)
+     * @param positive-int $min Minimum number of numeric digits required (default: 1)
      * @return bool True if the password meets the numeric requirement, false otherwise
      */
     public function number(string $value, int $min = 1): bool
@@ -117,7 +117,7 @@ final class PasswordChecker extends AbstractChecker
      * punctuation marks, and brackets.
      *
      * @param string $value The password string to validate
-     * @param int $min Minimum number of special characters required (default: 1)
+     * @param positive-int $min Minimum number of special characters required (default: 1)
      * @return bool True if the password meets the special character requirement, false otherwise
      */
     public function special(string $value, int $min = 1): bool

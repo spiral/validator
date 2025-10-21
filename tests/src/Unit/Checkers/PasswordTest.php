@@ -29,6 +29,75 @@ final class PasswordTest extends TestCase
             'uppercase at end' => ['password123A', 1, true],
             'unicode uppercase' => ['passwordÀ', 1, true],
             'count zero' => ['Password', 0, true],
+            'cyrillic text' => ['СлавикПароль', 2, true],
+            // French text
+            'french text with accents' => ['Élève Français', 2, true],
+            'french uppercase only' => ['ÉLÈVE', 1, true],
+            'french mixed case' => ['bonjour Monde', 1, true],
+            // Spanish text
+            'spanish with accents' => ['Español México', 2, true],
+            'spanish uppercase only' => ['ESPAÑOL', 1, true],
+            'spanish mixed case' => ['buenos Días', 1, true],
+            // German text
+            'german with umlauts' => ['Bräuche München', 2, true],
+            'german uppercase only' => ['BRÄUCHE MÜNCHEN', 1, true],
+            'german mixed case' => ['österreich Wien', 1, true],
+            // Portuguese text
+            'portuguese with accents' => ['Português Brasil', 2, true],
+            'portuguese uppercase only' => ['PORTUGUÊS', 1, true],
+            'portuguese mixed case' => ['são Paulo', 1, true],
+            // Arabic text (right-to-left, no uppercase)
+            'arabic text' => ['مرحبا العالم', 1, false],
+            'arabic mixed with latin' => ['مرحبا WORLD', 1, true],
+            // Chinese text (no case distinction)
+            'chinese characters' => ['你好世界', 1, false],
+            'chinese with latin uppercase' => ['你好WORLD', 1, true],
+            // Japanese text
+            'japanese hiragana' => ['こんにちは', 1, false],
+            'japanese katakana' => ['コンニチハ', 1, false],
+            'japanese mixed' => ['HELLOさようなら', 1, true],
+            // Hindi text
+            'hindi text' => ['नमस्ते दुनिया', 1, false],
+            'hindi with latin' => ['नमस्ते HELLO', 1, true],
+            // Turkish text
+            'turkish with dotless i' => ['İstanbul Iğdır', 2, true],
+            'turkish uppercase only' => ['İSTANBUL IĞDIR', 1, true],
+            // Greek text
+            'greek text' => ['Γειά σου Κόσμε', 2, true],
+            'greek uppercase only' => ['ΓΕΙΑ ΣΟΥ ΚΟΣΜΕ', 1, true],
+            // Korean text
+            'korean hangul' => ['안녕하세요', 1, false],
+            'korean with latin' => ['안녕 HELLO', 1, true],
+            // Thai text
+            'thai text' => ['สวัสดีครับ', 1, false],
+            'thai with latin uppercase' => ['สวัสดี HELLO', 1, true],
+            // Vietnamese text
+            'vietnamese with diacritics' => ['Xin chào Việt Nam', 2, true],
+            'vietnamese uppercase only' => ['XIN CHÀO', 1, true],
+            // Italian text
+            'italian with accents' => ['Città Italiana', 2, true],
+            'italian uppercase only' => ['CITTÀ ITALIANA', 1, true],
+            // Polish text
+            'polish with diacritics' => ['Łódź Warszawa', 2, true],
+            'polish uppercase only' => ['ŁÓDŹ WARSZAWA', 1, true],
+            // Swedish text
+            'swedish with special chars' => ['Åre Östersund', 2, true],
+            'swedish uppercase only' => ['ÅRE ÖSTERSUND', 1, true],
+            // Dutch text
+            'dutch with ij ligature' => ['IJsselmeer Amsterdam', 2, true],
+            'dutch uppercase only' => ['IJSSELMEER', 1, true],
+            // Czech text
+            'czech with diacritics' => ['Praha České', 2, true],
+            'czech uppercase only' => ['PRAHA ČESKÉ', 1, true],
+            // Romanian text
+            'romanian with diacritics' => ['București România', 2, true],
+            'romanian uppercase only' => ['BUCUREȘTI ROMÂNIA', 1, true],
+            // Hungarian text
+            'hungarian with double accents' => ['Budapest Magyarország', 2, true],
+            'hungarian uppercase only' => ['BUDAPEST MAGYARORSZÁG', 1, true],
+            // Belarusian text
+            'belarusian text' => ['Мінск Беларусь', 2, true],
+            'belarusian uppercase only' => ['МІНСК БЕЛАРУСЬ', 1, true],
         ];
     }
 
@@ -47,8 +116,55 @@ final class PasswordTest extends TestCase
             'only lowercase letters' => ['abcdef', 1, true],
             'lowercase in middle' => ['PASSwordTEST', 1, true],
             'lowercase at end' => ['PASSWORD123a', 1, true],
-            'unicode lowercase' => ['PASSWORDà', 1, false],
+            'unicode lowercase' => ['PASSWORDà', 1, true],
             'count zero' => ['password', 0, true],
+            'cyrillic text' => ['СлавикПароль', 9, true],
+            // Belarusian text
+            'belarusian text' => ['Мінск Беларусь', 1, true],
+            'belarusian lowercase only' => ['мінск беларусь', 1, true],
+            // French text
+            'french text with accents' => ['Élève Français', 1, true],
+            'french lowercase only' => ['éléphant', 1, true],
+            'french mixed case' => ['Bonjour Monde', 1, true],
+            // Spanish text
+            'spanish with accents' => ['Español México', 1, true],
+            'spanish lowercase only' => ['niño español', 1, true],
+            'spanish mixed case' => ['Buenos Días', 1, true],
+            // German text
+            'german with umlauts' => ['Bräuche München', 1, true],
+            'german lowercase only' => ['größer älter', 1, true],
+            'german mixed case' => ['Österreich Wien', 1, true],
+            // Portuguese text
+            'portuguese with accents' => ['Português Brasil', 1, true],
+            'portuguese lowercase only' => ['não está', 1, true],
+            'portuguese mixed case' => ['São Paulo', 1, true],
+            // Chinese text (no case distinction)
+            'chinese characters' => ['你好世界', 1, false],
+            'chinese with latin lowercase' => ['你好world', 1, true],
+            // Turkish text
+            'turkish with dotless i' => ['İstanbul Iğdır', 1, true],
+            'turkish lowercase only' => ['ışık çğü', 1, true],
+            // Greek text
+            'greek text' => ['Γειά σου Κόσμε', 1, true],
+            'greek lowercase only' => ['γεια σας', 1, true],
+            // Korean text
+            'korean hangul' => ['안녕하세요', 1, false],
+            'korean with latin' => ['Hello 안녕', 1, true],
+            // Thai text
+            'thai text' => ['สวัสดีครับ', 1, false],
+            'thai with latin lowercase' => ['hello สวัสดี', 1, true],
+            // Vietnamese text
+            'vietnamese with diacritics' => ['Xin chào Việt Nam', 1, true],
+            'vietnamese lowercase only' => ['xin chào', 1, true],
+            // Italian text
+            'italian with accents' => ['Città Italiana', 1, true],
+            'italian lowercase only' => ['ciao mondo', 1, true],
+            // Polish text
+            'polish with diacritics' => ['Łódź Warszawa', 1, true],
+            'polish lowercase only' => ['łódź warszawa', 1, true],
+            // Swedish text
+            'swedish with special chars' => ['Åre Östersund', 1, true],
+            'swedish lowercase only' => ['åäö är bra', 1, true],
         ];
     }
 
