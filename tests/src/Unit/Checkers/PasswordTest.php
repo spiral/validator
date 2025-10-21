@@ -27,7 +27,7 @@ final class PasswordTest extends TestCase
             'only uppercase letters' => ['ABCDEF', 1, true],
             'uppercase in middle' => ['passWORDtest', 1, true],
             'uppercase at end' => ['password123A', 1, true],
-            'unicode uppercase' => ['passwordÀ', 1, true], // Non-ASCII uppercase
+            'unicode uppercase' => ['passwordÀ', 1, true],
             'count zero' => ['Password', 0, true],
         ];
     }
@@ -47,7 +47,7 @@ final class PasswordTest extends TestCase
             'only lowercase letters' => ['abcdef', 1, true],
             'lowercase in middle' => ['PASSwordTEST', 1, true],
             'lowercase at end' => ['PASSWORD123a', 1, true],
-            'unicode lowercase' => ['PASSWORDà', 1, false], // Non-ASCII lowercase
+            'unicode lowercase' => ['PASSWORDà', 1, false],
             'count zero' => ['password', 0, true],
         ];
     }
