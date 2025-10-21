@@ -176,6 +176,11 @@
       <code><![CDATA[MESSAGES]]></code>
     </InvalidClassConstantType>
   </file>
+  <file src="src/Checker/PasswordChecker.php">
+    <InvalidClassConstantType>
+      <code><![CDATA[MESSAGES]]></code>
+    </InvalidClassConstantType>
+  </file>
   <file src="src/Checker/StringChecker.php">
     <ArgumentTypeCoercion>
       <code><![CDATA[$expression]]></code>

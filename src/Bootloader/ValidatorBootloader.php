@@ -80,6 +80,7 @@ final class ValidatorBootloader extends Bootloader
                     'datetime' => Checker\DatetimeChecker::class,
                     'array'    => Checker\ArrayChecker::class,
                     'boolean'  => Checker\BooleanChecker::class,
+                    'password' => Checker\PasswordChecker::class,
                 ],
 
                 // Enable/disable validation conditions
