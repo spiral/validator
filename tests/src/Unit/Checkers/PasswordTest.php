@@ -7,6 +7,9 @@ namespace Spiral\Validator\Tests\Unit\Checkers;
 use PHPUnit\Framework\TestCase;
 use Spiral\Validator\Checker\PasswordChecker;
 
+/**
+ * @coversDefaultClass \Spiral\Validator\Checker\PasswordChecker
+ */
 final class PasswordTest extends TestCase
 {
     private PasswordChecker $checker;
