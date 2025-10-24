@@ -18,7 +18,7 @@ final class FileChecker extends AbstractChecker
     public const MESSAGES = [
         'exists'    => '[[File does not exists.]]',
         'uploaded'  => '[[File not received, please try again.]]',
-        'size'      => '[[File exceeds the maximum file size of {1}KB.]]',
+        'size'      => '[[File exceeds the maximum file size of {1}KiB.]]',
         'extension' => '[[File has an invalid file format.]]',
     ];
     public const ALLOW_EMPTY_VALUES = ['exists', 'uploaded'];
