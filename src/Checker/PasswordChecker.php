@@ -29,7 +29,6 @@ final class PasswordChecker extends AbstractChecker
         'special' => '[[Password must contain at least {1} special character.]]',
     ];
 
-
     /**
      * List of special characters considered for password validation.
      *
@@ -68,7 +67,6 @@ final class PasswordChecker extends AbstractChecker
         '?',
         '\\',
     ];
-
 
     /**
      * Validates that the password contains at least the specified number of uppercase letters.
