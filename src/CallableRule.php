@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Spiral\Validator;
 
 use Spiral\Translator\Traits\TranslatorTrait;
-use Spiral\Translator\Translator;
 use Spiral\Validation\ValidatorInterface;
 
 /**
