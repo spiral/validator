@@ -18,6 +18,11 @@ final class StringChecker extends AbstractChecker
         'range'    => '[[Text length should be in range of {1}-{2}.]]',
         'empty'    => '[[String value should be empty.]]',
         'notEmpty' => '[[String value should not be empty.]]',
+        // bytes
+        'shorterBytes' => '[[Enter text in bytes shorter or equal to {1}.]]',
+        'longerBytes' => '[[Text in bytes must be longer or equal to {1}.]]',
+        'lengthBytes' => '[[Text in bytes length must be exactly equal to {1}.]]',
+        'rangeBytes' => '[[Text length should be in range of {1}-{2}.]]',
     ];
 
     /**
@@ -81,5 +86,32 @@ final class StringChecker extends AbstractChecker
     public function notEmpty(mixed $value): bool
     {
         return \is_string($value) && \trim($value) !== '';
+    }
+
+    public function shorterBytes(mixed $value, int $length): bool
+    {
+        return \is_string($value) && \strlen(\trim($value)) <= $length;
+    }
+
+    public function longerBytes(mixed $value, int $length): bool
+    {
+        return \is_string($value) && \strlen(\trim($value)) >= $length;
+    }
+
+    public function lengthBytes(mixed $value, int $length): bool
+    {
+        return \is_string($value) && \strlen(\trim($value)) === $length;
+    }
+
+    public function rangeBytes(mixed $value, int $min, int $max): bool
+    {
+        if (!\is_string($value)) {
+            return false;
+        }
+
+        $trimmed = \trim($value);
+
+        return (\strlen($trimmed) >= $min)
+            && (\strlen($trimmed) <= $max);
     }
 }

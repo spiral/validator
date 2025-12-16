@@ -117,6 +117,126 @@ final class StringsTest extends TestCase
         $this->assertFalse($checker->regexp([], '/^ab[dEC]{3}/i'));
     }
 
+    /**
+     * @dataProvider dpShorterBytes
+     */
+    public function testShorterBytes(mixed $text, int $val, bool $expected = true): void
+    {
+        $this->assertEquals(
+            $expected,
+            (new StringChecker())->shorterBytes($text, $val),
+        );
+    }
+
+    public function dpShorterBytes(): iterable
+    {
+        yield ['abc', 2, false];
+        yield ['abc', 3, true];
+
+        yield ['абв', 2, false];
+        yield ['абв', 3, false];
+        yield ['абв', 4, false];
+        yield ['абв', 6, true];
+
+        yield ['😀', 2, false];
+        yield ['😀', 3, false];
+        yield ['😀', 4, true];
+
+        yield [null, 0, false];
+        yield [[], 0, false];
+    }
+
+    /**
+     * @dataProvider dpLongerBytes
+     */
+    public function testLongerBytes(mixed $text, int $val, bool $expected = true): void
+    {
+        $this->assertEquals(
+            $expected,
+            (new StringChecker())->longerBytes($text, $val),
+        );
+    }
+
+    public function dpLongerBytes(): iterable
+    {
+        yield ['a', 2, false];
+        yield ['ab', 2, true];
+
+        yield ['а', 1, true];
+        yield ['а', 2, true];
+        yield ['аб', 3, true];
+        yield ['аб', 4, true];
+        yield ['аб', 5, false];
+
+        yield ['😀', 1, true];
+        yield ['😀', 2, true];
+        yield ['😀', 3, true];
+        yield ['😀', 4, true];
+        yield ['😀', 5, false];
+
+        yield [null, 0, false];
+        yield [[], 0, false];
+    }
+
+    /**
+     * @dataProvider dpLengthBytes
+     */
+    public function testLengthBytes(mixed $text, int $val, bool $expected = true): void
+    {
+        $this->assertEquals(
+            $expected,
+            (new StringChecker())->lengthBytes($text, $val),
+        );
+    }
+
+    public function dpLengthBytes(): iterable
+    {
+        yield ['a', 1, true];
+        yield ['ab', 2, true];
+        yield ['ab', 1, false];
+
+        yield ['а', 1, false];
+        yield ['а', 2, true];
+        yield ['аб', 4, true];
+        yield ['абв', 6, true];
+        yield ['абв', 5, false];
+
+        yield ['😀', 1, false];
+        yield ['😀', 4, true];
+
+        yield [null, 0, false];
+        yield [[], 0, false];
+    }
+
+    /**
+     * @dataProvider dbRangeBytes
+     */
+    public function testRangeBytes(mixed $text, int $v1, int $v2, bool $expected = true): void
+    {
+        $this->assertEquals(
+            $expected,
+            (new StringChecker())->rangeBytes($text, $v1, $v2),
+        );
+    }
+
+    public function dbRangeBytes(): iterable
+    {
+        yield ['abc', 2, 6, true];
+        yield ['abc', 0, 3, true];
+        yield ['abc', 5, 10, false];
+
+        yield ['абв', 1, 100, true];
+        yield ['абв', 3, 20, true];
+        yield ['абв', 0, 6, true];
+
+        yield ['😀', 0, 2, false];
+        yield ['😀', 0, 4, true];
+        yield ['😀', 4, 4, true];
+
+        yield [null, 0, 2, false];
+        yield [[], 0, 2, false];
+    }
+
     #[DataProvider('dataEmpty')]
     public function testEmpty(mixed $value, bool $expectedResult): void
     {
