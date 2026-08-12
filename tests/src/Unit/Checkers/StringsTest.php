@@ -237,6 +237,64 @@ final class StringsTest extends TestCase
         yield [[], 0, 2, false];
     }
 
+    public static function dataUppercase(): iterable
+    {
+        yield ['USD', true];
+        yield ['RU', true];
+        yield ['ISO-4217', true];
+        yield ['ПРИВЕТ', true];
+        // no cased characters at all
+        yield ['', true];
+        yield ['123', true];
+        yield ['😀', true];
+
+        yield ['usd', false];
+        yield ['Usd', false];
+        yield ['USd', false];
+        yield ['Привет', false];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
+    public static function dataLowercase(): iterable
+    {
+        yield ['my-slug', true];
+        yield ['index.html', true];
+        yield ['code-reviewer', true];
+        yield ['привет', true];
+        // no cased characters at all
+        yield ['', true];
+        yield ['123', true];
+        yield ['😀', true];
+
+        yield ['My-Slug', false];
+        yield ['SLUG', false];
+        yield ['slUg', false];
+        yield ['Привет', false];
+        //not string
+        yield [null, false];
+        yield [1, false];
+        yield [1.0, false];
+        yield [[], false];
+        yield [new \stdClass(), false];
+    }
+
+    #[DataProvider('dataUppercase')]
+    public function testUppercase(mixed $value, bool $expectedResult): void
+    {
+        self::assertSame($expectedResult, (new StringChecker())->uppercase($value));
+    }
+
+    #[DataProvider('dataLowercase')]
+    public function testLowercase(mixed $value, bool $expectedResult): void
+    {
+        self::assertSame($expectedResult, (new StringChecker())->lowercase($value));
+    }
+
     #[DataProvider('dataEmpty')]
     public function testEmpty(mixed $value, bool $expectedResult): void
     {

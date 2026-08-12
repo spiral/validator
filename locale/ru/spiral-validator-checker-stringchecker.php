@@ -10,6 +10,8 @@ return [
     'Text length should be in range of {1}-{2}.' => 'Длина текста должна быть от {1} до {2}.',
     'String value should be empty.' => 'Строка должна быть пустой.',
     'String value should not be empty.' => 'Строка не должна быть пустой.',
+    'String value should be in upper case.' => 'Строка должна быть в верхнем регистре.',
+    'String value should be in lower case.' => 'Строка должна быть в нижнем регистре.',
     // bytes
     'Enter text in bytes shorter or equal to {1}.' => 'Длина текста в байтах должна быть меньше или равна {1}.',
     'Text in bytes must be longer or equal to {1}.' => 'Длина текста в байтах должна быть больше или равна {1}.',
