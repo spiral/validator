@@ -18,6 +18,8 @@ final class StringChecker extends AbstractChecker
         'range'    => '[[Text length should be in range of {1}-{2}.]]',
         'empty'    => '[[String value should be empty.]]',
         'notEmpty' => '[[String value should not be empty.]]',
+        'uppercase' => '[[String value should be in upper case.]]',
+        'lowercase' => '[[String value should be in lower case.]]',
         // bytes
         'shorterBytes' => '[[Enter text in bytes shorter or equal to {1}.]]',
         'longerBytes' => '[[Text in bytes must be longer or equal to {1}.]]',
@@ -86,6 +88,24 @@ final class StringChecker extends AbstractChecker
     public function notEmpty(mixed $value): bool
     {
         return \is_string($value) && \trim($value) !== '';
+    }
+
+    /**
+     * Check that string contains no lower case characters.
+     * Characters without case (digits, punctuation) are ignored.
+     */
+    public function uppercase(mixed $value): bool
+    {
+        return \is_string($value) && \mb_strtoupper($value) === $value;
+    }
+
+    /**
+     * Check that string contains no upper case characters.
+     * Characters without case (digits, punctuation) are ignored.
+     */
+    public function lowercase(mixed $value): bool
+    {
+        return \is_string($value) && \mb_strtolower($value) === $value;
     }
 
     public function shorterBytes(mixed $value, int $length): bool
