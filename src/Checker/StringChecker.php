@@ -91,7 +91,7 @@ final class StringChecker extends AbstractChecker
     }
 
     /**
-     * Check that string contains no lower case characters, e.g. country or currency codes.
+     * Check that string contains no lower case characters.
      * Characters without case (digits, punctuation) are ignored.
      */
     public function uppercase(mixed $value): bool
@@ -100,7 +100,7 @@ final class StringChecker extends AbstractChecker
     }
 
     /**
-     * Check that string contains no upper case characters, e.g. slugs, html pages, agent names.
+     * Check that string contains no upper case characters.
      * Characters without case (digits, punctuation) are ignored.
      */
     public function lowercase(mixed $value): bool
