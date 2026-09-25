@@ -63,9 +63,9 @@ final class DatetimeTest extends TestCase
 
             // the "now" date can differ in ms
             [false, 'now', false, false],
-            [false, 'now', false, true], //the threshold date comes a little bit later (in ms)
+            [false, self::nowBeforeThreshold(), false, true], //the threshold date comes a little bit later (in ms)
             [true, 'now', true, false],
-            [false, 'now', true, true], //the threshold date comes a little bit later (in ms)
+            [false, self::nowBeforeThreshold(), true, true], //the threshold date comes a little bit later (in ms)
 
             //the date is invalid, don't check after this
             [false, [], false, false],
@@ -99,9 +99,9 @@ final class DatetimeTest extends TestCase
 
             //the "now" date can differ in ms
             [false, 'now', false, false],
-            [true, 'now', false, true], //the threshold date comes a little bit later (in ms)
+            [true, self::nowBeforeThreshold(), false, true], //the threshold date comes a little bit later (in ms)
             [true, 'now', true, false],
-            [true, 'now', true, true], //the threshold date comes a little bit later (in ms)
+            [true, self::nowBeforeThreshold(), true, true], //the threshold date comes a little bit later (in ms)
 
             [false, self::inFuture(1000), false, false],
             [true, '', false, false],
@@ -254,9 +254,9 @@ final class DatetimeTest extends TestCase
             //the "now" date can differ in ms
             [false, 'now', 'now', false, false],
             [true, 'now', 'now + 1000 second', false, false],
-            [true, 'now', 'now', false, true], //the threshold date comes a little bit later (in ms)
+            [true, self::nowBeforeThreshold(), 'now', false, true], //the threshold date comes a little bit later (in ms)
             [true, 'now', 'now', true, false],
-            [true, 'now', 'now', true, true], //the threshold date comes a little bit later (in ms)
+            [true, self::nowBeforeThreshold(), 'now', true, true], //the threshold date comes a little bit later (in ms)
 
             [false, self::inFuture(1000), 'now', false, false],
             [true, '', 'now', false, false],
@@ -286,9 +286,9 @@ final class DatetimeTest extends TestCase
             //the "now" date can differ in ms
             [false, 'now', 'now', false, false],
             [true, 'now', 'now - 1000 second', false, false],
-            [false, 'now', 'now', false, true], //the threshold date comes a little bit later (in ms)
+            [false, self::nowBeforeThreshold(), 'now', false, true], //the threshold date comes a little bit later (in ms)
             [true, 'now', 'now', true, false],
-            [false, 'now', 'now', true, true], //the threshold date comes a little bit later (in ms)
+            [false, self::nowBeforeThreshold(), 'now', true, true], //the threshold date comes a little bit later (in ms)
 
             [false, self::inPast(1000), 'now', false, false],
             [false, '', 'now', false, false],
@@ -424,6 +424,22 @@ final class DatetimeTest extends TestCase
                 ['threshold', $orEquals, $useMicroseconds],
             ),
         );
+    }
+
+    /**
+     * Returns "now" and waits until the clock moves forward, so a threshold "now"
+     * parsed afterwards is guaranteed to be later (even on low-resolution clocks).
+     */
+    private static function nowBeforeThreshold(): \Closure
+    {
+        return static function (): \DateTimeImmutable {
+            $now = new \DateTimeImmutable();
+            while (new \DateTimeImmutable() <= $now) {
+                // spin until the next microsecond
+            }
+
+            return $now;
+        };
     }
 
     private static function inFuture(int $seconds): \Closure
