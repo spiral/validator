@@ -25,10 +25,11 @@
         "spiral/validation": "^3.1"
     },
     "require-dev": {
+        "infection/infection": "0.27.11 - 0.35",
         "phpunit/phpunit": "^10.5",
         "spiral/code-style": "^2.2",
-        "spiral/testing": "^2.0",
         "spiral/hmvc": "^3.1",
+        "spiral/testing": "^2.0",
         "vimeo/psalm": "^5.26 | ^6.0 | ^7.0"
     },
     "autoload": {
@@ -45,6 +46,7 @@
     "scripts": {
         "cs:diff": "php-cs-fixer fix --dry-run -v --diff --show-progress dots",
         "cs:fix": "php-cs-fixer fix -v",
+        "infect": "infection",
         "psalm": "psalm",
         "psalm:baseline": "psalm --set-baseline=psalm-baseline.xml",
         "tests": "phpunit"
@@ -52,7 +54,8 @@
     "config": {
         "sort-packages": true,
         "allow-plugins": {
-            "spiral/composer-publish-plugin": true
+            "spiral/composer-publish-plugin": true,
+            "infection/extension-installer": true
         }
     },
     "minimum-stability": "dev",

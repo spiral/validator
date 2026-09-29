@@ -1,3 +1,4 @@
 /.*                    export-ignore
 /*.xml                 export-ignore
+/*.json5               export-ignore
 /tests                 export-ignore

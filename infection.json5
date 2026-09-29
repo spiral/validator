@@ -1,0 +1,21 @@
+{
+    "$schema": "vendor/infection/infection/resources/schema.json",
+    "source": {
+        "directories": [
+            "src"
+        ]
+    },
+    "timeout": 10,
+    "tmpDir": "runtime/infection",
+    "logs": {
+        "text": "runtime/infection/infection.log",
+        "html": "runtime/infection/infection.html",
+        "summary": "runtime/infection/summary.log"
+    },
+    "mutators": {
+        "@default": true
+    },
+    "testFramework": "phpunit",
+    "minMsi": 90,
+    "minCoveredMsi": 90
+}
